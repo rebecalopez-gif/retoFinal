@@ -9,17 +9,17 @@ public class Creature {
 	private int experience;
 	private int energy;
 	private int hunger;
-	private int hasppiness;
+	private int happiness;
 	
 	//CONSTRUCTORES
-	public Creature(int codC, String userName, String creatureName, int experience, int energy, int hunger, int hasppiness) {
+	public Creature(int codC, String userName, String creatureName, int experience, int energy, int hunger, int happiness) {
 		this.codC = codC;
 		this.userName = userName;
 		this.creatureName = creatureName;
 		this.experience = experience;
 		this.energy = energy;
 		this.hunger = hunger;
-		this.hasppiness = hasppiness;
+		this.happiness = happiness;
 	}
 	public Creature() {
 		this.codC = 0;
@@ -28,7 +28,11 @@ public class Creature {
 		this.experience = 0;
 		this.energy = 0;
 		this.hunger = 0;
-		this.hasppiness = 0;
+		this.happiness = 0;
+	}
+	public Creature(String creatureName) {
+		this.creatureName =creatureName;
+		
 	}
 	
 	//GETTERS Y SETTERS
@@ -69,17 +73,17 @@ public class Creature {
 		this.hunger = hunger;
 	}
 	public int getHasppiness() {
-		return hasppiness;
+		return happiness;
 	}
-	public void setHasppiness(int hasppiness) {
-		this.hasppiness = hasppiness;
+	public void setHasppiness(int happiness) {
+		this.happiness = happiness;
 	}
 	
 	//toString
 	@Override
 	public String toString() {
 		return "Creature [codC=" + codC + ", userName=" + userName + ", creatureName=" + creatureName + ", experience="
-				+ experience + ", energy=" + energy + ", hunger=" + hunger + ", hasppiness=" + hasppiness + "]";
+				+ experience + ", energy=" + energy + ", hunger=" + hunger + ", hasppiness=" + happiness + "]";
 	}
 	
 }
