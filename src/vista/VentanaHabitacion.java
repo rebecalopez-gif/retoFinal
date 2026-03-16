@@ -24,6 +24,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	private JLabel lblNewLabel;
 	private CriaturasControlador cont;
 	private JButton btnArmario;
+	private JButton btnCama;
 
 	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
@@ -54,14 +55,26 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
         btnArmario.setBorderPainted(false);
         btnArmario.addActionListener(this);
         contentPanel.add(btnArmario);
+        
+        btnCama = new JButton();
+        btnCama.setBounds(600, 300, 200, 150); // AJUSTA ESTO A TU CAMA
+        btnCama.setOpaque(false);
+        btnCama.setContentAreaFilled(false);
+        btnCama.setBorderPainted(false);
+        btnCama.addActionListener(this);
+        contentPanel.add(btnCama);
+
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnArmario) {
-	        VentanaArmario arm = new VentanaArmario(cont, criatura);
+		if (e.getSource() == btnArmario) { //ver objetos
+	        Creature criatura=new Creature();
+			VentanaArmario arm = new VentanaArmario(cont, criatura); //no se si borrar
 	        arm.setVisible(true);
+	    }else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
+	    	
 	    }
 		
 	}

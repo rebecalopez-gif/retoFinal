@@ -23,7 +23,7 @@ public class VentanaArmario extends JDialog {
         panel.setLayout(new FlowLayout());
 
         // Ejemplo: mostrar objetos de la criatura
-        for (Objectos obj : criatura.getObjectos()) {
+        for (Equip obj : criatura.getObjectos()) {
             panel.add(new JLabel(obj.getObjectName()));
         }
 
