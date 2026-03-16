@@ -18,20 +18,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
 	private CriaturasControlador cont;
-	public static void main(String[] args) {
-		try {
-			VentanaPrincipal dialog = new VentanaPrincipal();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public VentanaPrincipal(/*CriaturasControlador controlador*/) {
-		//this.cont=controlador;
+	
+	public VentanaPrincipal(CriaturasControlador controlador) {
+		this.cont=controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1097, 759);
 		contentPane = new JPanel();
