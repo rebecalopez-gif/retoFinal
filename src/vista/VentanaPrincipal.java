@@ -130,7 +130,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			}
     	}else if(e.getSource()==btnNoTienesCuenta) {
     		this.dispose();
-    		VentanaPartidaNew venta= new VentanaPartidaNew(this,cont,true);
+    		VentanaNewUsuario venta= new VentanaNewUsuario(this,cont,true);
     		venta.setVisible(true);
     	}
     }
