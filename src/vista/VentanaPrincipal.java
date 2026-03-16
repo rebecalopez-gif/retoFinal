@@ -39,6 +39,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
     private JLabel lblContrasea;
     private JLabel lblUser;
     private JLabel lblIMAGEN;
+    private boolean nickVacio; 
+    private JLabel lblMensaje;
 
     public VentanaPrincipal(CriaturasControlador controlador) {
         setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
@@ -51,7 +53,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
-        JLabel lblMensaje = new JLabel("");
+        lblMensaje = new JLabel("");
         lblMensaje.setForeground(new Color(0, 128, 192));
         lblMensaje.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
         lblMensaje.setBounds(502, 519, 515, 45);
@@ -110,28 +112,32 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-    	boolean nickVacio=true;
-    	String nick=lblUser.getText();
-    	if(e.getSource()==btnInicioSesion) {
-    		if(lblUser.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(this, "¡YOU MUST FILL IN ALL FIELDS!",  "WARNINIG", JOptionPane.WARNING_MESSAGE);
-				nickVacio=false;
-			}
-    		if(nickVacio) {
-    			UserGame user= new UserGame(textField.getText(),new String(passwordField.getPassword()) );
-    			if (cont.iniciarSesion(user)) {
-    				this.dispose();
-    				//VentanaPartidas partida= new VentanaPartidas(this,true,user);
-    				//partida.setVisible(true);
-    			}else {
-    				lblIMAGEN.setText("USER NOT FOUND");
-    			}
-			}
-    	}else if(e.getSource()==btnNoTienesCuenta) {
-    		this.dispose();
-    		VentanaNewUsuario venta= new VentanaNewUsuario(this,cont,true);
-    		venta.setVisible(true);
-    	}
+
+        String nick = textField.getText();
+        String pass = new String(passwordField.getPassword());
+        UserGame user = new UserGame(nick, pass);
+
+        if(e.getSource() == btnInicioSesion) {
+
+            if(nick.isEmpty() || pass.isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "¡YOU MUST FILL IN ALL FIELDS!",  
+                    "WARNING", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if(cont.iniciarSesion(user)) {
+                this.dispose();
+                //VentanaPartidas partida = new VentanaPartidas(this, true, user);
+                //partida.setVisible(true);
+            } else {
+            	lblMensaje.setText("USER NOT FOUND");
+            }
+
+        } else if(e.getSource() == btnNoTienesCuenta) {
+            this.dispose();
+            VentanaNewUsuario venta = new VentanaNewUsuario(this, cont, true);
+            venta.setVisible(true);
+        }
     }
 }
