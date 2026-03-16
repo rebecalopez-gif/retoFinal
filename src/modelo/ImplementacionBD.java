@@ -35,6 +35,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE usuario SET contrasena=? WHERE nombre=?";
+	final String OBTENER_PARTIDAS = "SELECT creatureName FROM Creature WHERE userName = ?";
 
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
@@ -105,7 +106,25 @@ public class ImplementacionBD implements CriaturasDAO{
 		return existe;
 	}
 
-	
-
+	public ArrayList<String> obtenerPartidas(UserGame user) {
+		ArrayList<String> partidas = new ArrayList<String>();
+		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(OBTENER_PARTIDAS);
+            stmt.setString(1, user.getUserName());
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+            	partidas.add(resultado.getString("creatureName"));
+            }
+            resultado.close();
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+        }
+		
+		return partidas;
+	}
 
 }

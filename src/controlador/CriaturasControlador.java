@@ -21,4 +21,7 @@ public class CriaturasControlador {
 	public boolean introducirUser(UserGame user) {
 		return dao.introducirUser(user);
 	}
+	public ArrayList<String> obtenerPartidas(UserGame user) {
+		return dao.obtenerPartidas(user);
+	}
 }
