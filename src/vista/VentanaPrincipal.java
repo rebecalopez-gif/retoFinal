@@ -128,8 +128,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
             if(cont.iniciarSesion(user)) {
                 this.dispose();
-                //VentanaPartidas partida = new VentanaPartidas(this, true, user);
-                //partida.setVisible(true);
+                VentanaPartidas partida = new VentanaPartidas(this,cont,user);
+                partida.setVisible(true);
             } else {
             	lblMensaje.setText("USER NOT FOUND");
             }
