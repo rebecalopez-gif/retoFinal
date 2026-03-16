@@ -118,6 +118,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 				VentanaPartidaNew venta= new VentanaPartidaNew(this,cont,true);
 				venta.setVisible(true);
 			}
+			//comprobar que le nombre usuario no sea igual 
 
 		}
 	}
