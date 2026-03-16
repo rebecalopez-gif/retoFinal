@@ -14,7 +14,8 @@ public class VentanaLogin extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 
-	public VentanaLogin() {
+	public VentanaLogin(VentanaPrincipal ventanaPrincipal, boolean b) {
+		super(); 
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
