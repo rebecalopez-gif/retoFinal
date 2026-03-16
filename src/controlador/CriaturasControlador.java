@@ -15,5 +15,10 @@ public class CriaturasControlador {
 		VentanaPrincipal ven = new VentanaPrincipal(this);
 		ven.setVisible(true);	
 	}
-
+	public boolean iniciarSesion(UserGame user) {
+		return dao.iniciarSesion(user);
+	}
+	public boolean introducirUser(UserGame user) {
+		return dao.introducirUser(user);
+	}
 }

@@ -25,9 +25,12 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	// Sentencias SQL
 	/*MAYUSCULAS*/
-	final String SQL = "SELECT * FROM usuario WHERE nombre = ? AND contrasena = ?";		
+	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
+	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)";
+	
+	
 	final String sql1 = "SELECT * FROM usuario WHERE nombre = ?";
-	final String sqlInsert = "INSERT INTO usuario VALUES (?,?)";
+	
 	final String SQLCONSULTA = "SELECT * FROM usuario";
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
@@ -55,6 +58,54 @@ public class ImplementacionBD implements CriaturasDAO{
 			e.printStackTrace();
 		}
 	}
+	public boolean iniciarSesion(UserGame user){
+		// Abrimos la conexion
+		boolean existe=false;
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQL);
+			stmt.setString(1, user.getUserName());
+			stmt.setString(2, user.getPasswordUser());
+
+			ResultSet resultado = stmt.executeQuery();
+			//Si hay un resultado, el usuario existe
+			if (resultado.next()) {
+				existe = true;
+			}
+
+			resultado.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+		return existe;
+	}
+
+	public boolean introducirUser(UserGame user){
+		// Abrimos la conexion
+		boolean existe=false;
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLInsertUser);
+			stmt.setString(1, user.getUserName());
+			stmt.setString(2, user.getPasswordUser());
+			//FUNCION DE BASE DE DATOS 
+			stmt.setDate(3, java.sql.Date.valueOf(user.getBirthDate())); //para insertar la fecha 
+			
+			if (stmt.executeUpdate()>0) {
+				existe=true;
+			}
+
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al crear un usuario: " + e.getMessage());
+		}
+		return existe;
+	}
+
+	
 
 
 }

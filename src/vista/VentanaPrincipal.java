@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
+import modelo.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,7 +38,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private JLabel lblContrasea;
     private JLabel lblUser;
-    private JLabel lblNewLabel;
+    private JLabel lblIMAGEN;
 
     public VentanaPrincipal(CriaturasControlador controlador) {
         setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
@@ -49,6 +50,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        
+        JLabel lblMensaje = new JLabel("");
+        lblMensaje.setForeground(new Color(0, 128, 192));
+        lblMensaje.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
+        lblMensaje.setBounds(502, 519, 515, 45);
+        contentPane.add(lblMensaje);
 
         btnNoTienesCuenta = new JButton("NO ACCOUNT?");
         btnNoTienesCuenta.setBackground(new Color(196, 236, 255));
@@ -58,12 +65,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         contentPane.add(btnNoTienesCuenta);
 
         passwordField = new JPasswordField();
+        passwordField.setBackground(new Color(193, 224, 255));
         passwordField.setEchoChar('*');
         passwordField.setFont(new Font("Tahoma", Font.PLAIN, 25));
         passwordField.setBounds(667, 417, 371, 45);
         contentPane.add(passwordField);
 
         textField = new JTextField();
+        textField.setBackground(new Color(193, 224, 255));
+        textField.setForeground(new Color(128, 0, 128));
         textField.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 18));
         textField.setBounds(667, 318, 371, 39);
         contentPane.add(textField);
@@ -88,10 +98,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         btnInicioSesion.setBounds(422, 628, 179, 90);
         contentPane.add(btnInicioSesion);
 
-        lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Fondo horizontal cri.png"));
-        lblNewLabel.setBounds(-9, -40, 1539, 1048);
-        contentPane.add(lblNewLabel);
+        lblIMAGEN = new JLabel("");
+        lblIMAGEN.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Fondo horizontal cri.png"));
+        lblIMAGEN.setBounds(-9, -40, 1539, 1048);
+        contentPane.add(lblIMAGEN);
         
         btnInicioSesion.addActionListener(this);
         btnNoTienesCuenta.addActionListener(this);
@@ -104,19 +114,24 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
     	boolean nickVacio=true;
     	String nick=lblUser.getText();
     	if(e.getSource()==btnInicioSesion) {
-    	
     		if(lblUser.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this, "¡YOU MUST FILL IN ALL FIELDS!",  "WARNINIG", JOptionPane.WARNING_MESSAGE);
 				nickVacio=false;
 			}
     		if(nickVacio) {
-    			//MIRAR LO DE LA BASES DE DATOS 
-				this.dispose();
-				VentanaLogin menu = new VentanaLogin(this,true); 
-				menu.setVisible(true); 
+    			UserGame user= new UserGame(textField.getText(),new String(passwordField.getPassword()) );
+    			if (cont.iniciarSesion(user)) {
+    				this.dispose();
+    				//VentanaPartidas partida= new VentanaPartidas(this,true,user);
+    				//partida.setVisible(true);
+    			}else {
+    				lblIMAGEN.setText("USER NOT FOUND");
+    			}
 			}
     	}else if(e.getSource()==btnNoTienesCuenta) {
-    		
+    		this.dispose();
+    		VentanaPartidaNew venta= new VentanaPartidaNew(this,cont,true);
+    		venta.setVisible(true);
     	}
     }
 }
