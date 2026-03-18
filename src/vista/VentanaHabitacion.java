@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
+import modelo.Objectos;
+
 import javax.swing.JList;
 
 public class VentanaHabitacion extends JDialog implements ActionListener{
@@ -33,7 +35,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
-        this.cont = controlador;
+		this.cont = controlador;
 
 
 		// Pantalla completa para JDialog
@@ -55,12 +57,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		btnArmario.setContentAreaFilled(false);
 		btnArmario.setBorderPainted(false);
 		btnArmario.addActionListener(this);
-		
+
 		list = new JList();
 		list.setBounds(73, 47, 342, 208);
 		list.setVisible(false);
 		contentPanel.add(list);
-		contentPanel.add(btnArmario);
 
 		btnCama = new JButton();
 		btnCama.setBounds(1067, 475, 390, 320); // AJUSTA ESTO A TU CAMA
@@ -72,21 +73,24 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 
 		lblNewLabel = new JLabel("");
 
-		List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS OBJETOS - FALTA LA LISTA
-		for(Mueble mueble:muebles) {
-			datosMueble.addItem(mueble);
-		}
+		list.setListData(objetos.toArray()); //el Jlist se rellena con esto
 
-        lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
-        lblNewLabel.setBounds(10, 10, 1536, 1024);
-        contentPanel.add(lblNewLabel);
-        
+
+		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
+		lblNewLabel.setBounds(10, 10, 1536, 1024);
+		contentPanel.add(lblNewLabel);
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 			Creature criatura=new Creature();
+			// Obtener los objetos del controlador
+			List<Objectos> objetos = cont.verObjectos(); //PARA QUE SE VEAN LOS OBJETOS 
+
+			// Cargar los objetos en la lista
+			list.setListData(objetos.toArray());
 			list.setVisible(true); //HACER VISIBLE LA LISTA
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
