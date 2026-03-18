@@ -23,6 +23,7 @@ public class UserGame {
 		this.passwordUser=passwordUser;
 	}
 
+
 	public String getUserName() {
 		return userName;
 	}
