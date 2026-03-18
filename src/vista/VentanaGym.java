@@ -20,7 +20,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private private CriaturasControlador cont;
+	private CriaturasControlador cont;
 	private JLabel lblNewLabel;
 	private Toolkit tk;
 	private JButton btnPuerta;

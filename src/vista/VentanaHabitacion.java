@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
+import javax.swing.JList;
 
 public class VentanaHabitacion extends JDialog implements ActionListener{
 
@@ -27,6 +28,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	private CriaturasControlador cont;
 	private JButton btnArmario;
 	private JButton btnCama;
+	private JList list;
 
 	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
 
@@ -52,6 +54,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		btnArmario.setContentAreaFilled(false);
 		btnArmario.setBorderPainted(false);
 		btnArmario.addActionListener(this);
+		
+		list = new JList();
+		list.setBounds(73, 47, 342, 208);
+		list.setVisible(false);
+		contentPanel.add(list);
 		contentPanel.add(btnArmario);
 
 		btnCama = new JButton();
@@ -68,7 +75,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		contentPanel.add(lblNewLabel);
 
 
-		List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS MUEBLES
+		List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS OBJETOS - FALTA LA LISTA
 		for(Mueble mueble:muebles) {
 			datosMueble.addItem(mueble);
 		}
@@ -80,6 +87,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 			Creature criatura=new Creature();
+			list.setVisible(true); //HACER VISIBLE LA LISTA
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Log out...","Are you sure you want to leave the game?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
