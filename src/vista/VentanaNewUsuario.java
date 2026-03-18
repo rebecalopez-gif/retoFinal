@@ -48,7 +48,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
+				"C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
 
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -103,7 +103,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 
 
 		JLabel lblIMAGEN = new JLabel();
-		lblIMAGEN.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Fondo horizontal cri.png"));
+		lblIMAGEN.setIcon(new ImageIcon("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Fondo horizontal cri.png"));
 		lblIMAGEN.setBounds(0, 0, ancho, alto);
 		contentPanel.add(lblIMAGEN);
 	}

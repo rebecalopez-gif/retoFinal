@@ -43,7 +43,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
     private JLabel lblMensaje;
 
     public VentanaPrincipal(CriaturasControlador controlador) {
-        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
         this.cont = controlador;
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);//PA QUE SEA PANTALLA COMPLETA 
@@ -101,7 +101,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         contentPane.add(btnInicioSesion);
 
         lblIMAGEN = new JLabel("");
-        lblIMAGEN.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Fondo horizontal cri.png"));
+        lblIMAGEN.setIcon(new ImageIcon("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Fondo horizontal cri.png"));
         lblIMAGEN.setBounds(-9, -40, 1539, 1048);
         contentPane.add(lblIMAGEN);
         
