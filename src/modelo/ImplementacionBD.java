@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -101,16 +102,22 @@ public class ImplementacionBD implements CriaturasDAO{
 			CallableStatement stmt = con.prepareCall(FUNCION);//CallableStatement es una clase diseñada para procedimientos almacenados
 			stmt.setString(1, user.getUserName());
 			stmt.setString(2, user.getPasswordUser());
-			stmt.setDate(3, java.sql.Date.valueOf(user.getBirthDate())); //para insertar la fecha 
+			
+			// combierto el INT en una fecha pa poder mandarla al SQL
+			int year = user.getBirthDate();
+			LocalDate fecha = LocalDate.of(year, 1, 1);
+
+			// Insertar como DATE se guardarian todos ocmo YYYY-01-01
+			stmt.setDate(3, java.sql.Date.valueOf(fecha));
 
 			boolean tieneResultado = stmt.execute();
+			
 			//como la funcion en el select devuelve una frase 
 			 if (tieneResultado) {//si es true 
 		            ResultSet rs = stmt.getResultSet(); //mi select con el mensaje
 		            if (rs.next()) {
 		                String mensaje = rs.getString(1);
 		                System.out.println("Mensaje BD: " + mensaje);
-
 		                if (mensaje.contains("CORRECTAMENTE")) {
 		                    insertado = true;
 		                }
