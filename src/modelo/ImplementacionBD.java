@@ -106,25 +106,25 @@ public class ImplementacionBD implements CriaturasDAO{
 		return existe;
 	}
 
-	public ArrayList<String> obtenerPartidas(UserGame user) {
-		ArrayList<String> partidas = new ArrayList<String>();
-
+	public ArrayList<Creature> obtenerPartidas(UserGame user) {
+		ArrayList<Creature> criaturas = new ArrayList<Creature>();
+		
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(OBTENER_PARTIDAS);
-			stmt.setString(1, user.getUserName());
-			ResultSet resultado = stmt.executeQuery();
-			while (resultado.next()) {
-				partidas.add(resultado.getString("creatureName"));
-			}
-			resultado.close();
-			stmt.close();
-			con.close();
+            stmt.setString(1, user.getUserName());
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+            	criaturas.add(new Creature(resultado.getInt("cod_creature"), resultado.getString("userName"), resultado.getString("creatureName"), resultado.getInt("experience"), resultado.getInt("energy"), resultado.getInt("hunger"), resultado.getInt("happiness")));
+            }
+            resultado.close();
+            stmt.close();
+            con.close();
 		} catch (SQLException e) {
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
-		}
-
-		return partidas;
+        }
+		
+		return criaturas;
 	}
 
 	public boolean comprobarUser(UserGame user){

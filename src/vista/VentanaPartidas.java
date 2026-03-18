@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
+import modelo.Creature;
 import modelo.UserGame;
 
 import javax.swing.JLabel;
@@ -43,8 +44,8 @@ public class VentanaPartidas extends JDialog {
 		comboBox = new JComboBox<String>();
 		comboBox.setBounds(132, 62, 176, 20);
 		contentPanel.add(comboBox);
-		for (String s : cont.obtenerPartidas(user)) {
-			comboBox.addItem(s);
+		for (Creature c : cont.obtenerPartidas(user)) {
+			comboBox.addItem(c.getCreatureName());
 		}
 		{
 			JPanel buttonPane = new JPanel();

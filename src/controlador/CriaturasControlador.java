@@ -21,10 +21,8 @@ public class CriaturasControlador {
 	public boolean introducirUser(UserGame user) {
 		return dao.introducirUser(user);
 	}
-	public ArrayList<String> obtenerPartidas(UserGame user) {
+	public ArrayList<Creature> obtenerPartidas(UserGame user) {
 		return dao.obtenerPartidas(user);
 	}
-	public boolean comprobarUser(UserGame user){
-		return dao.comprobarUser(user);
-	}
+	
 }

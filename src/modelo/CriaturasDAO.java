@@ -9,6 +9,5 @@ import java.util.TreeMap;
 public interface CriaturasDAO {
 	public boolean introducirUser(UserGame user);
 	public boolean iniciarSesion(UserGame user);
-	public ArrayList<String> obtenerPartidas(UserGame user);
-	public boolean comprobarUser(UserGame user);
+	public ArrayList<Creature> obtenerPartidas(UserGame user);
 }
