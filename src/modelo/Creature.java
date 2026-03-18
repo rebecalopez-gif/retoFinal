@@ -82,8 +82,7 @@ public class Creature {
 	//toString
 	@Override
 	public String toString() {
-		return "Creature [codC=" + codC + ", userName=" + userName + ", creatureName=" + creatureName + ", experience="
-				+ experience + ", energy=" + energy + ", hunger=" + hunger + ", hasppiness=" + happiness + "]";
+		return getCreatureName();
 	}
 	
 }

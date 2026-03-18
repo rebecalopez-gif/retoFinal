@@ -31,8 +31,8 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
     private JLabel lblNewLabel_1;
     private Toolkit tk; //es para usar toda la pantalla supuestamente
 
-    public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador controlador, boolean b) {
-    	super(ventanaNewUsuario,true);
+    public VentanaPartidaNew(VentanaPartidas ventanaPartidas, CriaturasControlador controlador) {
+    	super(ventanaPartidas,true);
         setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
         this.cont = controlador;
 

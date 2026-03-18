@@ -33,9 +33,9 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	final String SQLCONSULTA = "SELECT * FROM usuario";
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
-	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE usuario SET contrasena=? WHERE nombre=?";
-	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
+	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
+	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
@@ -111,7 +111,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		
 		this.openConnection();
 		try {
-			stmt = con.prepareStatement(OBTENER_PARTIDAS);
+			stmt = con.prepareStatement(SQLOBTENER_PARTIDAS);
             stmt.setString(1, user.getUserName());
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
@@ -149,10 +149,25 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return existe;
 	}
+	
+	public boolean eliminarPartida(Creature creature) {
+		boolean ok=false;
+		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLBORRAR_PARTIDAS);
+			stmt.setInt(1, creature.getCodC());
+			if (stmt.executeUpdate()>0) {
+				ok=true;
+			}	
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+        }
+		
+		return ok;
+	}
 
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal.git

@@ -24,7 +24,10 @@ public class CriaturasControlador {
 	public ArrayList<Creature> obtenerPartidas(UserGame user) {
 		return dao.obtenerPartidas(user);
 	}
-	public boolean comprobarUser(UserGame user){
+	public boolean comprobarUser(UserGame user) {
 		return dao.comprobarUser(user);
+	}
+	public boolean eliminarPartida(Creature creature) {
+		return dao.eliminarPartida(creature);
 	}
 }
