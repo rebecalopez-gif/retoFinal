@@ -17,12 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-<<<<<<< HEAD
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
+
 import java.awt.Toolkit;
->>>>>>> refs/heads/main
+
 
 import javax.swing.JComboBox;
 
@@ -98,7 +98,7 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 		
 		if (e.getSource()==btnCreate) {
 			this.dispose();
-			VentanaPartidaNew partidaNew = new VentanaPartidaNew(this, cont);
+			VentanaPartidaNew partidaNew = new VentanaPartidaNew(this, cont, true);
 			partidaNew.setVisible(true);
 		}
 		
