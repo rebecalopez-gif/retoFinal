@@ -73,9 +73,6 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 
 		lblNewLabel = new JLabel("");
 
-		list.setListData(objetos.toArray()); //el Jlist se rellena con esto
-
-
 		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
 		lblNewLabel.setBounds(10, 10, 1536, 1024);
 		contentPanel.add(lblNewLabel);
@@ -85,12 +82,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
-			Creature criatura=new Creature();
 			// Obtener los objetos del controlador
 			List<Objectos> objetos = cont.verObjectos(); //PARA QUE SE VEAN LOS OBJETOS 
 
 			// Cargar los objetos en la lista
-			list.setListData(objetos.toArray());
+			list.setListData(objetos.toArray()); //el Jlist se rellena con esto
 			
 			list.setVisible(true); //HACER VISIBLE LA LISTA
 

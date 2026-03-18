@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
@@ -31,7 +32,8 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 
-	final String SQLCONSULTA = "SELECT * FROM usuario";
+	final String SQLCONSULTA = "SELECT * FROM Object";
+	
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE usuario SET contrasena=? WHERE nombre=?";
@@ -148,6 +150,30 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 
 		return existe;
+	}
+
+	@Override
+	public List<Objectos> verObjectos() {
+		List<Objectos> objetos= new ArrayList<>();
+
+		this.openConnection();
+		try {
+			// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+			stmt = con.prepareStatement(SQLCONSULTA);
+			ResultSet resultado = stmt.executeQuery();
+			while (resultado.next()) {
+				Objectos objeto=new Objectos(resultado.getInt("cod_object"),resultado.getString("objectName"));
+				objetos.add(objeto);
+			}
+			resultado.close();
+
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al mostrar credenciales: " + e.getMessage());
+		}
+
+		return objetos;	
 	}
 
 

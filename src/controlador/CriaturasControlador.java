@@ -6,6 +6,7 @@ import modelo.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class CriaturasControlador {
@@ -26,5 +27,8 @@ public class CriaturasControlador {
 	}
 	public boolean comprobarUser(UserGame user){
 		return dao.comprobarUser(user);
+	}
+	public List<Objectos> verObjectos() {
+		return dao.verObjectos();
 	}
 }
