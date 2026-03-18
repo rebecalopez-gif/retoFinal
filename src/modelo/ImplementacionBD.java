@@ -35,8 +35,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA = "SELECT * FROM Object";
 	
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
-	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
-	final String SQLMODIFICAR = "UPDATE usuario SET contrasena=? WHERE nombre=?";
+	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
+	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
 	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
@@ -186,6 +186,67 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 
 		return objetos;	
+	}
+
+	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre
+		// Abrimos la conexion
+		boolean existe=false;
+		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQL_Existe); 
+			stmt.setString(1, creatureName.getCreatureName());
+			ResultSet resultado = stmt.executeQuery();
+			if (resultado.next()) {
+				existe = true;
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return existe;
+	}
+	
+	
+	@Override
+	public boolean irDePaseo(Creature creatureName) {
+		boolean ok=false;
+		if (comprobarCriatura(creatureName))
+		{
+			 //Generar experiencia aleatoria
+	        int expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
+
+	        // Baja el hambre
+	        int hambreNueva=creatureName.getHunger()-20;
+	        if (hambreNueva<0) {
+	        	hambreNueva=0;
+	        }
+
+	        // meter los nuevos datos
+	        creatureName.setExperience(creatureName.getExperience() + expGanada);
+	        creatureName.setHunger(hambreNueva);
+	        
+			this.openConnection();
+			try {
+				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+				stmt = con.prepareStatement(SQLMODIFICAR);
+				stmt.setDouble(1, creatureName.getExperience());
+				stmt.setInt(2, creatureName.getHunger());
+				stmt.setString(3, creatureName.getCreatureName());
+				if (stmt.executeUpdate()>0) {
+					ok=true;
+				}			
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al modificar credenciales: " + e.getMessage());
+			}
+		}
+		return ok;	
 	}
 
 

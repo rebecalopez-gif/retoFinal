@@ -31,4 +31,8 @@ public class CriaturasControlador {
 	public List<Objectos> verObjectos() {
 		return dao.verObjectos();
 	}
+	public boolean irDePaseo(Creature creatureName) {
+		return dao.irDePaseo(creatureName);
+		
+	}
 }
