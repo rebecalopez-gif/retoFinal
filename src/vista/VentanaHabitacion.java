@@ -29,13 +29,9 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	private JButton btnCama;
 
 	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
-<<<<<<< HEAD
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
 		this.cont = controlador;
-=======
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
-        this.cont = controlador;
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 		// Pantalla completa para JDialog
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -45,15 +41,13 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		this.setSize(ancho, alto);
 		this.setLocationRelativeTo(null);
 
-		setBounds(100, 100, 450, 300);
-
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
 		btnArmario = new JButton();
-		btnArmario.setBounds(300, 200, 150, 250); // posición y tamaño del armario
+		btnArmario.setBounds(72, 282, 368, 434); // posición y tamaño del armario
 		btnArmario.setOpaque(false);
 		btnArmario.setContentAreaFilled(false);
 		btnArmario.setBorderPainted(false);
@@ -61,7 +55,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		contentPanel.add(btnArmario);
 
 		btnCama = new JButton();
-		btnCama.setBounds(600, 300, 200, 150); // AJUSTA ESTO A TU CAMA
+		btnCama.setBounds(1067, 475, 390, 320); // AJUSTA ESTO A TU CAMA
 		btnCama.setOpaque(false);
 		btnCama.setContentAreaFilled(false);
 		btnCama.setBorderPainted(false);
@@ -69,7 +63,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		contentPanel.add(btnCama);
 
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Habitación infantil .png"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Habitación infantil .png"));
 		lblNewLabel.setBounds(10, 10, 1536, 1024);
 		contentPanel.add(lblNewLabel);
 
