@@ -31,20 +31,20 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
         this.cont = controlador;
 
         // Pantalla completa para JDialog
-        tk = Toolkit.getDefaultToolkit();
-        int ancho = (int) tk.getScreenSize().getWidth();
-        int alto = (int) tk.getScreenSize().getHeight();
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int ancho = tk.getScreenSize().width;
+        int alto = tk.getScreenSize().height;
 
-        this.setSize(745, 688);          
+        this.setSize(ancho, alto);
         this.setLocationRelativeTo(null);
-		setBounds(100, 100, 450, 300);
+		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Habitación infantil .png"));
+        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Habitación infantil .png"));
         lblNewLabel.setBounds(10, 10, 1536, 1024);
         contentPanel.add(lblNewLabel);
         
@@ -71,6 +71,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 	        Creature criatura=new Creature();
+			
 	    }else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 	    	
 	    }
