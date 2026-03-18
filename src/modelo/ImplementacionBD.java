@@ -27,10 +27,10 @@ public class ImplementacionBD implements CriaturasDAO{
 	/*MAYUSCULAS*/
 	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
 	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)";
-	
-	
-	final String sql1 = "SELECT * FROM usuario WHERE nombre = ?";
-	
+
+
+	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
+
 	final String SQLCONSULTA = "SELECT * FROM usuario";
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
@@ -93,7 +93,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setString(2, user.getPasswordUser());
 			//FUNCION DE BASE DE DATOS 
 			stmt.setDate(3, java.sql.Date.valueOf(user.getBirthDate())); //para insertar la fecha 
-			
+
 			if (stmt.executeUpdate()>0) {
 				existe=true;
 			}
@@ -108,23 +108,47 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	public ArrayList<String> obtenerPartidas(UserGame user) {
 		ArrayList<String> partidas = new ArrayList<String>();
-		
+
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(OBTENER_PARTIDAS);
-            stmt.setString(1, user.getUserName());
-            ResultSet resultado = stmt.executeQuery();
-            while (resultado.next()) {
-            	partidas.add(resultado.getString("creatureName"));
-            }
-            resultado.close();
-            stmt.close();
-            con.close();
+			stmt.setString(1, user.getUserName());
+			ResultSet resultado = stmt.executeQuery();
+			while (resultado.next()) {
+				partidas.add(resultado.getString("creatureName"));
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
 		} catch (SQLException e) {
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
-        }
-		
+		}
+
 		return partidas;
 	}
+
+	public boolean comprobarUser(UserGame user){
+		// Abrimos la conexion
+		boolean existe=false;
+		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQL_Existe); 
+			stmt.setString(1, user.getUserName());
+			ResultSet resultado = stmt.executeQuery();
+			if (resultado.next()) {
+				existe = true;
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return existe;
+	}
+
 
 }
