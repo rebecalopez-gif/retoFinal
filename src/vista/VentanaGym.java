@@ -34,10 +34,9 @@ public class VentanaGym extends JDialog implements ActionListener{
         int ancho = (int) tk.getScreenSize().getWidth();
         int alto = (int) tk.getScreenSize().getHeight();
 
-        this.setSize(746, 520);          
+        this.setSize(1607,978);          
         this.setLocationRelativeTo(null);
         
-        setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -45,7 +44,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 		
 		// Botón invisible sobre la puerta
         btnPuerta = new JButton();
-        btnPuerta.setBounds(520, 120, 150, 300); //  AJUSTA esto A la PUERTA
+        btnPuerta.setBounds(1179, 311, 240, 380); //  AJUSTA esto A la PUERTA
         btnPuerta.setOpaque(false);
         btnPuerta.setContentAreaFilled(false);
         btnPuerta.setBorderPainted(false);
