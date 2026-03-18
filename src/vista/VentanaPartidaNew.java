@@ -43,7 +43,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 		this.setSize(ancho, alto);
 		this.setLocationRelativeTo(null);
       
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPartidaNew.class.getResource("/image/Monstruito adorable .png")));
       
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,11 +77,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
            
            lblIMAGEN = new JLabel();
            lblIMAGEN.setBounds(0, 0, this.getWidth(), this.getHeight());
-           lblIMAGEN.setIcon(new ImageIcon(
-                   new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Fondo horizontal cri.png")
-                   .getImage()
-                   .getScaledInstance(lblIMAGEN.getWidth(), lblIMAGEN.getHeight(), java.awt.Image.SCALE_SMOOTH)
-           ));
+           lblIMAGEN.setIcon(new ImageIcon(VentanaPartidaNew.class.getResource("/image/Fondo horizontal cri.png")));
            
                    contentPanel.add(lblIMAGEN); 
 
