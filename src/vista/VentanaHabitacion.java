@@ -43,12 +43,14 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
     public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
 
-        setIconImage(Toolkit.getDefaultToolkit().getImage(
-                VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 
         this.cont = controlador;
 >>>>>>> refs/heads/main
 
+<<<<<<< HEAD
+        Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
+=======
 <<<<<<< HEAD
 		// Pantalla completa para JDialog
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -56,6 +58,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		int alto = tk.getScreenSize().height;
 =======
         Toolkit tk = Toolkit.getDefaultToolkit();
+>>>>>>> refs/heads/main
         int ancho = tk.getScreenSize().width;
         int alto = tk.getScreenSize().height;
 >>>>>>> refs/heads/main
@@ -88,7 +91,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
         list = new JList();
         list.setBounds(73, 47, 342, 208);
-        list.setVisible(false);
+        list.setVisible(false); //que no sea visible de primeras
         contentPanel.add(list);
 
         btnCama = new JButton();
@@ -129,8 +132,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		}
 =======
         lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon(
-                VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
+        lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
         lblNewLabel.setBounds(10, 10, 1536, 1024);
         contentPanel.add(lblNewLabel);
     }
@@ -161,20 +163,14 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 =======
         if (e.getSource() == btnArmario) {
             List<Objectos> objetos = cont.verObjectos();
-            list.setListData(objetos.toArray());
-            list.setVisible(true);
+            list.setListData(objetos.toArray()); //rellenar la lista
+            list.setVisible(true); //hacer visible la lista
 
         } else if (e.getSource() == btnCama) {
-            int opcion = JOptionPane.showConfirmDialog(
-                    this,
-                    "Log out...",
-                    "Are you sure you want to leave the game?",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null);
+            int opcion = JOptionPane.showConfirmDialog(this,"Log out...","Are you sure you want to leave the game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
             if (opcion == JOptionPane.YES_OPTION) {
-                this.dispose();
+                this.dispose(); //cerrar el juego
             }
         }
     }
