@@ -30,10 +30,18 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JButton btnNewButton;
 	private JLabel lblNewLabel_1;
 	private Toolkit tk; //es para usar toda la pantalla supuestamente
+	private VentanaNewUsuario ventanaNewUsuario;
 
+<<<<<<< HEAD
 	public VentanaPartidaNew(JDialog ventana, CriaturasControlador controlador, boolean b) {
 		super(ventana,true);
 		this.cont = controlador;
+=======
+
+    public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador cont, boolean b) {
+    	super(ventanaNewUsuario,true);
+    	  this.cont = cont;
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal.git
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
@@ -90,9 +98,10 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 			Creature criatura = new Creature(nombre);
 
 			this.dispose();
-			VentanaHabitacion hab = new VentanaHabitacion(cont,criatura); 
+			VentanaHabitacion hab = new VentanaHabitacion(ventanaNewUsuario,cont,criatura); 
 			hab.setVisible(true); 
 		}
 
 	}
 }
+
