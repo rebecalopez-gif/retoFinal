@@ -17,12 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
 import java.awt.Toolkit;
->>>>>>> refs/heads/main
 
 import javax.swing.JComboBox;
 

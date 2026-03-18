@@ -30,23 +30,12 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JButton btnNewButton;
 	private JLabel lblNewLabel_1;
 	private Toolkit tk; //es para usar toda la pantalla supuestamente
+	private VentanaNewUsuario ventanaNewUsuario;
 
-<<<<<<< HEAD
-	public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador controlador, boolean b) {
-		super(ventanaNewUsuario,true);
-		this.cont = controlador;
-=======
-<<<<<<< HEAD
-    public VentanaPartidaNew(VentanaPartidas ventanaPartidas, CriaturasControlador controlador) {
-    	super(ventanaPartidas,true);
-        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
-        this.cont = controlador;
-=======
-    public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador controlador, boolean b) {
+
+    public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador cont, boolean b) {
     	super(ventanaNewUsuario,true);
-    	  this.cont = controlador;
->>>>>>> refs/heads/main
->>>>>>> refs/heads/main
+    	  this.cont = cont;
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
@@ -103,7 +92,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 			Creature criatura = new Creature(nombre);
 
 			this.dispose();
-			VentanaHabitacion hab = new VentanaHabitacion(cont,criatura); 
+			VentanaHabitacion hab = new VentanaHabitacion(ventanaNewUsuario,cont,criatura); 
 			hab.setVisible(true); 
 		}
 
