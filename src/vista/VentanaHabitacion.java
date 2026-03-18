@@ -17,84 +17,87 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
-import modelo.Mueble;
+import modelo.Objectos;
 
-public class VentanaHabitacion extends JDialog implements ActionListener{
+import javax.swing.JList;
 
-	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private Toolkit tk;
-	private JLabel lblNewLabel;
-	private CriaturasControlador cont;
-	private JButton btnArmario;
-	private JButton btnCama;
+public class VentanaHabitacion extends JDialog implements ActionListener {
 
-	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
+    private static final long serialVersionUID = 1L;
+    private final JPanel contentPanel = new JPanel();
+    private Toolkit tk;
+    private JLabel lblNewLabel;
+    private CriaturasControlador cont;
+    private JButton btnArmario;
+    private JButton btnCama;
+    private JList list;
+
+    public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(
+                VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
+
         this.cont = controlador;
 
-        // Pantalla completa para JDialog
         Toolkit tk = Toolkit.getDefaultToolkit();
         int ancho = tk.getScreenSize().width;
         int alto = tk.getScreenSize().height;
 
         this.setSize(ancho, alto);
         this.setLocationRelativeTo(null);
-<<<<<<< HEAD
-		
-=======
-        
-		setBounds(100, 100, 450, 300);
->>>>>>> refs/heads/rebeca
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-		
-		lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Habitación infantil .png"));
-        lblNewLabel.setBounds(10, 10, 1536, 1024);
-        contentPanel.add(lblNewLabel);
-        
+
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
+
         btnArmario = new JButton();
-        btnArmario.setBounds(300, 200, 150, 250); // posición y tamaño del armario
+        btnArmario.setBounds(72, 282, 368, 434);
         btnArmario.setOpaque(false);
         btnArmario.setContentAreaFilled(false);
         btnArmario.setBorderPainted(false);
         btnArmario.addActionListener(this);
-        contentPanel.add(btnArmario);
-        
+
+        list = new JList();
+        list.setBounds(73, 47, 342, 208);
+        list.setVisible(false);
+        contentPanel.add(list);
+
         btnCama = new JButton();
-        btnCama.setBounds(600, 300, 200, 150); // AJUSTA ESTO A TU CAMA
+        btnCama.setBounds(1067, 475, 390, 320);
         btnCama.setOpaque(false);
         btnCama.setContentAreaFilled(false);
         btnCama.setBorderPainted(false);
         btnCama.addActionListener(this);
         contentPanel.add(btnCama);
 
-        List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS MUEBLES
-		for(Mueble mueble:muebles) {
-			datosMueble.addItem(mueble);
-		}
+        lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon(
+                VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
+        lblNewLabel.setBounds(10, 10, 1536, 1024);
+        contentPanel.add(lblNewLabel);
+    }
 
-        
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnArmario) { //ver objetos
-	        Creature criatura=new Creature();
-<<<<<<< HEAD
-			
-=======
-	        
->>>>>>> refs/heads/rebeca
-	    }else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
-	    	int opcion=JOptionPane.showConfirmDialog(this,(String)"Log out...","Are you sure you want to leave the game?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
-	    	if(opcion==JOptionPane.YES_OPTION) {
-	    		this.dispose(); //para cerrar la ventana actual
-	    	}
-	    }
-		
-	}
+        if (e.getSource() == btnArmario) {
+            List<Objectos> objetos = cont.verObjectos();
+            list.setListData(objetos.toArray());
+            list.setVisible(true);
+
+        } else if (e.getSource() == btnCama) {
+            int opcion = JOptionPane.showConfirmDialog(
+                    this,
+                    "Log out...",
+                    "Are you sure you want to leave the game?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        }
+    }
 }
