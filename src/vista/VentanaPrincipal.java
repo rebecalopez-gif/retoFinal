@@ -125,7 +125,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
                     "WARNING", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
             if(cont.iniciarSesion(user)) {
                 this.dispose();
                 VentanaPartidas partida = new VentanaPartidas(this,cont,user);
