@@ -17,12 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
 import java.awt.Toolkit;
->>>>>>> refs/heads/main
 
 import javax.swing.JComboBox;
 
@@ -86,7 +83,7 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 		}
 		
 		if (e.getSource()==btnDelete) {
-			opcion=JOptionPane.showConfirmDialog(this,(String)"Delete Game","Are you sure you want to delete this game?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
+			opcion=JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this game?", "Delete Game", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 			if(opcion==JOptionPane.YES_OPTION) {
 				cont.eliminarPartida((Creature) comboBox.getSelectedItem());
 				comboBox.removeAllItems();

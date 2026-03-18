@@ -17,21 +17,12 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
-<<<<<<< HEAD
-=======
 import modelo.Objectos;
->>>>>>> refs/heads/main
 
 import javax.swing.JList;
 
 public class VentanaHabitacion extends JDialog implements ActionListener {
 
-<<<<<<< HEAD
-	public VentanaHabitacion(VentanaPartidas ventanaPartidas, CriaturasControlador controlador, Creature criatura) {
-		super(ventanaPartidas,true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
-		this.cont = controlador;
-=======
     private static final long serialVersionUID = 1L;
     private final JPanel contentPanel = new JPanel();
     private Toolkit tk;
@@ -41,36 +32,17 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
     private JButton btnCama;
     private JList list;
 
-    public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
-
+    public VentanaHabitacion(JDialog jdialog, CriaturasControlador controlador, Creature criatura) {
+    	super(jdialog,true);
         setIconImage(Toolkit.getDefaultToolkit().getImage(
                 VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 
         this.cont = controlador;
->>>>>>> refs/heads/main
 
-<<<<<<< HEAD
 		// Pantalla completa para JDialog
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		int ancho = tk.getScreenSize().width;
-		int alto = tk.getScreenSize().height;
-=======
         Toolkit tk = Toolkit.getDefaultToolkit();
         int ancho = tk.getScreenSize().width;
         int alto = tk.getScreenSize().height;
->>>>>>> refs/heads/main
-
-<<<<<<< HEAD
-		this.setSize(ancho, alto);
-		this.setLocationRelativeTo(null);
-
-		setBounds(100, 100, 450, 300);
-
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-=======
         this.setSize(ancho, alto);
         this.setLocationRelativeTo(null);
 
@@ -98,9 +70,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
         btnCama.setBorderPainted(false);
         btnCama.addActionListener(this);
         contentPanel.add(btnCama);
->>>>>>> refs/heads/main
 
-<<<<<<< HEAD
 		btnArmario = new JButton();
 		btnArmario.setBounds(300, 200, 150, 250); // posición y tamaño del armario
 		btnArmario.setOpaque(false);
@@ -121,44 +91,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Habitación infantil .png"));
 		lblNewLabel.setBounds(10, 10, 1536, 1024);
 		contentPanel.add(lblNewLabel);
-
-
-		List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS MUEBLES
-		for(Mueble mueble:muebles) {
-			datosMueble.addItem(mueble);
-		}
-=======
-        lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon(
-                VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
-        lblNewLabel.setBounds(10, 10, 1536, 1024);
-        contentPanel.add(lblNewLabel);
+		
     }
->>>>>>> refs/heads/main
-
-<<<<<<< HEAD
-
-	}
-=======
     @Override
     public void actionPerformed(ActionEvent e) {
->>>>>>> refs/heads/main
 
-<<<<<<< HEAD
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnArmario) { //ver objetos
-			Creature criatura=new Creature();
-
-		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
-			int opcion=JOptionPane.showConfirmDialog(this,(String)"Log out...","Are you sure you want to leave the game?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
-			if(opcion==JOptionPane.YES_OPTION) {
-				this.dispose(); //para cerrar la ventana actual
-			}
-		}
-
-	}
-=======
         if (e.getSource() == btnArmario) {
             List<Objectos> objetos = cont.verObjectos();
             list.setListData(objetos.toArray());
@@ -178,5 +115,4 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
             }
         }
     }
->>>>>>> refs/heads/main
 }

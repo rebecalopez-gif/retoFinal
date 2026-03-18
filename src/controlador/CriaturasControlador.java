@@ -28,12 +28,10 @@ public class CriaturasControlador {
 	public boolean comprobarUser(UserGame user) {
 		return dao.comprobarUser(user);
 	}
-<<<<<<< HEAD
 	public boolean eliminarPartida(Creature creature) {
 		return dao.eliminarPartida(creature);
-=======
+	}
 	public List<Objectos> verObjectos() {
 		return dao.verObjectos();
->>>>>>> refs/heads/main
 	}
 }

@@ -12,9 +12,6 @@ public interface CriaturasDAO {
 	public boolean iniciarSesion(UserGame user);
 	public ArrayList<Creature> obtenerPartidas(UserGame user);
 	public boolean comprobarUser(UserGame user);
-<<<<<<< HEAD
 	public boolean eliminarPartida(Creature creature);
-=======
 	public List<Objectos> verObjectos();
->>>>>>> refs/heads/main
 }

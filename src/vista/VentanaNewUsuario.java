@@ -144,7 +144,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 				
 			}else if (cont.introducirUser(user)){
 				this.dispose();
-				VentanaPartidaNew venta= new VentanaPartidaNew(this,cont,true);
+				VentanaPartidaNew venta= new VentanaPartidaNew(this,cont);
 				venta.setVisible(true);
 			}
 		}
