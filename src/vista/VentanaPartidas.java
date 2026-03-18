@@ -15,6 +15,8 @@ import modelo.UserGame;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 
 public class VentanaPartidas extends JDialog {
@@ -28,6 +30,7 @@ public class VentanaPartidas extends JDialog {
 
 	public VentanaPartidas(JFrame parent, CriaturasControlador controlador, UserGame user) {
 		super(parent,true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPartidas.class.getResource("/image/Monstruito adorable .png")));
 		this.cont=controlador;
 		this.user=user;
 		setBounds(100, 100, 450, 300);

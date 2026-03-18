@@ -29,13 +29,9 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	private JButton btnCama;
 
 	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
-<<<<<<< HEAD
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")))
 		this.cont = controlador;
-=======
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
         this.cont = controlador;
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 		// Pantalla completa para JDialog
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -69,15 +65,25 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		contentPanel.add(btnCama);
 
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Habitación infantil .png"));
-		lblNewLabel.setBounds(10, 10, 1536, 1024);
-		contentPanel.add(lblNewLabel);
-
-
-		List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS MUEBLES
-		for(Mueble mueble:muebles) {
-			datosMueble.addItem(mueble);
-		}
+        lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
+        lblNewLabel.setBounds(10, 10, 1536, 1024);
+        contentPanel.add(lblNewLabel);
+        
+        btnArmario = new JButton();
+        btnArmario.setBounds(300, 200, 150, 250); // posición y tamaño del armario
+        btnArmario.setOpaque(false);
+        btnArmario.setContentAreaFilled(false);
+        btnArmario.setBorderPainted(false);
+        btnArmario.addActionListener(this);
+        contentPanel.add(btnArmario);
+        
+        btnCama = new JButton();
+        btnCama.setBounds(600, 300, 200, 150); // AJUSTA ESTO A TU CAMA
+        btnCama.setOpaque(false);
+        btnCama.setContentAreaFilled(false);
+        btnCama.setBorderPainted(false);
+        btnCama.addActionListener(this);
+        contentPanel.add(btnCama);
 
 
 	}
