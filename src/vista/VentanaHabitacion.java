@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
+import modelo.Objectos;
+
 import javax.swing.JList;
 
 public class VentanaHabitacion extends JDialog implements ActionListener{
@@ -31,17 +33,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	private JList list;
 
 	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
-<<<<<<< HEAD
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
-=======
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")))
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 		this.cont = controlador;
-<<<<<<< HEAD
-=======
-        this.cont = controlador;
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
+
 
 		// Pantalla completa para JDialog
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -62,12 +57,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		btnArmario.setContentAreaFilled(false);
 		btnArmario.setBorderPainted(false);
 		btnArmario.addActionListener(this);
-		
+
 		list = new JList();
 		list.setBounds(73, 47, 342, 208);
 		list.setVisible(false);
 		contentPanel.add(list);
-		contentPanel.add(btnArmario);
 
 		btnCama = new JButton();
 		btnCama.setBounds(1067, 475, 390, 320); // AJUSTA ESTO A TU CAMA
@@ -78,38 +72,13 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		contentPanel.add(btnCama);
 
 		lblNewLabel = new JLabel("");
-<<<<<<< HEAD
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Habitación infantil .png"));
+
+		list.setListData(objetos.toArray()); //el Jlist se rellena con esto
+
+
+		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
 		lblNewLabel.setBounds(10, 10, 1536, 1024);
 		contentPanel.add(lblNewLabel);
-
-
-		List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS OBJETOS - FALTA LA LISTA
-		for(Mueble mueble:muebles) {
-			datosMueble.addItem(mueble);
-		}
-=======
-        lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
-        lblNewLabel.setBounds(10, 10, 1536, 1024);
-        contentPanel.add(lblNewLabel);
-        
-        btnArmario = new JButton();
-        btnArmario.setBounds(300, 200, 150, 250); // posición y tamaño del armario
-        btnArmario.setOpaque(false);
-        btnArmario.setContentAreaFilled(false);
-        btnArmario.setBorderPainted(false);
-        btnArmario.addActionListener(this);
-        contentPanel.add(btnArmario);
-        
-        btnCama = new JButton();
-        btnCama.setBounds(600, 300, 200, 150); // AJUSTA ESTO A TU CAMA
-        btnCama.setOpaque(false);
-        btnCama.setContentAreaFilled(false);
-        btnCama.setBorderPainted(false);
-        btnCama.addActionListener(this);
-        contentPanel.add(btnCama);
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
-
 
 	}
 
@@ -117,6 +86,12 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 			Creature criatura=new Creature();
+			// Obtener los objetos del controlador
+			List<Objectos> objetos = cont.verObjectos(); //PARA QUE SE VEAN LOS OBJETOS
+
+			// Cargar los objetos en la lista
+			list.setListData(objetos.toArray());
+
 			list.setVisible(true); //HACER VISIBLE LA LISTA
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
