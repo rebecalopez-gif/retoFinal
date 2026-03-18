@@ -71,8 +71,6 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 	        Creature criatura=new Creature();
-			VentanaArmario arm = new VentanaArmario(cont, criatura); //no se si borrar
-	        arm.setVisible(true);
 	    }else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 	    	
 	    }
