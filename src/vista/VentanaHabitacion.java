@@ -91,6 +91,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 
 			// Cargar los objetos en la lista
 			list.setListData(objetos.toArray());
+			
 			list.setVisible(true); //HACER VISIBLE LA LISTA
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
