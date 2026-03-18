@@ -18,6 +18,11 @@ public class UserGame {
 		this.passwordUser=passwordUser;
 		this.birthDate=birthDate;
 	}
+	public UserGame(String userName,String passwordUser) {
+		this.userName=userName;
+		this.passwordUser=passwordUser;
+	}
+
 
 	public String getUserName() {
 		return userName;
