@@ -48,7 +48,6 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		this.setSize(ancho, alto);
 		this.setLocationRelativeTo(null);
 
-
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				"C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
 
