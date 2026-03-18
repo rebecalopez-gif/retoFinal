@@ -151,4 +151,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	}
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal.git
