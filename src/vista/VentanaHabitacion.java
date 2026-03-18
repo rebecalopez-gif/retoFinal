@@ -21,81 +21,83 @@ import modelo.Objectos;
 
 import javax.swing.JList;
 
-public class VentanaHabitacion extends JDialog implements ActionListener{
+public class VentanaHabitacion extends JDialog implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private Toolkit tk;
-	private JLabel lblNewLabel;
-	private CriaturasControlador cont;
-	private JButton btnArmario;
-	private JButton btnCama;
-	private JList list;
+    private static final long serialVersionUID = 1L;
+    private final JPanel contentPanel = new JPanel();
+    private Toolkit tk;
+    private JLabel lblNewLabel;
+    private CriaturasControlador cont;
+    private JButton btnArmario;
+    private JButton btnCama;
+    private JList list;
 
-	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
+    public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
-		this.cont = controlador;
+        setIconImage(Toolkit.getDefaultToolkit().getImage(
+                VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 
+        this.cont = controlador;
 
-		// Pantalla completa para JDialog
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		int ancho = tk.getScreenSize().width;
-		int alto = tk.getScreenSize().height;
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int ancho = tk.getScreenSize().width;
+        int alto = tk.getScreenSize().height;
 
-		this.setSize(ancho, alto);
-		this.setLocationRelativeTo(null);
+        this.setSize(ancho, alto);
+        this.setLocationRelativeTo(null);
 
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
 
-		btnArmario = new JButton();
-		btnArmario.setBounds(72, 282, 368, 434); // posición y tamaño del armario
-		btnArmario.setOpaque(false);
-		btnArmario.setContentAreaFilled(false);
-		btnArmario.setBorderPainted(false);
-		btnArmario.addActionListener(this);
+        btnArmario = new JButton();
+        btnArmario.setBounds(72, 282, 368, 434);
+        btnArmario.setOpaque(false);
+        btnArmario.setContentAreaFilled(false);
+        btnArmario.setBorderPainted(false);
+        btnArmario.addActionListener(this);
 
-		list = new JList();
-		list.setBounds(73, 47, 342, 208);
-		list.setVisible(false);
-		contentPanel.add(list);
+        list = new JList();
+        list.setBounds(73, 47, 342, 208);
+        list.setVisible(false);
+        contentPanel.add(list);
 
-		btnCama = new JButton();
-		btnCama.setBounds(1067, 475, 390, 320); // AJUSTA ESTO A TU CAMA
-		btnCama.setOpaque(false);
-		btnCama.setContentAreaFilled(false);
-		btnCama.setBorderPainted(false);
-		btnCama.addActionListener(this);
-		contentPanel.add(btnCama);
+        btnCama = new JButton();
+        btnCama.setBounds(1067, 475, 390, 320);
+        btnCama.setOpaque(false);
+        btnCama.setContentAreaFilled(false);
+        btnCama.setBorderPainted(false);
+        btnCama.addActionListener(this);
+        contentPanel.add(btnCama);
 
-		lblNewLabel = new JLabel("");
+        lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon(
+                VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
+        lblNewLabel.setBounds(10, 10, 1536, 1024);
+        contentPanel.add(lblNewLabel);
+    }
 
-		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
-		lblNewLabel.setBounds(10, 10, 1536, 1024);
-		contentPanel.add(lblNewLabel);
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-	}
+        if (e.getSource() == btnArmario) {
+            List<Objectos> objetos = cont.verObjectos();
+            list.setListData(objetos.toArray());
+            list.setVisible(true);
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnArmario) { //ver objetos
-			// Obtener los objetos del controlador
-			List<Objectos> objetos = cont.verObjectos(); //PARA QUE SE VEAN LOS OBJETOS 
+        } else if (e.getSource() == btnCama) {
+            int opcion = JOptionPane.showConfirmDialog(
+                    this,
+                    "Log out...",
+                    "Are you sure you want to leave the game?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null);
 
-			// Cargar los objetos en la lista
-			list.setListData(objetos.toArray()); //el Jlist se rellena con esto
-			
-			list.setVisible(true); //HACER VISIBLE LA LISTA
-
-		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
-			int opcion=JOptionPane.showConfirmDialog(this,(String)"Log out...","Are you sure you want to leave the game?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
-			if(opcion==JOptionPane.YES_OPTION) {
-				this.dispose(); //para cerrar la ventana actual
-			}
-		}
-
-	}
+            if (opcion == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        }
+    }
 }

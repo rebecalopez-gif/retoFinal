@@ -34,6 +34,8 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
 	private JButton btnNewButton;
+	private JLabel lblYearOfBirth;
+	private JTextField textField_Year;
 
 
 	public VentanaNewUsuario(VentanaPrincipal ventanaPrincipal, CriaturasControlador cont, boolean b) {
@@ -54,6 +56,20 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		textField_Year = new JTextField();
+		textField_Year.setForeground(new Color(128, 0, 128));
+		textField_Year.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 18));
+		textField_Year.setColumns(10);
+		textField_Year.setBackground(new Color(193, 224, 255));
+		textField_Year.setBounds(664, 330, 348, 39);
+		contentPanel.add(textField_Year);
+		
+		lblYearOfBirth = new JLabel("YEAR OF BIRTH:");
+		lblYearOfBirth.setForeground(new Color(0, 128, 192));
+		lblYearOfBirth.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
+		lblYearOfBirth.setBounds(450, 326, 189, 45);
+		contentPanel.add(lblYearOfBirth);
 
 		btnNewButton = new JButton("CREATE USER");
 		btnNewButton.setBackground(new Color(215, 255, 255));
@@ -68,28 +84,28 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		passwordField_1.setBackground(new Color(193, 224, 255));
 		passwordField_1.setEchoChar('*');
 		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		passwordField_1.setBounds(664, 503, 348, 40);
+		passwordField_1.setBounds(664, 490, 348, 40);
 		contentPanel.add(passwordField_1);
 
 		passwordField = new JPasswordField();
 		passwordField.setBackground(new Color(193, 224, 255));
 		passwordField.setEchoChar('*');
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		passwordField.setBounds(664, 407, 347, 41);
+		passwordField.setBounds(665, 407, 347, 41);
 		contentPanel.add(passwordField);
 
 		textField_User = new JTextField();
 		textField_User.setBackground(new Color(193, 224, 255));
 		textField_User.setForeground(new Color(128, 0, 128));
 		textField_User.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 18));
-		textField_User.setBounds(666, 315, 348, 39);
+		textField_User.setBounds(664, 255, 348, 39);
 		contentPanel.add(textField_User);
 		textField_User.setColumns(10);
 
 		lblRepeatPassword = new JLabel("REPEAT PASSWORD:");
 		lblRepeatPassword.setForeground(new Color(0, 128, 192));
 		lblRepeatPassword.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
-		lblRepeatPassword.setBounds(446, 501, 256, 45);
+		lblRepeatPassword.setBounds(448, 489, 256, 45);
 		contentPanel.add(lblRepeatPassword);
 
 
@@ -102,7 +118,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		lblUser = new JLabel("USER:");
 		lblUser.setForeground(new Color(0, 128, 192));
 		lblUser.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
-		lblUser.setBounds(451, 318, 96, 45);
+		lblUser.setBounds(452, 251, 96, 45);
 		contentPanel.add(lblUser);
 
 
