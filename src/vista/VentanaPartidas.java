@@ -17,8 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+=======
+import java.awt.Toolkit;
+>>>>>>> refs/heads/main
 
 import javax.swing.JComboBox;
 
@@ -34,6 +38,7 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 
 	public VentanaPartidas(JFrame parent, CriaturasControlador controlador, UserGame user) {
 		super(parent,true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPartidas.class.getResource("/image/Monstruito adorable .png")));
 		this.cont=controlador;
 		this.user=user;
 		setBounds(100, 100, 450, 300);

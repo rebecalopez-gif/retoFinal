@@ -1,11 +1,13 @@
 package modelo;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
@@ -28,15 +30,17 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
 	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)";
 
-
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 
-	final String SQLCONSULTA = "SELECT * FROM usuario";
+	final String SQLCONSULTA = "SELECT * FROM Object";
+	
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLMODIFICAR = "UPDATE usuario SET contrasena=? WHERE nombre=?";
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 
+	final String FUNCION="{CALL add_user(?, ?, ?)}";
+	
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
 	//COPIAR--------------
@@ -83,27 +87,37 @@ public class ImplementacionBD implements CriaturasDAO{
 		return existe;
 	}
 
-	public boolean introducirUser(UserGame user){
+	public boolean introducirUser(UserGame user){ //aqui usamos la funcion de SQL
 		// Abrimos la conexion
-		boolean existe=false;
+		boolean insertado = false;
 		this.openConnection();
 		try {
-			stmt = con.prepareStatement(SQLInsertUser);
+			CallableStatement stmt = con.prepareCall(FUNCION);//CallableStatement es una clase diseñada para procedimientos almacenados
 			stmt.setString(1, user.getUserName());
 			stmt.setString(2, user.getPasswordUser());
-			//FUNCION DE BASE DE DATOS 
 			stmt.setDate(3, java.sql.Date.valueOf(user.getBirthDate())); //para insertar la fecha 
 
-			if (stmt.executeUpdate()>0) {
-				existe=true;
-			}
+			boolean tieneResultado = stmt.execute();
+			//como la funcion en el select devuelve una frase 
+			 if (tieneResultado) {//si es true 
+		            ResultSet rs = stmt.getResultSet(); //mi select con el mensaje
+		            if (rs.next()) {
+		                String mensaje = rs.getString(1);
+		                System.out.println("Mensaje BD: " + mensaje);
 
-			stmt.close();
-			con.close();
+		                if (mensaje.contains("CORRECTAMENTE")) {
+		                    insertado = true;
+		                }
+		            }
+		            rs.close();
+		        }
+		        stmt.close();
+		        con.close();
+
 		} catch (SQLException e) {
 			System.out.println("Error al crear un usuario: " + e.getMessage());
 		}
-		return existe;
+		return insertado;
 	}
 
 	public ArrayList<Creature> obtenerPartidas(UserGame user) {
@@ -167,6 +181,30 @@ public class ImplementacionBD implements CriaturasDAO{
         }
 		
 		return ok;
+	}
+
+	@Override
+	public List<Objectos> verObjectos() {
+		List<Objectos> objetos= new ArrayList<>();
+
+		this.openConnection();
+		try {
+			// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+			stmt = con.prepareStatement(SQLCONSULTA);
+			ResultSet resultado = stmt.executeQuery();
+			while (resultado.next()) {
+				Objectos objeto=new Objectos(resultado.getInt("cod_object"),resultado.getString("objectName"));
+				objetos.add(objeto);
+			}
+			resultado.close();
+
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al mostrar credenciales: " + e.getMessage());
+		}
+
+		return objetos;	
 	}
 
 

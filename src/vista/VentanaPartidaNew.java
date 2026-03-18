@@ -25,57 +25,68 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
     private static final long serialVersionUID = 1L;
     private final JPanel contentPanel = new JPanel();
     private CriaturasControlador cont;
-    private JLabel lblNewLabel;
+    private JLabel lblIMAGEN;
     private JTextField nombreCriaturaField;
     private JButton btnNewButton;
     private JLabel lblNewLabel_1;
     private Toolkit tk; //es para usar toda la pantalla supuestamente
 
+<<<<<<< HEAD
     public VentanaPartidaNew(VentanaPartidas ventanaPartidas, CriaturasControlador controlador) {
     	super(ventanaPartidas,true);
         setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
         this.cont = controlador;
+=======
+    public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador controlador, boolean b) {
+    	super(ventanaNewUsuario,true);
+    	  this.cont = controlador;
+>>>>>>> refs/heads/main
 
-        // Pantalla completa para JDialog
-        tk = Toolkit.getDefaultToolkit();
-        int ancho = (int) tk.getScreenSize().getWidth();
-        int alto = (int) tk.getScreenSize().getHeight();
+        Toolkit tk = Toolkit.getDefaultToolkit();
+		int ancho = tk.getScreenSize().width;
+		int alto = tk.getScreenSize().height;
 
-        this.setSize(1349, 727);          
-        this.setLocationRelativeTo(null);
-        
-        getContentPane().setLayout(null);
-        contentPanel.setBounds(0, 0, 754, 494);
-        contentPanel.setLayout(null);
+		// Ajustar el JDialog al tamaño completo
+		this.setSize(ancho, alto);
+		this.setLocationRelativeTo(null);
+      
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPartidaNew.class.getResource("/image/Monstruito adorable .png")));
+      
+        getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        getContentPane().add(contentPanel);
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
+           
+           btnNewButton = new JButton("PLAY");
+           btnNewButton.setBackground(new Color(70, 130, 180)); // azul bonito
+           btnNewButton.setForeground(new Color(255, 255, 255));
+           btnNewButton.setFont(new Font("Monospaced", Font.BOLD, 22));
+           btnNewButton.setFocusPainted(false);
+           btnNewButton.setBounds(657, 612, 186, 63);
+           contentPanel.add(btnNewButton);
+           btnNewButton.addActionListener(this);
+           
+           
+           nombreCriaturaField = new JTextField();
+           nombreCriaturaField.setForeground(new Color(33, 143, 197));
+           nombreCriaturaField.setFont(new Font("Monospaced", Font.ITALIC, 21));
+           nombreCriaturaField.setBounds(554, 434, 353, 57);
+           contentPanel.add(nombreCriaturaField);
+           nombreCriaturaField.setColumns(10);
+           contentPanel.add(nombreCriaturaField);
         
-        lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Fondo horizontal cri.png"));
-        lblNewLabel.setBounds(0, 0, 1539, 1048);
-        contentPanel.add(lblNewLabel);
-        
-        lblNewLabel_1 = new JLabel("Enter the creature’s name:");
-        lblNewLabel_1.setForeground(new Color(33, 143, 197));
-        lblNewLabel_1.setFont(new Font("Monospaced", Font.BOLD, 16));
-        lblNewLabel_1.setBounds(459, 378, 397, 51);
-        contentPanel.add(lblNewLabel_1);
-        
-        nombreCriaturaField = new JTextField();
-        nombreCriaturaField.setForeground(new Color(33, 143, 197));
-        nombreCriaturaField.setFont(new Font("Monospaced", Font.ITALIC, 14));
-        nombreCriaturaField.setBounds(459, 427, 353, 57);
-        contentPanel.add(nombreCriaturaField);
-        nombreCriaturaField.setColumns(10);
-        
-        btnNewButton = new JButton("PLAY");
-        btnNewButton.setBackground(new Color(70, 130, 180)); // azul bonito
-        btnNewButton.setForeground(Color.WHITE);
-        btnNewButton.setFont(new Font("Monospaced", Font.BOLD, 22));
-        btnNewButton.setFocusPainted(false);
-        btnNewButton.setBounds(616, 605, 186, 63);
-        getContentPane().add(btnNewButton);
-        btnNewButton.addActionListener(this);
+           
+           lblNewLabel_1 = new JLabel("Enter the creature’s name:");
+           lblNewLabel_1.setForeground(new Color(33, 143, 197));
+           lblNewLabel_1.setFont(new Font("Monospaced", Font.BOLD, 16));
+           lblNewLabel_1.setBounds(554, 375, 397, 51);
+           contentPanel.add(lblNewLabel_1);
+           
+           lblIMAGEN = new JLabel();
+           lblIMAGEN.setBounds(0, 0, this.getWidth(), this.getHeight());
+           lblIMAGEN.setIcon(new ImageIcon(VentanaPartidaNew.class.getResource("/image/Fondo horizontal cri.png")));
+           
+                   contentPanel.add(lblIMAGEN); 
 
     }
 

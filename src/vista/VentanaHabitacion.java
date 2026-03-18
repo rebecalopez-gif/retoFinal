@@ -17,27 +17,50 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
+<<<<<<< HEAD
+=======
+import modelo.Objectos;
+>>>>>>> refs/heads/main
 
-public class VentanaHabitacion extends JDialog implements ActionListener{
+import javax.swing.JList;
 
-	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private Toolkit tk;
-	private JLabel lblNewLabel;
-	private CriaturasControlador cont;
-	private JButton btnArmario;
-	private JButton btnCama;
+public class VentanaHabitacion extends JDialog implements ActionListener {
 
+<<<<<<< HEAD
 	public VentanaHabitacion(VentanaPartidas ventanaPartidas, CriaturasControlador controlador, Creature criatura) {
 		super(ventanaPartidas,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
 		this.cont = controlador;
+=======
+    private static final long serialVersionUID = 1L;
+    private final JPanel contentPanel = new JPanel();
+    private Toolkit tk;
+    private JLabel lblNewLabel;
+    private CriaturasControlador cont;
+    private JButton btnArmario;
+    private JButton btnCama;
+    private JList list;
 
+    public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(
+                VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
+
+        this.cont = controlador;
+>>>>>>> refs/heads/main
+
+<<<<<<< HEAD
 		// Pantalla completa para JDialog
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
+=======
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int ancho = tk.getScreenSize().width;
+        int alto = tk.getScreenSize().height;
+>>>>>>> refs/heads/main
 
+<<<<<<< HEAD
 		this.setSize(ancho, alto);
 		this.setLocationRelativeTo(null);
 
@@ -47,7 +70,37 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+=======
+        this.setSize(ancho, alto);
+        this.setLocationRelativeTo(null);
 
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
+
+        btnArmario = new JButton();
+        btnArmario.setBounds(72, 282, 368, 434);
+        btnArmario.setOpaque(false);
+        btnArmario.setContentAreaFilled(false);
+        btnArmario.setBorderPainted(false);
+        btnArmario.addActionListener(this);
+
+        list = new JList();
+        list.setBounds(73, 47, 342, 208);
+        list.setVisible(false);
+        contentPanel.add(list);
+
+        btnCama = new JButton();
+        btnCama.setBounds(1067, 475, 390, 320);
+        btnCama.setOpaque(false);
+        btnCama.setContentAreaFilled(false);
+        btnCama.setBorderPainted(false);
+        btnCama.addActionListener(this);
+        contentPanel.add(btnCama);
+>>>>>>> refs/heads/main
+
+<<<<<<< HEAD
 		btnArmario = new JButton();
 		btnArmario.setBounds(300, 200, 150, 250); // posición y tamaño del armario
 		btnArmario.setOpaque(false);
@@ -74,10 +127,24 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		for(Mueble mueble:muebles) {
 			datosMueble.addItem(mueble);
 		}
+=======
+        lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon(
+                VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
+        lblNewLabel.setBounds(10, 10, 1536, 1024);
+        contentPanel.add(lblNewLabel);
+    }
+>>>>>>> refs/heads/main
 
+<<<<<<< HEAD
 
 	}
+=======
+    @Override
+    public void actionPerformed(ActionEvent e) {
+>>>>>>> refs/heads/main
 
+<<<<<<< HEAD
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
@@ -91,4 +158,25 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		}
 
 	}
+=======
+        if (e.getSource() == btnArmario) {
+            List<Objectos> objetos = cont.verObjectos();
+            list.setListData(objetos.toArray());
+            list.setVisible(true);
+
+        } else if (e.getSource() == btnCama) {
+            int opcion = JOptionPane.showConfirmDialog(
+                    this,
+                    "Log out...",
+                    "Are you sure you want to leave the game?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        }
+    }
+>>>>>>> refs/heads/main
 }

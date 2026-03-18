@@ -7,12 +7,6 @@ public class UserGame {
 	private String passwordUser;
 	private LocalDate birthDate;
 	
-	public UserGame() {
-		this.userName="";
-		this.passwordUser="";
-		this.birthDate=null;
-	}
-	
 	public UserGame(String userName,String passwordUser,LocalDate birthDate) {
 		this.userName=userName;
 		this.passwordUser=passwordUser;
@@ -22,7 +16,6 @@ public class UserGame {
 		this.userName=userName;
 		this.passwordUser=passwordUser;
 	}
-
 
 	public String getUserName() {
 		return userName;
