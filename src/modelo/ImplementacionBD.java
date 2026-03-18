@@ -33,6 +33,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 
 	final String SQLCONSULTA = "SELECT * FROM Object";
+	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
+
 	
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
@@ -187,6 +189,35 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return objetos;	
 	}
+	
+	@Override
+	public ArrayList <String> listaComida() {
+		// TODO Auto-generated method stub
+		ArrayList <String> listaComida  = new ArrayList <String>();
 
+		
+			this.openConnection();
+			try {
+				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+				stmt = con.prepareStatement(SQLCOMIDA);
+
+				ResultSet rs=stmt.executeQuery();
+
+
+				
+					while (rs.next()) {
+						String e = rs.getString("objectName");
+						listaComida.add(e);
+					}	
+				
+				rs.close();	
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al verificar credenciales: " + e.getMessage());
+			}
+		
+		return listaComida;		
+	}
 
 }

@@ -13,4 +13,5 @@ public interface CriaturasDAO {
 	public ArrayList<Creature> obtenerPartidas(UserGame user);
 	public boolean comprobarUser(UserGame user);
 	public List<Objectos> verObjectos();
+	public ArrayList<String> listaComida();
 }
