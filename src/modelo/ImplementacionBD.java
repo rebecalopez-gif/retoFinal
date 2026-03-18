@@ -35,7 +35,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE usuario SET contrasena=? WHERE nombre=?";
-	final String OBTENER_PARTIDAS = "SELECT creatureName FROM Creature WHERE userName = ?";
+	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
