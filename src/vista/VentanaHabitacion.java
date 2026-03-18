@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
+import modelo.Mueble;
 
 public class VentanaHabitacion extends JDialog implements ActionListener{
 
@@ -38,7 +40,12 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 
         this.setSize(ancho, alto);
         this.setLocationRelativeTo(null);
+<<<<<<< HEAD
 		
+=======
+        
+		setBounds(100, 100, 450, 300);
+>>>>>>> refs/heads/rebeca
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -65,14 +72,23 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
         btnCama.addActionListener(this);
         contentPanel.add(btnCama);
 
+        List<Mueble> muebles= cont.verMuebles(); //PARA QUE SE VEAN LOS MUEBLES
+		for(Mueble mueble:muebles) {
+			datosMueble.addItem(mueble);
+		}
 
+        
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 	        Creature criatura=new Creature();
+<<<<<<< HEAD
 			
+=======
+	        
+>>>>>>> refs/heads/rebeca
 	    }else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 	    	int opcion=JOptionPane.showConfirmDialog(this,(String)"Log out...","Are you sure you want to leave the game?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
 	    	if(opcion==JOptionPane.YES_OPTION) {
@@ -81,5 +97,4 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	    }
 		
 	}
-
 }
