@@ -48,8 +48,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		this.setSize(ancho, alto);
 		this.setLocationRelativeTo(null);
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaNewUsuario.class.getResource("/image/Monstruito adorable .png")));
 
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,7 +107,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 
 
 		JLabel lblIMAGEN = new JLabel();
-		lblIMAGEN.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Fondo horizontal cri.png"));
+		lblIMAGEN.setIcon(new ImageIcon(VentanaNewUsuario.class.getResource("/image/Fondo horizontal cri.png")));
 		lblIMAGEN.setBounds(0, 0, ancho, alto);
 		contentPanel.add(lblIMAGEN);
 	}
@@ -117,6 +116,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 	public void actionPerformed(java.awt.event.ActionEvent e) {
 		String nick = textField_User.getText();
         String pass = new String(passwordField.getPassword());
+        
         UserGame user = new UserGame(nick, pass);
         
 		if(e.getSource()==btnNewButton) {
@@ -126,7 +126,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 			}else if(cont.comprobarUser(user)){
 				JOptionPane.showMessageDialog(this, "That username is not available.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
 				
-			}else {
+			}else if (cont.introducirUser(user)){
 				this.dispose();
 				VentanaPartidaNew venta= new VentanaPartidaNew(this,cont,true);
 				venta.setVisible(true);

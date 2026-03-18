@@ -27,7 +27,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 	private JButton btnCama;
 
 	public VentanaHabitacion(CriaturasControlador controlador, Creature criatura) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ire22\\OneDrive\\Imágenes\\Monstruito adorable .png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
         this.cont = controlador;
 
         // Pantalla completa para JDialog
@@ -44,7 +44,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		contentPanel.setLayout(null);
 		
 		lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ire22\\OneDrive\\Imágenes\\Habitación infantil .png"));
+        lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
         lblNewLabel.setBounds(10, 10, 1536, 1024);
         contentPanel.add(lblNewLabel);
         
