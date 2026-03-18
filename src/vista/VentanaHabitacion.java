@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -72,7 +73,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener{
 		if (e.getSource() == btnArmario) { //ver objetos
 	        Creature criatura=new Creature();
 	    }else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
-	    	
+	    	int opcion=JOptionPane.showConfirmDialog(this,(String)"Log out...","Are you sure you want to leave the game?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
+	    	if(opcion==JOptionPane.YES_OPTION) {
+	    		this.dispose(); //para cerrar la ventana actual
+	    	}
 	    }
 		
 	}
