@@ -44,4 +44,7 @@ public class CriaturasControlador {
 		return dao.irDePaseo(creatureName);
 		
 	}
+	public boolean mirarEmocion(Creature creature) {
+		return dao.mirarEmocion(creature);
+	}
 }
