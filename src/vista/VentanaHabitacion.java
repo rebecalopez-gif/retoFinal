@@ -28,6 +28,20 @@ import modelo.Objectos;
 
 import javax.swing.JList;
 
+/**
+ * VentanaHabitacion representa la interfaz de la habitación del juego.
+ * Permite al usuario interactuar con:
+ * <ul>
+ *   <li>El armario: ver los objetos disponibles</li>
+ *   <li>La cama: salir del juego</li>
+ *   <li>El bichito: representación de la criatura del usuario</li>
+ * </ul>
+ * 
+ * Esta clase extiende JDialog y utiliza un layout nulo para posicionar los elementos.
+ * 
+ * @author TuNombre //poner nuestro nombre
+ * @version 1.0
+ */
 public class VentanaHabitacion extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +54,15 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JList list;
 	private JScrollPane scroll;
 	private JLabel bichito;
-
+	
+	/**
+     * Crea e inicializa la ventana de la habitación del juego.
+     * Configura los botones, el fondo, el scroll de objetos y el bichito.
+     * 
+     * @param ventanas el diálogo padre de esta ventana
+     * @param controlador el controlador de criaturas para acceder a la lógica del juego
+     * @param criatura la criatura del usuario asociada a esta habitación
+     */
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
@@ -121,6 +143,15 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(lblNewLabel);
 	}
 
+	/**
+     * Gestiona los eventos de los botones de la habitación.
+     * <ul>
+     *   <li>btnArmario: muestra los objetos del armario.</li>
+     *   <li>btnCama: pregunta si se desea salir del juego y cierra la ventana.</li>
+     * </ul>
+     * 
+     * @param e el evento de acción generado por los botones
+     */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
