@@ -17,9 +17,21 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 import java.awt.Toolkit;
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 import javax.swing.JComboBox;
 
@@ -95,7 +107,7 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 		
 		if (e.getSource()==btnCreate) {
 			this.dispose();
-			VentanaPartidaNew partidaNew = new VentanaPartidaNew(this, cont);
+			VentanaPartidaNew partidaNew = new VentanaPartidaNew(this, cont, true);
 			partidaNew.setVisible(true);
 		}
 		

@@ -31,13 +31,30 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JButton btnNewButton;
 	private JLabel lblNewLabel_1;
 	private Toolkit tk; //es para usar toda la pantalla supuestamente
+<<<<<<< HEAD
 	private JDialog ventanas;
 	
+=======
+	private VentanaNewUsuario ventanaNewUsuario;
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
+<<<<<<< HEAD
 
     public VentanaPartidaNew(JDialog parent, CriaturasControlador cont) {
     	super(parent,true);
     	  this.cont = cont;
+=======
+<<<<<<< HEAD
+	public VentanaPartidaNew(JDialog ventana, CriaturasControlador controlador, boolean b) {
+		super(ventana,true);
+		this.cont = controlador;
+=======
+
+    public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador cont, boolean b) {
+    	super(ventanaNewUsuario,true);
+    	  this.cont = cont;
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal.git
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
@@ -92,8 +109,15 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 		String nombre;
 	    if(e.getSource() == btnNewButton) {
 
+<<<<<<< HEAD
 	        valido = true;
 	        nombre = nombreCriaturaField.getText();
+=======
+			this.dispose();
+			VentanaHabitacion hab = new VentanaHabitacion(ventanaNewUsuario,cont,criatura); 
+			hab.setVisible(true); 
+		}
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 	        if(nombre.trim().isEmpty()) { //limpiar espacios
 	            JOptionPane.showMessageDialog(this, "Enter a name");
@@ -109,3 +133,4 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	    }
 	}
 }
+

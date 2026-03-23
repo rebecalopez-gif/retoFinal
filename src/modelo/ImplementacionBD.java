@@ -34,7 +34,11 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	final String SQLCONSULTA = "SELECT * FROM Object";
 	
+<<<<<<< HEAD
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
+=======
+	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
 	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";

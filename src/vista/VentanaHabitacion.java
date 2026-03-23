@@ -38,11 +38,17 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JButton btnArmario;
 	private JButton btnCama;
 	private JList list;
+<<<<<<< HEAD
 	private JScrollPane scroll;
 	private JLabel bichito;
 
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
+=======
+
+	public VentanaHabitacion(VentanaPartidas ventanaPartidas,CriaturasControlador controlador, Creature criatura) {
+		super(ventanaPartidas,true);
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 
 		this.cont = controlador;
@@ -59,12 +65,19 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.setLayout(null);
 
 		list = new JList();
+<<<<<<< HEAD
 		list.setFont(new Font("Monospaced", Font.BOLD, 14));
 		list.setBackground(new Color(173, 216, 230));
 		list.setForeground(new Color(0, 64, 128));
 		list.setSelectionBackground(new Color(0, 128, 192));
 		list.setSelectionForeground(Color.WHITE);
+=======
+		list.setBounds(73, 47, 342, 208);
+		list.setVisible(false); //que no sea visible de primeras
+		contentPanel.add(list);
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
+<<<<<<< HEAD
 		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 128, 192), 2),"OBJECTS"));
 		
 		//seleccionar objetos clickando con el raton
@@ -95,6 +108,8 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		
 		contentPanel.add(scroll);
 
+=======
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 		btnArmario = new JButton();
 		btnArmario.setBounds(84, 285, 342, 427); // posición y tamaño del armario
 		btnArmario.setOpaque(false);
@@ -123,7 +138,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 			List<Objectos> objetos = cont.verObjectos();
 			list.setListData(objetos.toArray()); //rellenar la lista
 			list.setVisible(true); //hacer visible la lista
+<<<<<<< HEAD
 			scroll.setVisible(true); //hacer visible el scroll
+=======
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Are you sure you want to leave the game?","Log out...",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
@@ -133,4 +151,8 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		} 
 
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
