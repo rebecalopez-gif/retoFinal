@@ -1,11 +1,9 @@
-package vista;
+package modelo;
 
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
-
-import modelo.Creature;
 
 public class Emocion {
 
