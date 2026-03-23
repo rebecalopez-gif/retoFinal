@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public class UserGame {
 	private String userName;
 	private String passwordUser;
-	private LocalDate birthDate;
+	private int birthDate;
 	
-	public UserGame(String userName,String passwordUser,LocalDate birthDate) {
+	public UserGame(String userName,String passwordUser,int birthDate) {
 		this.userName=userName;
 		this.passwordUser=passwordUser;
 		this.birthDate=birthDate;
@@ -33,11 +33,11 @@ public class UserGame {
 		this.passwordUser = passwordUser;
 	}
 
-	public LocalDate getBirthDate() {
+	public int getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
+	public void setBirthDate(int birthDate) {
 		this.birthDate = birthDate;
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -62,7 +63,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		textField_Year.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 18));
 		textField_Year.setColumns(10);
 		textField_Year.setBackground(new Color(193, 224, 255));
-		textField_Year.setBounds(664, 330, 348, 39);
+		textField_Year.setBounds(663, 325, 348, 39);
 		contentPanel.add(textField_Year);
 		
 		lblYearOfBirth = new JLabel("YEAR OF BIRTH:");
@@ -130,22 +131,54 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(java.awt.event.ActionEvent e) {
-		String nick = textField_User.getText();
+		boolean insertado;
+        if(e.getSource()==btnNewButton) {
+        	
+        String year=textField_Year.getText(); 
+        
+        if (year.isEmpty()) { //compruebo que no este vacio el año
+            JOptionPane.showMessageDialog(this, "The year cannot be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (!year.matches("\\d+")) { //  "\\d" mira que sea de 0-9 y "+" que sea uno o mas numeros  
+            JOptionPane.showMessageDialog(this, "The year must contain only numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (year.length() != 4) { //que tenga 4 cifras 
+            JOptionPane.showMessageDialog(this, "The year must have exactly 4 digits.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        //lo compruebo antes de pasarlo a int para evitar que explote con una excepcion
+        int  birthYear = Integer.parseInt(year);
+        String nom = textField_User.getText();
         String pass = new String(passwordField.getPassword());
-        
-        UserGame user = new UserGame(nick, pass);
-        
-		if(e.getSource()==btnNewButton) {
-			if (!new String(passwordField.getPassword()).equals(new String(passwordField_1.getPassword()))) {
-				JOptionPane.showMessageDialog(this, "The passwords do not match.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        UserGame user = new UserGame(nom, pass,birthYear);
 			
+			if(nom.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "The user cannot be empty.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
+				
+			}else if(pass.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "The password cannot be empty.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
+				
 			}else if(cont.comprobarUser(user)){
 				JOptionPane.showMessageDialog(this, "That username is not available.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
 				
-			}else if (cont.introducirUser(user)){
-				this.dispose();
-				VentanaPartidaNew venta= new VentanaPartidaNew(this,cont);
-				venta.setVisible(true);
+			}else if (!new String(passwordField.getPassword()).equals(new String(passwordField_1.getPassword()))) {
+				JOptionPane.showMessageDialog(this, "The passwords do not match.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
+			
+			} else {
+			    insertado = cont.introducirUser(user);
+
+			    if (insertado) {
+			        this.dispose();
+			        VentanaPartidaNew venta = new VentanaPartidaNew(this, cont, true);
+			        venta.setVisible(true);
+
+			    }else {
+			        JOptionPane.showMessageDialog(this,
+			                "The user could not be created. They must be at least 6 years old.",
+			                "Error",
+			                JOptionPane.ERROR_MESSAGE);
+			    }
 			}
 		}
 	}

@@ -15,4 +15,5 @@ public interface CriaturasDAO {
 	public boolean eliminarPartida(Creature creature);
 	public List<Objectos> verObjectos();
 	public boolean irDePaseo(Creature creatureName);
+
 }

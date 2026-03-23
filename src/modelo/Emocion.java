@@ -1,11 +1,9 @@
-package vista;
+package modelo;
 
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
-
-import modelo.Creature;
 
 public class Emocion {
 
@@ -32,9 +30,20 @@ public String Emocion (Creature c) {  //Plantearla como interface
 
 }
  /*DESPUES EN LA VISTA HAY QUE PONER 
-  * String emocion = emocionador.getEmocion(creature);
+  * 
+  * private Emocion emocionador = new Emocion();
+
+  * String emocion = emocionador.Emocion(creature);
 	Image img = load(emocion + ".png");
 	label.setIcon(new ImageIcon(img));
+	
+	private Image load(String fileName) {
+    return Toolkit.getDefaultToolkit().getImage(
+        getClass().getResource("/image/" + fileName)
+    );
+}
+
+
 */
 
 
