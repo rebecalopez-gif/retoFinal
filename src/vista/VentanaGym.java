@@ -24,6 +24,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 	private JLabel lblNewLabel;
 	private Toolkit tk;
 	private JButton btnPuerta;
+	private Creature creatureName;
 	
 	public VentanaGym(CriaturasControlador controlador, Creature criatura) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Desktop\\PROYECTO FINAL\\FOTOS\\Monstruito adorable .png"));
@@ -61,7 +62,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPuerta) {
-			//metodo de ir a pasear
+			cont.irDePaseo(creatureName);
 		}
 		
 	}

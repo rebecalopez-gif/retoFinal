@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,12 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE Creature SET hunger=? WHERE nombre=?";
+	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
+	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
+	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
 	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
+	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
+	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 	
@@ -97,16 +103,22 @@ public class ImplementacionBD implements CriaturasDAO{
 			CallableStatement stmt = con.prepareCall(FUNCION);//CallableStatement es una clase diseñada para procedimientos almacenados
 			stmt.setString(1, user.getUserName());
 			stmt.setString(2, user.getPasswordUser());
-			stmt.setDate(3, java.sql.Date.valueOf(user.getBirthDate())); //para insertar la fecha 
+			
+			// combierto el INT en una fecha pa poder mandarla al SQL
+			int year = user.getBirthDate();
+			LocalDate fecha = LocalDate.of(year, 1, 1);
+
+			// Insertar como DATE se guardarian todos ocmo YYYY-01-01
+			stmt.setDate(3, java.sql.Date.valueOf(fecha));
 
 			boolean tieneResultado = stmt.execute();
+			
 			//como la funcion en el select devuelve una frase 
 			 if (tieneResultado) {//si es true 
 		            ResultSet rs = stmt.getResultSet(); //mi select con el mensaje
 		            if (rs.next()) {
 		                String mensaje = rs.getString(1);
 		                System.out.println("Mensaje BD: " + mensaje);
-
 		                if (mensaje.contains("CORRECTAMENTE")) {
 		                    insertado = true;
 		                }
@@ -127,7 +139,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		
 		this.openConnection();
 		try {
-			stmt = con.prepareStatement(OBTENER_PARTIDAS);
+			stmt = con.prepareStatement(SQLOBTENER_PARTIDAS);
             stmt.setString(1, user.getUserName());
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
@@ -164,6 +176,25 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 
 		return existe;
+	}
+	
+	public boolean eliminarPartida(Creature creature) {
+		boolean ok=false;
+		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLBORRAR_PARTIDAS);
+			stmt.setInt(1, creature.getCodC());
+			if (stmt.executeUpdate()>0) {
+				ok=true;
+			}	
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+        }
+		
+		return ok;
 	}
 
 	
@@ -223,6 +254,67 @@ public class ImplementacionBD implements CriaturasDAO{
 	public boolean darComida(Creature criatura, Food comida) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
+	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre
+		// Abrimos la conexion
+		boolean existe=false;
+		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQL_Existe); 
+			stmt.setString(1, creatureName.getCreatureName());
+			ResultSet resultado = stmt.executeQuery();
+			if (resultado.next()) {
+				existe = true;
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return existe;
+	}
+	
+	
+	@Override
+	public boolean irDePaseo(Creature creatureName) {
+		boolean ok=false;
+		if (comprobarCriatura(creatureName))
+		{
+			 //Generar experiencia aleatoria
+	        int expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
+
+	        // Baja el hambre
+	        int hambreNueva=creatureName.getHunger()-20;
+	        if (hambreNueva<0) {
+	        	hambreNueva=0;
+	        }
+
+	        // meter los nuevos datos
+	        creatureName.setExperience(creatureName.getExperience() + expGanada);
+	        creatureName.setHunger(hambreNueva);
+	        
+			this.openConnection();
+			try {
+				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+				stmt = con.prepareStatement(SQLMODIFICAR);
+				stmt.setDouble(1, creatureName.getExperience());
+				stmt.setInt(2, creatureName.getHunger());
+				stmt.setString(3, creatureName.getCreatureName());
+				if (stmt.executeUpdate()>0) {
+					ok=true;
+				}			
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al modificar credenciales: " + e.getMessage());
+			}
+		}
+		return ok;	
+	}
+
 
 		try {
 			stmt = con.prepareStatement(SQLDARCOMIDA); 

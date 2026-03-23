@@ -25,8 +25,11 @@ public class CriaturasControlador {
 	public ArrayList<Creature> obtenerPartidas(UserGame user) {
 		return dao.obtenerPartidas(user);
 	}
-	public boolean comprobarUser(UserGame user){
+	public boolean comprobarUser(UserGame user) {
 		return dao.comprobarUser(user);
+	}
+	public boolean eliminarPartida(Creature creature) {
+		return dao.eliminarPartida(creature);
 	}
 	public List<Objectos> verObjectos() {
 		return dao.verObjectos();
@@ -36,5 +39,8 @@ public class CriaturasControlador {
 	}
 	public boolean darComida(Creature criatura, Food comida) {
 		return dao.darComida(criatura, comida);
+	public boolean irDePaseo(Creature creatureName) {
+		return dao.irDePaseo(creatureName);
+		
 	}
 }
