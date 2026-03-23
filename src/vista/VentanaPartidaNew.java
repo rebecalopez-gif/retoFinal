@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -30,10 +31,15 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JButton btnNewButton;
 	private JLabel lblNewLabel_1;
 	private Toolkit tk; //es para usar toda la pantalla supuestamente
+	private Creature criatura;
+	private JDialog ventanas;
+	
+	private VentanaNewUsuario ventanaNewUsuario;
 
-	public VentanaPartidaNew(JDialog ventana, CriaturasControlador controlador, boolean b) {
-		super(ventana,true);
-		this.cont = controlador;
+
+    public VentanaPartidaNew(JDialog parent, CriaturasControlador cont, boolean b) {
+    	super(parent,true);
+    	  this.cont = cont;
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
@@ -64,7 +70,6 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 		nombreCriaturaField.setForeground(new Color(33, 143, 197));
 		nombreCriaturaField.setFont(new Font("Monospaced", Font.ITALIC, 21));
 		nombreCriaturaField.setBounds(554, 434, 353, 57);
-		contentPanel.add(nombreCriaturaField);
 		nombreCriaturaField.setColumns(10);
 		contentPanel.add(nombreCriaturaField);
 
@@ -85,14 +90,31 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==btnNewButton) {
-			String nombre = nombreCriaturaField.getText();
-			Creature criatura = new Creature(nombre);
+		boolean valido=false;
+		String nombre;
+	    if(e.getSource() == btnNewButton) {
+
+	        valido = true;
+	        nombre = nombreCriaturaField.getText();
 
 			this.dispose();
-			VentanaHabitacion hab = new VentanaHabitacion(cont,criatura); 
+			VentanaHabitacion hab = new VentanaHabitacion(ventanaNewUsuario,cont,criatura); 
 			hab.setVisible(true); 
-		}
+		
 
+
+	        if(nombre.trim().isEmpty()) { //limpiar espacios
+	            JOptionPane.showMessageDialog(this, "Enter a name");
+	            valido = false;
+	        }
+
+	        if(valido) {
+	            Creature criatura = new Creature(nombre);
+	            this.dispose();
+	            VentanaHabitacion hab2 = new VentanaHabitacion(this, cont, criatura); 
+	            hab.setVisible(true);
+	        }
+	    }
+	    }
 	}
-}
+

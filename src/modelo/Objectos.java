@@ -35,7 +35,7 @@ public class Objectos {
 
 	@Override
 	public String toString() {
-		return "Object [cod_object=" + cod_object + ", objectName=" + objectName + "]";
+		return cod_object+" - " + objectName ; 
 	}
 	
 	
