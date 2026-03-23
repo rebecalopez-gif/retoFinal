@@ -31,7 +31,10 @@ public class CriaturasControlador {
 	public List<Objectos> verObjectos() {
 		return dao.verObjectos();
 	}
-	public ArrayList<String> listaComida(){
+	public ArrayList<Food> listaComida(){
 		return dao.listaComida();
+	}
+	public boolean darComida(Creature criatura, Food comida) {
+		return dao.darComida(criatura, comida);
 	}
 }

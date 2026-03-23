@@ -10,22 +10,26 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import controlador.CriaturasControlador;
+import modelo.Creature;
+import modelo.Food;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import java.awt.Toolkit;
 
 public class VentanaCocina extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnNevera;
-	private ArrayList <String> listaComida =new ArrayList<String>();
-	private JComboBox<String> comboBoxComida;
+	private ArrayList <Food> listaComida =new ArrayList<Food>();
+	private JComboBox<Food> comboBoxComida;
 	private CriaturasControlador controlador;
 
 
 
 	public VentanaCocina( VentanaPrincipal ventanaPrincipal, CriaturasControlador cont) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCocina.class.getResource("/image/Monstruito adorable .png")));
 		this.controlador=cont;
 		listaComida=cont.listaComida();
 		setBounds(100, 100, 1308, 825);
@@ -43,7 +47,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		btnNevera.setContentAreaFilled(false);
 		btnNevera.setBorderPainted(false);
 
-		comboBoxComida = new JComboBox<String>();
+		comboBoxComida = new JComboBox<Food>();
 		
 		btnNevera.addActionListener(this);
 
@@ -62,8 +66,13 @@ public class VentanaCocina extends JDialog implements ActionListener{
 
 		if(o==btnNevera) {
 			JOptionPane.showMessageDialog(this, comboBoxComida, "Elegir comida", JOptionPane.QUESTION_MESSAGE);
-			String comida=(String) comboBoxComida.getSelectedItem();
-			System.out.println(comida);
+			Food ob=(Food) comboBoxComida.getSelectedItem();
+			
+			Creature c= new Creature(1,"Razer","Alissa",0,50,50,50);
+			if(controlador.darComida(c, ob)) {
+				
+			}
+			
 
 		}
 
