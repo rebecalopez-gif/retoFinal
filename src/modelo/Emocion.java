@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public class Emocion {
 
-public String Emocion (Creature c) {  //Plantearla como interface 
+public String obtenerEmocion (Creature c) {  //Plantearla como interface 
 	 int energy = c.getEnergy();
      int happiness = c.getHasppiness();
      int hunger = c.getHunger();

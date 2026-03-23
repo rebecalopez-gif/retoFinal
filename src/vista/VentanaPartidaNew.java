@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
+import modelo.UserGame;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -32,7 +33,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JLabel lblNewLabel_1;
 	private Toolkit tk; //es para usar toda la pantalla supuestamente
 	private Creature criatura;
-
+	private UserGame usuarioActual;
 	private JDialog ventanas;
 	private VentanaNewUsuario ventanaNewUsuario;
 
@@ -68,7 +69,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 		nombreCriaturaField = new JTextField();
 		nombreCriaturaField.setForeground(new Color(33, 143, 197));
-		nombreCriaturaField.setFont(new Font("Monospaced", Font.ITALIC, 21));
+		nombreCriaturaField.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 21));
 		nombreCriaturaField.setBounds(554, 434, 353, 57);
 		nombreCriaturaField.setColumns(10);
 		contentPanel.add(nombreCriaturaField);
@@ -96,20 +97,17 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 	        valido = true;
 	        nombre = nombreCriaturaField.getText();
-			this.dispose();
-			VentanaHabitacion hab = new VentanaHabitacion(ventanaNewUsuario,cont,criatura); 
-			hab.setVisible(true); 
-		
-
+			
 	        if(nombre.trim().isEmpty()) { //limpiar espacios
 	            JOptionPane.showMessageDialog(this, "Enter a name");
 	            valido = false;
 	        }
 
 	        if(valido) {
-	            Creature criatura = new Creature(nombre);
+	            Creature criatura = new Creature(cont.getUserNameActual(), nombre); //que sea este user que ha iniciado sesion
+	            cont.insertarCriatura(criatura); //para guardarlo en la BBDD
 	            this.dispose();
-	            VentanaHabitacion hab2 = new VentanaHabitacion(this, cont, criatura); 
+	            VentanaHabitacion hab = new VentanaHabitacion(this, cont, criatura); 
 	            hab.setVisible(true);
 	        }
 	    }

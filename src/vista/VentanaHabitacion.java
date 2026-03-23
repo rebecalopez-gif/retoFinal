@@ -100,8 +100,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		            Objectos seleccionado = (Objectos) list.getSelectedValue();
 
 		            if(seleccionado != null) {
-		                JOptionPane.showMessageDialog(null, 
-		                    "You selected: " + seleccionado.toString());
+		                JOptionPane.showMessageDialog(null, "You selected: " + seleccionado.toString());
 		                //crear acciones
 		            }
 		        }

@@ -123,7 +123,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, 
                     "¡YOU MUST FILL IN ALL FIELDS!",  
                     "WARNING", JOptionPane.WARNING_MESSAGE);
-                return;
             }
             if(cont.iniciarSesion(user)) {
                 this.dispose();

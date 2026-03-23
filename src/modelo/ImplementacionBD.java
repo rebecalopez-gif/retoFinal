@@ -37,14 +37,17 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
 
-	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
-	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
+	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
+	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
 	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
+	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE creatureName = ?";
+	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
+
 
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 
@@ -275,7 +278,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		this.openConnection();//abro la conecexion
 
 		try {
-			stmt = con.prepareStatement(SQL_Existe); 
+			stmt = con.prepareStatement(SQL_EXISTE_CRIATURA); 
 			stmt.setString(1, creatureName.getCreatureName());
 			ResultSet resultado = stmt.executeQuery();
 			if (resultado.next()) {
@@ -328,5 +331,33 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;	
 	}
+	
+	public Object insertarCriatura(Creature c) {
+	    boolean ok = false;
+	    this.openConnection();
+
+	    try {
+	        stmt = con.prepareStatement(SQL_INSERT_CRIATURA);
+	        stmt.setString(1, c.getUserName());
+	        stmt.setString(2, c.getCreatureName());
+	        stmt.setInt(3, c.getExperience());
+	        stmt.setInt(4, c.getEnergy());
+	        stmt.setInt(5, c.getHunger());
+	        stmt.setInt(6, c.getHasppiness());
+
+	        if (stmt.executeUpdate() > 0) {
+	            ok = true;
+	        }
+
+	        stmt.close();
+	        con.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al insertar criatura: " + e.getMessage());
+	    }
+
+	    return ok;
+	}
+
 
 }

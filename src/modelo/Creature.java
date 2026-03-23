@@ -30,6 +30,15 @@ public class Creature {
 		this.hunger = 0;
 		this.happiness = 0;
 	}
+	public Creature(String userName, String creatureName) {
+	    this.userName = userName;
+	    this.creatureName = creatureName;
+	    this.experience = 0;
+	    this.energy = 50;
+	    this.hunger = 50;
+	    this.happiness = 50;
+	}
+
 	public Creature(String creatureName) {
 		this.creatureName =creatureName;
 		
