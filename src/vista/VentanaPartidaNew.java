@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -30,11 +31,12 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JButton btnNewButton;
 	private JLabel lblNewLabel_1;
 	private Toolkit tk; //es para usar toda la pantalla supuestamente
-	private VentanaNewUsuario ventanaNewUsuario;
+	private JDialog ventanas;
+	
 
 
-    public VentanaPartidaNew(VentanaNewUsuario ventanaNewUsuario, CriaturasControlador cont, boolean b) {
-    	super(ventanaNewUsuario,true);
+    public VentanaPartidaNew(JDialog parent, CriaturasControlador cont) {
+    	super(parent,true);
     	  this.cont = cont;
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -66,7 +68,6 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 		nombreCriaturaField.setForeground(new Color(33, 143, 197));
 		nombreCriaturaField.setFont(new Font("Monospaced", Font.ITALIC, 21));
 		nombreCriaturaField.setBounds(554, 434, 353, 57);
-		contentPanel.add(nombreCriaturaField);
 		nombreCriaturaField.setColumns(10);
 		contentPanel.add(nombreCriaturaField);
 
@@ -87,14 +88,24 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==btnNewButton) {
-			String nombre = nombreCriaturaField.getText();
-			Creature criatura = new Creature(nombre);
+		boolean valido=false;
+		String nombre;
+	    if(e.getSource() == btnNewButton) {
 
-			this.dispose();
-			VentanaHabitacion hab = new VentanaHabitacion(ventanaNewUsuario,cont,criatura); 
-			hab.setVisible(true); 
-		}
+	        valido = true;
+	        nombre = nombreCriaturaField.getText();
 
+	        if(nombre.trim().isEmpty()) { //limpiar espacios
+	            JOptionPane.showMessageDialog(this, "Enter a name");
+	            valido = false;
+	        }
+
+	        if(valido) {
+	            Creature criatura = new Creature(nombre);
+	            this.dispose();
+	            VentanaHabitacion hab = new VentanaHabitacion(this, cont, criatura); 
+	            hab.setVisible(true);
+	        }
+	    }
 	}
 }
