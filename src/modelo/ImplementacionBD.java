@@ -34,7 +34,12 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 
 	final String SQLCONSULTA = "SELECT * FROM Object";
+	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
+	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
 	
+	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
+	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
+	final String SQLMODIFICAR = "UPDATE Creature SET hunger=? WHERE nombre=?";
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
@@ -192,7 +197,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		return ok;
 	}
 
-	@Override
+	
 	public List<Objectos> verObjectos() {
 		List<Objectos> objetos= new ArrayList<>();
 
@@ -215,7 +220,40 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return objetos;	
 	}
+	
+	
+	public ArrayList <Food> listaComida() {
+		// TODO Auto-generated method stub
+		ArrayList <Food> listaComida  = new ArrayList <Food>();
 
+		
+			this.openConnection();
+			try {
+				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+				stmt = con.prepareStatement(SQLCOMIDA);
+
+				ResultSet rs=stmt.executeQuery();
+
+
+				
+					while (rs.next()) {
+						Food o =new Food( rs.getString("objectName"),rs.getInt("HungerEffect"));
+						listaComida.add(o);
+					}	
+				
+				rs.close();	
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al verificar credenciales: " + e.getMessage());
+			}
+		
+		return listaComida;		
+	}
+	
+	public boolean darComida(Creature criatura, Food comida) {
+		boolean ok=false;
+		this.openConnection();//abro la conecexion
 	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre
 		// Abrimos la conexion
 		boolean existe=false;
@@ -278,4 +316,22 @@ public class ImplementacionBD implements CriaturasDAO{
 	}
 
 
+		try {
+			stmt = con.prepareStatement(SQLDARCOMIDA); 
+			stmt.setInt(1, comida.getHunger_effect());
+			stmt.setInt(2, criatura.getCodC());
+			if (stmt.executeUpdate()>0) {
+				ok=true;
+				
+			}	
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return ok;
+	}
+	
 }
