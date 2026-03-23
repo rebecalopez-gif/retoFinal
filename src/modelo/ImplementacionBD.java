@@ -1,3 +1,4 @@
+
 package modelo;
 
 import java.sql.CallableStatement;
@@ -36,10 +37,9 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA = "SELECT * FROM Object";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
-	
+
 	final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
-	final String SQLMODIFICAR = "UPDATE Creature SET hunger=? WHERE nombre=?";
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
@@ -48,7 +48,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
-	
+
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
 	//COPIAR--------------
@@ -103,7 +103,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			CallableStatement stmt = con.prepareCall(FUNCION);//CallableStatement es una clase diseñada para procedimientos almacenados
 			stmt.setString(1, user.getUserName());
 			stmt.setString(2, user.getPasswordUser());
-			
+
 			// combierto el INT en una fecha pa poder mandarla al SQL
 			int year = user.getBirthDate();
 			LocalDate fecha = LocalDate.of(year, 1, 1);
@@ -112,21 +112,21 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setDate(3, java.sql.Date.valueOf(fecha));
 
 			boolean tieneResultado = stmt.execute();
-			
+
 			//como la funcion en el select devuelve una frase 
-			 if (tieneResultado) {//si es true 
-		            ResultSet rs = stmt.getResultSet(); //mi select con el mensaje
-		            if (rs.next()) {
-		                String mensaje = rs.getString(1);
-		                System.out.println("Mensaje BD: " + mensaje);
-		                if (mensaje.contains("CORRECTAMENTE")) {
-		                    insertado = true;
-		                }
-		            }
-		            rs.close();
-		        }
-		        stmt.close();
-		        con.close();
+			if (tieneResultado) {//si es true 
+				ResultSet rs = stmt.getResultSet(); //mi select con el mensaje
+				if (rs.next()) {
+					String mensaje = rs.getString(1);
+					System.out.println("Mensaje BD: " + mensaje);
+					if (mensaje.contains("CORRECTAMENTE")) {
+						insertado = true;
+					}
+				}
+				rs.close();
+			}
+			stmt.close();
+			con.close();
 
 		} catch (SQLException e) {
 			System.out.println("Error al crear un usuario: " + e.getMessage());
@@ -136,22 +136,22 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	public ArrayList<Creature> obtenerPartidas(UserGame user) {
 		ArrayList<Creature> criaturas = new ArrayList<Creature>();
-		
+
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLOBTENER_PARTIDAS);
-            stmt.setString(1, user.getUserName());
-            ResultSet resultado = stmt.executeQuery();
-            while (resultado.next()) {
-            	criaturas.add(new Creature(resultado.getInt("cod_creature"), resultado.getString("userName"), resultado.getString("creatureName"), resultado.getInt("experience"), resultado.getInt("energy"), resultado.getInt("hunger"), resultado.getInt("happiness")));
-            }
-            resultado.close();
-            stmt.close();
-            con.close();
+			stmt.setString(1, user.getUserName());
+			ResultSet resultado = stmt.executeQuery();
+			while (resultado.next()) {
+				criaturas.add(new Creature(resultado.getInt("cod_creature"), resultado.getString("userName"), resultado.getString("creatureName"), resultado.getInt("experience"), resultado.getInt("energy"), resultado.getInt("hunger"), resultado.getInt("happiness")));
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
 		} catch (SQLException e) {
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
-        }
-		
+		}
+
 		return criaturas;
 	}
 
@@ -177,10 +177,10 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return existe;
 	}
-	
+
 	public boolean eliminarPartida(Creature creature) {
 		boolean ok=false;
-		
+
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLBORRAR_PARTIDAS);
@@ -188,16 +188,16 @@ public class ImplementacionBD implements CriaturasDAO{
 			if (stmt.executeUpdate()>0) {
 				ok=true;
 			}	
-            stmt.close();
-            con.close();
+			stmt.close();
+			con.close();
 		} catch (SQLException e) {
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
-        }
-		
+		}
+
 		return ok;
 	}
 
-	
+
 	public List<Objectos> verObjectos() {
 		List<Objectos> objetos= new ArrayList<>();
 
@@ -220,40 +220,56 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return objetos;	
 	}
-	
-	
+
 	public ArrayList <Food> listaComida() {
 		// TODO Auto-generated method stub
 		ArrayList <Food> listaComida  = new ArrayList <Food>();
 
-		
-			this.openConnection();
-			try {
-				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
-				stmt = con.prepareStatement(SQLCOMIDA);
 
-				ResultSet rs=stmt.executeQuery();
+		this.openConnection();
+		try {
+			// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+			stmt = con.prepareStatement(SQLCOMIDA);
 
+			ResultSet rs=stmt.executeQuery();
 
-				
-					while (rs.next()) {
-						Food o =new Food( rs.getString("objectName"),rs.getInt("HungerEffect"));
-						listaComida.add(o);
-					}	
-				
-				rs.close();	
-				stmt.close();
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("Error al verificar credenciales: " + e.getMessage());
-			}
-		
+			while (rs.next()) {
+				Food o =new Food( rs.getString("objectName"),rs.getInt("HungerEffect"));
+				listaComida.add(o);
+			}	
+
+			rs.close();	
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
 		return listaComida;		
 	}
-	
+
 	public boolean darComida(Creature criatura, Food comida) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQLDARCOMIDA); 
+			stmt.setInt(1, comida.getHunger_effect());
+			stmt.setInt(2, criatura.getCodC());
+			if (stmt.executeUpdate()>0) {
+				ok=true;
+
+			}	
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return ok;
+	}
+
 	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre
 		// Abrimos la conexion
 		boolean existe=false;
@@ -276,26 +292,25 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return existe;
 	}
-	
-	
+
 	@Override
 	public boolean irDePaseo(Creature creatureName) {
 		boolean ok=false;
 		if (comprobarCriatura(creatureName))
 		{
-			 //Generar experiencia aleatoria
-	        int expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
+			//Generar experiencia aleatoria
+			int expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
 
-	        // Baja el hambre
-	        int hambreNueva=creatureName.getHunger()-20;
-	        if (hambreNueva<0) {
-	        	hambreNueva=0;
-	        }
+			// Baja el hambre
+			int hambreNueva=creatureName.getHunger()-20;
+			if (hambreNueva<0) {
+				hambreNueva=0;
+			}
 
-	        // meter los nuevos datos
-	        creatureName.setExperience(creatureName.getExperience() + expGanada);
-	        creatureName.setHunger(hambreNueva);
-	        
+			// meter los nuevos datos
+			creatureName.setExperience(creatureName.getExperience() + expGanada);
+			creatureName.setHunger(hambreNueva);
+
 			this.openConnection();
 			try {
 				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
@@ -315,23 +330,4 @@ public class ImplementacionBD implements CriaturasDAO{
 		return ok;	
 	}
 
-
-		try {
-			stmt = con.prepareStatement(SQLDARCOMIDA); 
-			stmt.setInt(1, comida.getHunger_effect());
-			stmt.setInt(2, criatura.getCodC());
-			if (stmt.executeUpdate()>0) {
-				ok=true;
-				
-			}	
-			stmt.close();
-			con.close();
-
-		} catch (SQLException e) {
-			System.out.println("Error al verificar credenciales: " + e.getMessage());
-		}
-
-		return ok;
-	}
-	
 }

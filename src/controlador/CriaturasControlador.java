@@ -39,6 +39,7 @@ public class CriaturasControlador {
 	}
 	public boolean darComida(Creature criatura, Food comida) {
 		return dao.darComida(criatura, comida);
+	}
 	public boolean irDePaseo(Creature creatureName) {
 		return dao.irDePaseo(creatureName);
 		
