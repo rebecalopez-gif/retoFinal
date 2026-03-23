@@ -32,12 +32,12 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JLabel lblNewLabel_1;
 	private Toolkit tk; //es para usar toda la pantalla supuestamente
 	private Creature criatura;
+
 	private JDialog ventanas;
-	
 	private VentanaNewUsuario ventanaNewUsuario;
 
 
-    public VentanaPartidaNew(JDialog parent, CriaturasControlador cont, boolean b) {
+    public VentanaPartidaNew(JDialog parent, CriaturasControlador cont,boolean b) {
     	super(parent,true);
     	  this.cont = cont;
 
@@ -96,12 +96,10 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 	        valido = true;
 	        nombre = nombreCriaturaField.getText();
-
 			this.dispose();
 			VentanaHabitacion hab = new VentanaHabitacion(ventanaNewUsuario,cont,criatura); 
 			hab.setVisible(true); 
 		
-
 
 	        if(nombre.trim().isEmpty()) { //limpiar espacios
 	            JOptionPane.showMessageDialog(this, "Enter a name");
@@ -115,6 +113,6 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	            hab.setVisible(true);
 	        }
 	    }
-	    }
 	}
+}
 
