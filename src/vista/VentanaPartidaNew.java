@@ -41,7 +41,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
     	super(parent,true);
     	  this.cont = cont;
 
-		Toolkit tk = Toolkit.getDefaultToolkit();
+		tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
 

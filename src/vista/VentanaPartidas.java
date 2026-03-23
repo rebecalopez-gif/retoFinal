@@ -80,9 +80,9 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 		int opcion;
 		
 		if (e.getSource()==btnPlay) {
-			this.dispose();
 			VentanaHabitacion habitacion = new VentanaHabitacion(this, cont, (Creature) comboBox.getSelectedItem());
 			habitacion.setVisible(true);
+			this.dispose();
 		}
 		
 		if (e.getSource()==btnDelete) {
