@@ -1,5 +1,9 @@
 package modelo;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 public class Creature {
 
 	//ATRIBUTOS
@@ -79,6 +83,38 @@ public class Creature {
 		this.happiness = happiness;
 	}
 	
+	public String getEmotion() { //ME DEVUELVE LA EMOCION SEGUN LOS VALORES 
+		 if (happiness > 80) {
+	            return "MuyFeliz";
+	        }
+	        if (happiness > 50) {
+	            return "Feliz";
+	        }
+	        if (happiness < 30 || hunger > 70) {
+	            return "Triste";
+	        }
+	        if (energy < 30) {
+	            return "Cansado";
+	        }
+	        return "Feliz";
+	}
+	
+	public Image getEmotionImage() { //METODO QUE DEVUELVE LA IMAGEN SEGUN LA EMOCION 
+        String emotion = getEmotion();
+        switch (emotion) {
+            case "MuyFeliz":
+                return new ImageIcon(getClass().getResource("/image/MuyFeliz.png")).getImage();
+            case "Feliz":
+                return new ImageIcon(getClass().getResource("/image/Feliz.png")).getImage();
+            case "Triste":
+                return new ImageIcon(getClass().getResource("/image/Triste.png")).getImage();
+            case "Cansado":
+                return new ImageIcon(getClass().getResource("/image/Cansado.png")).getImage();
+            default:
+                return new ImageIcon(getClass().getResource("/image/Feliz.png")).getImage();
+        }
+    }
+
 	//toString
 	@Override
 	public String toString() {
