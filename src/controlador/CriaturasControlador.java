@@ -56,9 +56,16 @@ public class CriaturasControlador {
 		return dao.irDePaseo(creatureName);
 		
 	}
+<<<<<<< HEAD
 	public Object insertarCriatura(Creature criatura) {
 		return dao.insertarCriatura(criatura);
 		
 	}
 
 }
+=======
+	public boolean mirarEmocion(Creature creature) {
+		return dao.mirarEmocion(creature);
+	}
+}
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal

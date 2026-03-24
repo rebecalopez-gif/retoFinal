@@ -1,8 +1,10 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -31,48 +33,75 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private CriaturasControlador cont;
-	private JLabel lblNewLabel;
+	private JLabel lblGames, lblIMAGEN;
 	private JComboBox<Creature> comboBox;
 	private UserGame user;
 	private JButton btnPlay, btnCreate, btnDelete;
 
 	public VentanaPartidas(JFrame parent, CriaturasControlador controlador, UserGame user) {
 		super(parent,true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPartidas.class.getResource("/image/Monstruito adorable .png")));
 		this.cont=controlador;
 		this.user=user;
-		setBounds(100, 100, 450, 300);
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		int ancho = tk.getScreenSize().width;
+		int alto = tk.getScreenSize().height;
+
+		// Ajustar el JDialog al tamaño completo
+		this.setSize(ancho, alto);
+		this.setLocationRelativeTo(null);
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPartidas.class.getResource("/image/Monstruito adorable .png")));
+		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		lblNewLabel = new JLabel("GAMES");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(187, 28, 82, 24);
-		contentPanel.add(lblNewLabel);
+		lblGames = new JLabel("GAMES");
+		lblGames.setForeground(new Color(0, 128, 192));
+		lblGames.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
+		lblGames.setBounds(729, 278, 82, 24);
+		contentPanel.add(lblGames);
 		
 		comboBox = new JComboBox<Creature>();
-		comboBox.setBounds(132, 62, 176, 20);
+		comboBox.setForeground(new Color(0, 128, 192));
+		comboBox.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
+		comboBox.setBounds(627, 324, 270, 35);
 		contentPanel.add(comboBox);
 		for (Creature c : cont.obtenerPartidas(user)) {
 			comboBox.addItem(c);
 		}
 		
 		btnPlay = new JButton("Play");
-		btnPlay.setBounds(185, 214, 84, 20);
+		
+		btnPlay.setBounds(669, 559, 187, 55);
+		btnPlay.setBackground(new Color(196, 236, 255));
+		btnPlay.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
+		btnPlay.setForeground(new Color(0, 128, 192));
 		contentPanel.add(btnPlay);
 		btnPlay.addActionListener(this);
 		
 		btnCreate = new JButton("Create new game");
-		btnCreate.setBounds(32, 214, 115, 20);
+		btnCreate.setBackground(new Color(196, 236, 255));
+		btnCreate.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
+		btnCreate.setForeground(new Color(0, 128, 192));
+		btnCreate.setBounds(426, 559, 187, 55);
 		contentPanel.add(btnCreate);
 		btnCreate.addActionListener(this);
 
 		btnDelete = new JButton("Delete game");
-		btnDelete.setBounds(305, 214, 100, 20);
+		btnDelete.setBackground(new Color(196, 236, 255));
+		btnDelete.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
+		btnDelete.setForeground(new Color(0, 128, 192));
+		btnDelete.setBounds(920, 559, 187, 55);
 		contentPanel.add(btnDelete);
 		btnDelete.addActionListener(this);
+		
+		lblIMAGEN = new JLabel();
+		lblIMAGEN.setIcon(new ImageIcon(VentanaNewUsuario.class.getResource("/image/Fondo horizontal cri.png")));
+		lblIMAGEN.setBounds(0, 0, ancho, alto);
+		contentPanel.add(lblIMAGEN);
 	}
 
 	@Override
