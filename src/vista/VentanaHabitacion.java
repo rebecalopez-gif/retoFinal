@@ -192,13 +192,15 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 				this.dispose(); //para cerrar la ventana actual
 			}
 		} else if(e.getSource()==bOTONGYM) {//ir al gym
+			this.dispose();
 			VentanaGym gym = new VentanaGym(this, cont,criatura);
 			gym.setVisible(true);
-			this.dispose();
+			
 		}else if(e.getSource()==BOTONCOCINA) { //ir a la cocina
+			this.dispose();
 			VentanaCocina cocina = new VentanaCocina(this, cont,criatura);
 			cocina.setVisible(true);
-			this.dispose();
+			
 		}
 
 	}
