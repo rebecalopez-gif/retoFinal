@@ -303,13 +303,22 @@ public class ImplementacionBD implements CriaturasDAO{
 		if (comprobarCriatura(creatureName))
 		{
 			//Generar experiencia aleatoria
-			int expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
+			int expGanada=0;
 
 			// Baja el hambre
 			int hambreNueva=creatureName.getHunger()-20;
 			if (hambreNueva<0) {
 				hambreNueva=0;
 			}
+
+			if(hambreNueva!=0) {
+				expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
+			} else {
+				expGanada=0;
+			}
+
+		
+
 
 			// meter los nuevos datos
 			creatureName.setExperience(creatureName.getExperience() + expGanada);
@@ -333,32 +342,32 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;	
 	}
-	
+
 	public Object insertarCriatura(Creature c) {
-	    boolean ok = false;
-	    this.openConnection();
+		boolean ok = false;
+		this.openConnection();
 
-	    try {
-	        stmt = con.prepareStatement(SQL_INSERT_CRIATURA);
-	        stmt.setString(1, c.getUserName());
-	        stmt.setString(2, c.getCreatureName());
-	        stmt.setInt(3, c.getExperience());
-	        stmt.setInt(4, c.getEnergy());
-	        stmt.setInt(5, c.getHunger());
-	        stmt.setInt(6, c.getHasppiness());
+		try {
+			stmt = con.prepareStatement(SQL_INSERT_CRIATURA);
+			stmt.setString(1, c.getUserName());
+			stmt.setString(2, c.getCreatureName());
+			stmt.setInt(3, c.getExperience());
+			stmt.setInt(4, c.getEnergy());
+			stmt.setInt(5, c.getHunger());
+			stmt.setInt(6, c.getHasppiness());
 
-	        if (stmt.executeUpdate() > 0) {
-	            ok = true;
-	        }
+			if (stmt.executeUpdate() > 0) {
+				ok = true;
+			}
 
-	        stmt.close();
-	        con.close();
+			stmt.close();
+			con.close();
 
-	    } catch (SQLException e) {
-	        System.out.println("Error al insertar criatura: " + e.getMessage());
-	    }
+		} catch (SQLException e) {
+			System.out.println("Error al insertar criatura: " + e.getMessage());
+		}
 
-	    return ok;
+		return ok;
 	}
 
 	public boolean mirarEmocion(Creature creature) {
@@ -369,12 +378,12 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt = con.prepareStatement(SQL_CRIATURA); 
 			stmt.setString(1, creature.getUserName());
 			stmt.setInt(2, creature.getCodC());
-			
+
 			ResultSet resultado = stmt.executeQuery();
 			if (resultado.next()) {
 				ok = true;
 			}
-			
+
 			resultado.close();
 			stmt.close();
 			con.close();
@@ -382,7 +391,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		} catch (SQLException e) {
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
 		}
-		
+
 		return ok;
 	}
 

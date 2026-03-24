@@ -101,8 +101,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 			JOptionPane.showMessageDialog(this, comboBoxComida, "Elegir comida", JOptionPane.QUESTION_MESSAGE);
 			Food ob=(Food) comboBoxComida.getSelectedItem();
 
-			Creature c= new Creature(1,"Razer","Alissa",0,50,50,50);
-			if(controlador.darComida(c, ob)) {
+			if(controlador.darComida(creatureName, ob)) {
 
 			}
 
