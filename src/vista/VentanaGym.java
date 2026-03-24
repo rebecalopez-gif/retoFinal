@@ -27,8 +27,13 @@ public class VentanaGym extends JDialog implements ActionListener{
 	private Creature creatureName;
 	
 	public VentanaGym(CriaturasControlador controlador, Creature criatura) {
+<<<<<<< HEAD
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
         this.cont = controlador;
+=======
+		 setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
+	     this.cont = controlador;
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
         // Pantalla completa para JDialog
         tk = Toolkit.getDefaultToolkit();
@@ -42,6 +47,11 @@ public class VentanaGym extends JDialog implements ActionListener{
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+        
+        JLabel lblCriatura = new JLabel("");
+        lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Feliz.png")));
+        lblCriatura.setBounds(625, 530, 664, 400);
+        contentPanel.add(lblCriatura);
 		
 		// Botón invisible sobre la puerta
         btnPuerta = new JButton();
@@ -53,16 +63,24 @@ public class VentanaGym extends JDialog implements ActionListener{
         contentPanel.add(btnPuerta);
 		
 		lblNewLabel = new JLabel("");
+<<<<<<< HEAD
         lblNewLabel.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Cuarto Infantil con .png")));
+=======
+        lblNewLabel.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Gym.png")));
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
         lblNewLabel.setBounds(10, 10, 1536, 1024);
         contentPanel.add(lblNewLabel);
         
+        
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPuerta) {
 			cont.irDePaseo(creatureName);
+			
+			
 		}
 		
 	}

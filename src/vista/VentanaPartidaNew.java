@@ -113,4 +113,3 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	    }
 	}
 }
-

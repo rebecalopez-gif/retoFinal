@@ -1,3 +1,4 @@
+
 package modelo;
 
 import java.sql.CallableStatement;
@@ -27,27 +28,35 @@ public class ImplementacionBD implements CriaturasDAO{
 	private String passwordBD;
 
 	// Sentencias SQL
-	/*MAYUSCULAS*/
 	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
-	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)";
+	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)"; //PREGUNTAR SI TIENE QUE SER EN MAYUSCULAS 
 
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 
 	final String SQLCONSULTA = "SELECT * FROM Object";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
+<<<<<<< HEAD
 
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
+=======
+	
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
 	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
+<<<<<<< HEAD
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE creatureName = ?";
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
 
+=======
+	
+	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 
@@ -332,6 +341,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		return ok;	
 	}
 	
+<<<<<<< HEAD
 	public Object insertarCriatura(Creature c) {
 	    boolean ok = false;
 	    this.openConnection();
@@ -359,5 +369,31 @@ public class ImplementacionBD implements CriaturasDAO{
 	    return ok;
 	}
 
+=======
+	public boolean mirarEmocion(Creature creature) {
+		boolean ok=false;
+		this.openConnection();
+
+		try {
+			stmt = con.prepareStatement(SQL_CRIATURA); 
+			stmt.setString(1, creature.getUserName());
+			stmt.setInt(2, creature.getCodC());
+			
+			ResultSet resultado = stmt.executeQuery();
+			if (resultado.next()) {
+				ok = true;
+			}
+			
+			resultado.close();
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+		
+		return ok;
+	}
+>>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 }
