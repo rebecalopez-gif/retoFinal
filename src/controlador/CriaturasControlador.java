@@ -24,7 +24,7 @@ public class CriaturasControlador {
 	        }
 	        return false;
 	    }
-	 public UserGame getUsuarioActual() {
+	 public UserGame getUsuarioActual() { //PARA GUARDARLO EN EL USUARIO QUE INICIA SESION
 	        return usuarioActual;
 	    }
 
@@ -56,12 +56,15 @@ public class CriaturasControlador {
 		return dao.irDePaseo(creatureName);
 		
 	}
+
 	public Object insertarCriatura(Creature criatura) {
 		return dao.insertarCriatura(criatura);
 		
 	}
 
+
 	public boolean mirarEmocion(Creature creature) {
 		return dao.mirarEmocion(creature);
 	}
 }
+

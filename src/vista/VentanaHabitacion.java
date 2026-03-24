@@ -53,16 +53,20 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JLabel bichito;
 	private JButton BOTONCOCINA;
 	private JButton bOTONGYM;
+	private Creature criatura;
+
 
 	/**
 	 * Crea e inicializa la ventana de la habitación del juego.
 	 * Configura los botones, el fondo, el scroll de objetos y el bichito.
+	 * 
 	 * @param ventanas el diálogo padre de esta ventana
 	 * @param controlador el controlador de criaturas para acceder a la lógica del juego
 	 * @param criatura la criatura del usuario asociada a esta habitación
 	 */
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
+		this.criatura = criatura;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 		
 		this.cont = controlador;
@@ -90,21 +94,21 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(list);
 		
 		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 128, 192), 2),"OBJECTS"));
-		
+
 		//seleccionar objetos clickando con el raton
 		list.addMouseListener(new MouseAdapter() {
-		    public void mouseClicked(MouseEvent e) {
-		        if (e.getClickCount() == 2) {
-		            Objectos seleccionado = (Objectos) list.getSelectedValue();
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					Objectos seleccionado = (Objectos) list.getSelectedValue();
 
-		            if(seleccionado != null) {
-		                JOptionPane.showMessageDialog(null, "You selected: " + seleccionado.toString());
-		                //crear acciones
-		            }
-		        }
-		    }
+					if(seleccionado != null) {
+						JOptionPane.showMessageDialog(null, "You selected: " + seleccionado.toString());
+						//crear acciones
+					}
+				}
+			}
 		});
-		
+
 		// BOTÓN GYM
 		bOTONGYM = new JButton("GYM");
 		bOTONGYM.setFont(new Font("Monospaced", Font.BOLD, 20));
@@ -112,10 +116,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		bOTONGYM.setBackground(new Color(33, 150, 243)); // azul bonito
 		bOTONGYM.setFocusPainted(false);
 		bOTONGYM.setBorder(BorderFactory.createLineBorder(new Color(25, 118, 210), 3));
-		bOTONGYM.setBounds(1293, 864, 200, 80); // más grande
+		bOTONGYM.setBounds(1349, 805, 150, 60); // más grande
 		bOTONGYM.setOpaque(true);
 		contentPanel.add(bOTONGYM);
-		
+		bOTONGYM.addActionListener(this);
+
 		// BOTÓN COCINA
 		BOTONCOCINA = new JButton("KITCHEN");
 		BOTONCOCINA.setFont(new Font("Monospaced", Font.BOLD, 20));
@@ -123,21 +128,22 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		BOTONCOCINA.setBackground(new Color(123, 31, 162)); // morado bonito
 		BOTONCOCINA.setFocusPainted(false);
 		BOTONCOCINA.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
-		BOTONCOCINA.setBounds(41, 864, 200, 80); // más grande
+		BOTONCOCINA.setBounds(31, 805, 150, 60); // más grande
 		BOTONCOCINA.setOpaque(true);
 		contentPanel.add(BOTONCOCINA);
-		
+		BOTONCOCINA.addActionListener(this);
+
 		// Scroll
 		scroll = new JScrollPane(list);
 		scroll.setBounds(73, 47, 342, 208);
 		scroll.setVisible(false);
-		
+
 		bichito = new JLabel("");
 		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource("/image/Feliz.png"));
 		bichito.setIcon(icon);
 		bichito.setBounds(399, 506, icon.getIconWidth(), icon.getIconHeight());
 		contentPanel.add(bichito);
-		
+
 		contentPanel.add(scroll);
 		
 		btnArmario = new JButton();
@@ -168,6 +174,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 *   <li>btnArmario: muestra los objetos del armario.</li>
 	 *   <li>btnCama: pregunta si se desea salir del juego y cierra la ventana.</li>
 	 * </ul>
+	 * 
 	 * @param e el evento de acción generado por los botones
 	 */
 	@Override
@@ -184,8 +191,16 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 			if(opcion==JOptionPane.YES_OPTION) {
 				this.dispose(); //para cerrar la ventana actual
 			}
-		} 
-		
+		} else if(e.getSource()==bOTONGYM) {//ir al gym
+			VentanaGym gym = new VentanaGym(this, cont,criatura);
+			gym.setVisible(true);
+			this.dispose();
+		}else if(e.getSource()==BOTONCOCINA) { //ir a la cocina
+			VentanaCocina cocina = new VentanaCocina(this, cont,criatura);
+			cocina.setVisible(true);
+			this.dispose();
+		}
+
 	}
 	
 }

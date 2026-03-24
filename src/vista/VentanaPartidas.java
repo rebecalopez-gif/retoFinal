@@ -136,8 +136,9 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 		
 		if (e.getSource()==btnCreate) {
 			this.dispose();
-			VentanaPartidaNew partidaNew = new VentanaPartidaNew(this, cont, true);
+			VentanaPartidaNew partidaNew = new VentanaPartidaNew(this, cont,true);
 			partidaNew.setVisible(true);
+			
 		}
 		
 		if (e.getSource()==btnBack) {

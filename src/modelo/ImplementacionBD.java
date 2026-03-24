@@ -36,17 +36,21 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA = "SELECT * FROM Object";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
+
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
-	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE creatureName=?"; //paera modificar
-	final String OBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
+
+	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE cod_creature=?"; //paera modificar
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
-	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE creatureName = ?";
+
+	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
+
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
+
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
@@ -277,7 +281,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		try {
 			stmt = con.prepareStatement(SQL_EXISTE_CRIATURA); 
-			stmt.setString(1, creatureName.getCreatureName());
+			stmt.setInt(1, creatureName.getCodC());
 			ResultSet resultado = stmt.executeQuery();
 			if (resultado.next()) {
 				existe = true;
@@ -317,7 +321,7 @@ public class ImplementacionBD implements CriaturasDAO{
 				stmt = con.prepareStatement(SQLMODIFICAR);
 				stmt.setDouble(1, creatureName.getExperience());
 				stmt.setInt(2, creatureName.getHunger());
-				stmt.setString(3, creatureName.getCreatureName());
+				stmt.setInt(3, creatureName.getCodC());
 				if (stmt.executeUpdate()>0) {
 					ok=true;
 				}			
@@ -356,7 +360,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	    return ok;
 	}
-	
+
 	public boolean mirarEmocion(Creature creature) {
 		boolean ok=false;
 		this.openConnection();
