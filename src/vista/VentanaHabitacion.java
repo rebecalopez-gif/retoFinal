@@ -93,15 +93,16 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		
 		//seleccionar objetos clickando con el raton
 		list.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					Objectos seleccionado = (Objectos) list.getSelectedValue();
-					if(seleccionado != null) {
-						JOptionPane.showMessageDialog(null, "You selected: " + seleccionado.toString());
-						//crear acciones
-					}
-				}
-			}
+		    public void mouseClicked(MouseEvent e) {
+		        if (e.getClickCount() == 2) {
+		            Objectos seleccionado = (Objectos) list.getSelectedValue();
+
+		            if(seleccionado != null) {
+		                JOptionPane.showMessageDialog(null, "You selected: " + seleccionado.toString());
+		                //crear acciones
+		            }
+		        }
+		    }
 		});
 		
 		// BOTÓN GYM

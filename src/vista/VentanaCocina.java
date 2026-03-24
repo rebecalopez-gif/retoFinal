@@ -36,7 +36,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaCocina.class.getResource("/image/Nevera rosa sobre pa.png")));
+		lblNewLabel.setIcon(new ImageIcon(VentanaCocina.class.getResource("/image/Cocina.png")));
 		lblNewLabel.setBounds(0, 0, 1294, 808);
 		getContentPane().add(lblNewLabel);
 

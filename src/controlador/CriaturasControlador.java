@@ -11,14 +11,26 @@ import java.util.Map;
 
 public class CriaturasControlador {
 	CriaturasDAO dao = new ImplementacionBD();
+	private UserGame usuarioActual; 
 
 	public void visualizarPantalla() {
 		VentanaPrincipal ven = new VentanaPrincipal(this);
 		ven.setVisible(true);	
 	}
-	public boolean iniciarSesion(UserGame user) {
-		return dao.iniciarSesion(user);
-	}
+	 public boolean iniciarSesion(UserGame user) {
+	        if (dao.iniciarSesion(user)) {
+	            this.usuarioActual = user;  //SE GUARDA EL USUARIO
+	            return true;
+	        }
+	        return false;
+	    }
+	 public UserGame getUsuarioActual() {
+	        return usuarioActual;
+	    }
+
+	    public String getUserNameActual() {
+	        return usuarioActual != null ? usuarioActual.getUserName() : null;
+	    }
 	public boolean introducirUser(UserGame user) {
 		return dao.introducirUser(user);
 	}
@@ -43,5 +55,13 @@ public class CriaturasControlador {
 	public boolean irDePaseo(Creature creatureName) {
 		return dao.irDePaseo(creatureName);
 		
+	}
+	public Object insertarCriatura(Creature criatura) {
+		return dao.insertarCriatura(criatura);
+		
+	}
+
+	public boolean mirarEmocion(Creature creature) {
+		return dao.mirarEmocion(creature);
 	}
 }
