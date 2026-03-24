@@ -25,57 +25,59 @@ public class VentanaGym extends JDialog implements ActionListener{
 	private Toolkit tk;
 	private JButton btnPuerta;
 	private Creature creatureName;
-	
-	public VentanaGym(CriaturasControlador controlador, Creature criatura) {
 
-		 setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
-	     this.cont = controlador;
+	public VentanaGym(JDialog ventanas, CriaturasControlador controlador, Creature criatura) {
+		super(ventanas,true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
+		this.cont = controlador;
+		this.creatureName = criatura;
 
-        // Pantalla completa para JDialog
-        tk = Toolkit.getDefaultToolkit();
-        int ancho = (int) tk.getScreenSize().getWidth();
-        int alto = (int) tk.getScreenSize().getHeight();
+		// Pantalla completa para JDialog
+		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
 
-        this.setSize(1607,978);          
-        this.setLocationRelativeTo(null);
-        
+		int ancho = tk.getScreenSize().width;
+		int alto = tk.getScreenSize().height;
+		this.setSize(1536, 1024);
+		this.setLocationRelativeTo(null);
+
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-        
-        JLabel lblCriatura = new JLabel("");
-        lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Feliz.png")));
-        lblCriatura.setBounds(625, 530, 664, 400);
-        contentPanel.add(lblCriatura);
-		
+
+		JLabel lblCriatura = new JLabel("");
+		lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Feliz.png")));
+		lblCriatura.setBounds(621, 479, 664, 400);
+		contentPanel.add(lblCriatura);
+
 		// Botón invisible sobre la puerta
-        btnPuerta = new JButton();
-        btnPuerta.setBounds(1179, 311, 240, 380); //  AJUSTA esto A la PUERTA
-        btnPuerta.setOpaque(false);
-        btnPuerta.setContentAreaFilled(false);
-        btnPuerta.setBorderPainted(false);
-        
-        contentPanel.add(btnPuerta);
-		
+		btnPuerta = new JButton();
+		btnPuerta.setBounds(1179, 311, 240, 380); //  AJUSTA esto A la PUERTA
+		btnPuerta.setOpaque(false);
+		btnPuerta.setContentAreaFilled(false);
+		btnPuerta.setBorderPainted(false);
+		btnPuerta.addActionListener(this);
+
+		contentPanel.add(btnPuerta);
+
 		lblNewLabel = new JLabel("");
 
-        lblNewLabel.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Gym.png")));
+		lblNewLabel.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Gym.png")));
 
-        lblNewLabel.setBounds(10, 10, 1536, 1024);
-        contentPanel.add(lblNewLabel);
-        
-        
+		lblNewLabel.setBounds(10, 10, 1536, 1024);
+		contentPanel.add(lblNewLabel);
+
+
 	}
-	
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPuerta) {
 			cont.irDePaseo(creatureName);
-			
-			
+
+
 		}
-		
+
 	}
 }

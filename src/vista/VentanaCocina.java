@@ -25,12 +25,13 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	private ArrayList <Food> listaComida =new ArrayList<Food>();
 	private JComboBox<Food> comboBoxComida;
 	private CriaturasControlador controlador;
+	private Creature creatureName;
 
-
-
-	public VentanaCocina( VentanaPrincipal ventanaPrincipal, CriaturasControlador cont) {
+	public VentanaCocina( JDialog ventanas,CriaturasControlador cont, Creature criatura) {
+		super(ventanas,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCocina.class.getResource("/image/Monstruito adorable .png")));
 		this.controlador=cont;
+		this.creatureName = criatura;
 		listaComida=cont.listaComida();
 		setBounds(100, 100, 1308, 825);
 		getContentPane().setLayout(null);
@@ -48,7 +49,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		btnNevera.setBorderPainted(false);
 
 		comboBoxComida = new JComboBox<Food>();
-		
+
 		btnNevera.addActionListener(this);
 
 		for(int i=0;i<listaComida.size();i++) {
@@ -67,12 +68,12 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		if(o==btnNevera) {
 			JOptionPane.showMessageDialog(this, comboBoxComida, "Elegir comida", JOptionPane.QUESTION_MESSAGE);
 			Food ob=(Food) comboBoxComida.getSelectedItem();
-			
+
 			Creature c= new Creature(1,"Razer","Alissa",0,50,50,50);
 			if(controlador.darComida(c, ob)) {
-				
+
 			}
-			
+
 
 		}
 

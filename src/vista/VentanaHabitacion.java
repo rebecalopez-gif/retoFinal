@@ -56,6 +56,8 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JLabel bichito;
 	private JButton BOTONCOCINA;
 	private JButton bOTONGYM;
+	private Creature criatura;
+
 
 	/**
 	 * Crea e inicializa la ventana de la habitación del juego.
@@ -67,6 +69,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 */
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
+		this.criatura = criatura;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 
 		this.cont = controlador;
@@ -116,9 +119,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		bOTONGYM.setBackground(new Color(33, 150, 243)); // azul bonito
 		bOTONGYM.setFocusPainted(false);
 		bOTONGYM.setBorder(BorderFactory.createLineBorder(new Color(25, 118, 210), 3));
-		bOTONGYM.setBounds(1293, 864, 200, 80); // más grande
+		bOTONGYM.setBounds(1349, 805, 150, 60); // más grande
 		bOTONGYM.setOpaque(true);
 		contentPanel.add(bOTONGYM);
+		bOTONGYM.addActionListener(this);
 
 		// BOTÓN COCINA
 		BOTONCOCINA = new JButton("KITCHEN");
@@ -127,9 +131,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		BOTONCOCINA.setBackground(new Color(123, 31, 162)); // morado bonito
 		BOTONCOCINA.setFocusPainted(false);
 		BOTONCOCINA.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
-		BOTONCOCINA.setBounds(41, 864, 200, 80); // más grande
+		BOTONCOCINA.setBounds(31, 805, 150, 60); // más grande
 		BOTONCOCINA.setOpaque(true);
 		contentPanel.add(BOTONCOCINA);
+		BOTONCOCINA.addActionListener(this);
 
 		// Scroll
 		scroll = new JScrollPane(list);
@@ -189,7 +194,15 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 			if(opcion==JOptionPane.YES_OPTION) {
 				this.dispose(); //para cerrar la ventana actual
 			}
-		} 
+		} else if(e.getSource()==bOTONGYM) {//ir al gym
+			VentanaGym gym = new VentanaGym(this, cont,criatura);
+			gym.setVisible(true);
+			this.dispose();
+		}else if(e.getSource()==BOTONCOCINA) { //ir a la cocina
+			VentanaCocina cocina = new VentanaCocina(this, cont,criatura);
+			cocina.setVisible(true);
+			this.dispose();
+		}
 
 	}
 
