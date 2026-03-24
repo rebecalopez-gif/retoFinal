@@ -17,10 +17,9 @@ public interface CriaturasDAO {
 	public ArrayList<Food> listaComida();
 	public boolean darComida(Creature criatura, Food comida);
 	public boolean irDePaseo(Creature creatureName);
-<<<<<<< HEAD
+
 	public Object insertarCriatura(Creature criatura);
-=======
+
 	public boolean mirarEmocion(Creature creature);
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
 }
