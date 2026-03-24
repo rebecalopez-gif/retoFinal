@@ -27,13 +27,8 @@ public class VentanaGym extends JDialog implements ActionListener{
 	private Creature creatureName;
 	
 	public VentanaGym(CriaturasControlador controlador, Creature criatura) {
-<<<<<<< HEAD
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
         this.cont = controlador;
-=======
-		 setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
-	     this.cont = controlador;
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
 
         // Pantalla completa para JDialog
         tk = Toolkit.getDefaultToolkit();
@@ -63,11 +58,7 @@ public class VentanaGym extends JDialog implements ActionListener{
         contentPanel.add(btnPuerta);
 		
 		lblNewLabel = new JLabel("");
-<<<<<<< HEAD
-        lblNewLabel.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Cuarto Infantil con .png")));
-=======
         lblNewLabel.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Gym.png")));
->>>>>>> branch 'main' of https://github.com/rebecalopez-gif/retoFinal
         lblNewLabel.setBounds(10, 10, 1536, 1024);
         contentPanel.add(lblNewLabel);
         
