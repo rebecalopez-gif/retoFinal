@@ -46,60 +46,49 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		listaComida=cont.listaComida();
 		setBounds(100, 100, 1308, 825);
 		getContentPane().setLayout(null);
-		
-		// BOTÓN HABIATCION
-		BOTONROOM = new JButton("ROOM");
-		BOTONROOM.setFont(new Font("Monospaced", Font.BOLD, 20));
-		BOTONROOM.setForeground(Color.WHITE);
-		BOTONROOM.setBackground(new Color(33, 150, 243)); // azul bonito
-		BOTONROOM.setFocusPainted(false);
-		BOTONROOM.setBorder(BorderFactory.createLineBorder(new Color(25, 118, 210), 3));
-		BOTONROOM.setBounds(1349, 805, 150, 60); // más grande
-		BOTONROOM.setOpaque(true);
-		contentPanel.add(BOTONROOM);
-		BOTONROOM.addActionListener(this);
 
-		// BOTÓN gym
-		BOTONGYM = new JButton("GYM");
-		BOTONGYM.setFont(new Font("Monospaced", Font.BOLD, 20));
-		BOTONGYM.setForeground(Color.WHITE);
-		BOTONGYM.setBackground(new Color(123, 31, 162)); // morado bonito
-		BOTONGYM.setFocusPainted(false);
-		BOTONGYM.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
-		BOTONGYM.setBounds(31, 805, 150, 60); // más grande
-		BOTONGYM.setOpaque(true);
-		contentPanel.add(BOTONGYM);
-		BOTONGYM.addActionListener(this);
-		
-		botonroom = new JButton("ROOM");
-		botonroom.setBounds(1170, 723, 84, 20);
-		getContentPane().add(botonroom);
-		
+		// PANEL PRINCIPAL
+		contentPanel.setLayout(null);
+		contentPanel.setBounds(0, 0, 1308, 825);
+		getContentPane().add(contentPanel);
+
+		// BOTÓN HABITACIÓN
+		botonroom = new JButton("BEDROOM");
+		botonroom.setFont(new Font("Monospaced", Font.BOLD, 20));
+		botonroom.setForeground(Color.WHITE);
+		botonroom.setBackground(new Color(123, 31, 162));
+		botonroom.setBounds(1100, 700, 150, 60);
+		contentPanel.add(botonroom);
+		botonroom.addActionListener(this);
+
+		// BOTÓN GYM
 		BOTONGIM = new JButton("GYM");
-		BOTONGIM.setBounds(37, 700, 84, 20);
-		getContentPane().add(BOTONGIM);
+		BOTONGIM.setFont(new Font("Monospaced", Font.BOLD, 20));
+		BOTONGIM.setForeground(Color.WHITE);
+		BOTONGIM.setBackground(new Color(33, 150, 243));
+		BOTONGIM.setBounds(31, 700, 150, 60);
+		contentPanel.add(BOTONGIM);
+		BOTONGIM.addActionListener(this);
 
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaCocina.class.getResource("/image/Cocina.png")));
-		lblNewLabel.setBounds(0, 0, 1294, 808);
-		getContentPane().add(lblNewLabel);
-
-		btnNevera = new JButton("New button");
+		// NEVERA
+		btnNevera = new JButton();
 		btnNevera.setBounds(47, 145, 396, 515);
-		getContentPane().add(btnNevera);
 		btnNevera.setOpaque(false);
 		btnNevera.setContentAreaFilled(false);
 		btnNevera.setBorderPainted(false);
-
-		comboBoxComida = new JComboBox<Food>();
-
+		contentPanel.add(btnNevera);
 		btnNevera.addActionListener(this);
 
-		for(int i=0;i<listaComida.size();i++) {
-			comboBoxComida.addItem(listaComida.get(i));
-		}
+		// COMBOBOX COMIDA
+		comboBoxComida = new JComboBox<Food>();
+		for (Food f : listaComida) comboBoxComida.addItem(f);
+		//comboBoxComida.setSelectedIndex(-1);
 
-		comboBoxComida.setSelectedIndex(-1);
+		// FONDO (AL FINAL, PARA QUE QUEDE DETRÁS)
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaCocina.class.getResource("/image/Cocina.png")));
+		lblNewLabel.setBounds(0, 0, 1294, 808);
+		contentPanel.add(lblNewLabel);
 
 	}
 
@@ -118,14 +107,16 @@ public class VentanaCocina extends JDialog implements ActionListener{
 			}
 
 
-		}else if(e.getSource()==BOTONGYM) {//ir al gym
+		}else if(e.getSource()==BOTONGIM) {//ir al gym
+			this.dispose();
 			VentanaGym gym = new VentanaGym(this, controlador,creatureName);
 			gym.setVisible(true);
+			
+		}else if(e.getSource()==botonroom) { //ir a la HABITACION
 			this.dispose();
-		}else if(e.getSource()==BOTONROOM) { //ir a la HABITACION
 			VentanaHabitacion habitacion = new VentanaHabitacion(this, controlador,creatureName);
 			habitacion.setVisible(true);
-			this.dispose();
+			
 		}
 
 	}
