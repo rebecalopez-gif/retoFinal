@@ -4,6 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+
 public class Creature {
 
 	//ATRIBUTOS
@@ -124,10 +125,6 @@ public class Creature {
         }
     }
 
-	//toString
-	@Override
-	public String toString() {
-		return getCreatureName();
-	}
+	
 	
 }

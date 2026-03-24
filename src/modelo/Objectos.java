@@ -1,6 +1,8 @@
 package modelo;
 
-public class Objectos {
+import interfaces.NamedObject;
+
+public class Objectos implements NamedObject{
 	protected int cod_object;
 	protected String objectName;
  
@@ -36,6 +38,10 @@ public class Objectos {
 	@Override
 	public String toString() {
 		return cod_object+" - " + objectName ; 
+	}
+	@Override
+	public String getName() {
+		return objectName;
 	}
 	
 	
