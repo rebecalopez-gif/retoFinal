@@ -23,8 +23,7 @@ public class Food extends Objectos{
 
 	@Override
 	public String toString() {
-		return "Food [hunger_effect=" + hunger_effect + ", getCod_object()=" + getCod_object() + ", getObjectName()="
-				+ getObjectName() + "]";
+		return getCod_object()+" "+getObjectName()+ " - Effect: "+hunger_effect;
 	}
 	
 	
