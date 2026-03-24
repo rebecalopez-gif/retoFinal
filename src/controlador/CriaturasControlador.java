@@ -24,7 +24,7 @@ public class CriaturasControlador {
 	        }
 	        return false;
 	    }
-	 public UserGame getUsuarioActual() {
+	 public UserGame getUsuarioActual() { //PARA GUARDARLO EN EL USUARIO QUE INICIA SESION
 	        return usuarioActual;
 	    }
 
