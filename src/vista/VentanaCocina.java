@@ -101,8 +101,8 @@ public class VentanaCocina extends JDialog implements ActionListener{
 			JOptionPane.showMessageDialog(this, comboBoxComida, "Elegir comida", JOptionPane.QUESTION_MESSAGE);
 			Food ob=(Food) comboBoxComida.getSelectedItem();
 
-			Creature c= new Creature(1,"Razer","Alissa",0,50,50,50);
-			if(controlador.darComida(c, ob)) {
+
+			if(controlador.darComida(creatureName, ob)) {
 
 			}
 
@@ -111,12 +111,12 @@ public class VentanaCocina extends JDialog implements ActionListener{
 			this.dispose();
 			VentanaGym gym = new VentanaGym(this, controlador,creatureName);
 			gym.setVisible(true);
-			
+
 		}else if(e.getSource()==botonroom) { //ir a la HABITACION
 			this.dispose();
 			VentanaHabitacion habitacion = new VentanaHabitacion(this, controlador,creatureName);
 			habitacion.setVisible(true);
-			
+
 		}
 
 	}
