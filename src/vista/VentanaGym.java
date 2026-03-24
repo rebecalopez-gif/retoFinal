@@ -15,6 +15,9 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import java.awt.Font;
 
 public class VentanaGym extends JDialog implements ActionListener{
 
@@ -23,14 +26,14 @@ public class VentanaGym extends JDialog implements ActionListener{
 	private CriaturasControlador cont;
 	private JLabel lblNewLabel;
 	private Toolkit tk;
-	private JButton btnPuerta;
-	private Creature creatureName;
+	private JButton btnPuerta, bOTONCOCINA, btnHabitacion;
+	private Creature criatura;
 
 	public VentanaGym(JDialog ventanas, CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
 		this.cont = controlador;
-		this.creatureName = criatura;
+		this.criatura = criatura;
 
 		// Pantalla completa para JDialog
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
@@ -44,6 +47,28 @@ public class VentanaGym extends JDialog implements ActionListener{
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		bOTONCOCINA = new JButton("KITCHEN");
+		bOTONCOCINA.setOpaque(true);
+		bOTONCOCINA.setForeground(Color.WHITE);
+		bOTONCOCINA.setFont(new Font("Monospaced", Font.BOLD, 20));
+		bOTONCOCINA.setFocusPainted(false);
+		bOTONCOCINA.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
+		bOTONCOCINA.setBackground(new Color(123, 31, 162));
+		bOTONCOCINA.setBounds(1349, 805, 150, 60);
+		contentPanel.add(bOTONCOCINA);
+		bOTONCOCINA.addActionListener(this);
+		
+		btnHabitacion = new JButton("BEDROOM");
+		btnHabitacion.setFont(new Font("Monospaced", Font.BOLD, 20));
+		btnHabitacion.setForeground(Color.WHITE);
+		btnHabitacion.setBackground(new Color(123, 31, 162)); // morado bonito
+		btnHabitacion.setFocusPainted(false);
+		btnHabitacion.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
+		btnHabitacion.setBounds(31, 805, 150, 60); // más grande
+		btnHabitacion.setOpaque(true);
+		contentPanel.add(btnHabitacion);
+		btnHabitacion.addActionListener(this);
 
 		JLabel lblCriatura = new JLabel("");
 		lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Feliz.png")));
@@ -74,10 +99,20 @@ public class VentanaGym extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPuerta) {
-			cont.irDePaseo(creatureName);
-
+			cont.irDePaseo(criatura);
 
 		}
+		
+		if (e.getSource() == bOTONCOCINA) {
+			this.dispose();
+			VentanaCocina cocina = new VentanaCocina(this, cont, criatura);
+			cocina.setVisible(true);
+		}
 
+		if (e.getSource() == btnHabitacion) {
+			this.dispose();
+			VentanaHabitacion habitacion = new VentanaHabitacion(this, cont, criatura);
+			habitacion.setVisible(true);
+		}
 	}
 }
