@@ -37,6 +37,7 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 	private JComboBox<Creature> comboBox;
 	private UserGame user;
 	private JButton btnPlay, btnCreate, btnDelete;
+	private JButton btnBack;
 
 	public VentanaPartidas(JFrame parent, CriaturasControlador controlador, UserGame user) {
 		super(parent,true);
@@ -57,6 +58,14 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		btnBack = new JButton("Back");
+		btnBack.setForeground(new Color(0, 128, 192));
+		btnBack.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
+		btnBack.setBackground(new Color(196, 236, 255));
+		btnBack.setBounds(669, 661, 187, 55);
+		contentPanel.add(btnBack);
+		btnBack.addActionListener(this);
 		
 		lblGames = new JLabel("GAMES");
 		lblGames.setForeground(new Color(0, 128, 192));
@@ -132,5 +141,10 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 			
 		}
 		
+		if (e.getSource()==btnBack) {
+			this.dispose();
+			VentanaPrincipal principal = new VentanaPrincipal(cont);
+			principal.setVisible(true);
+		}
 	}
 }
