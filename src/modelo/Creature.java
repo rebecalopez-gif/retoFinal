@@ -93,6 +93,11 @@ public class Creature {
 		this.happiness = happiness;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return creatureName ;
+	}
 	public String getEmotion() { //ME DEVUELVE LA EMOCION SEGUN LOS VALORES 
 		 if (happiness > 80) {
 	            return "MuyFeliz";
