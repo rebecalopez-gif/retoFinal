@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,11 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-
 import controlador.CriaturasControlador;
 import modelo.Creature;
 import modelo.Objetos;
-
 import javax.swing.JList;
 
 /**
@@ -108,7 +105,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 						switch(nombre) {
 						case "birthdayHat": {
 							// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
-					        accesoriolabel.setBounds(524, 438, 200, 200);
+							accesoriolabel.setBounds(524, 438, 200, 200);
 							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 							//para escalar la imagen
 							Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
@@ -116,11 +113,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 							break;
 						}
 						case "Sunglasses": {
-					        ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-					        Image img = icono.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-					     // POSICIÓN MÁS ABAJO PARA LAS GAFAS
-					        accesoriolabel.setBounds(500, 400, 250, icono.getIconHeight());
-					        accesoriolabel.setIcon(new ImageIcon(img));
+							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+							Image img = icono.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+							// POSICIÓN MÁS ABAJO PARA LAS GAFAS
+							accesoriolabel.setBounds(500, 400, 250, icono.getIconHeight());
+							accesoriolabel.setIcon(new ImageIcon(img));
 							break;
 						}
 						default:
