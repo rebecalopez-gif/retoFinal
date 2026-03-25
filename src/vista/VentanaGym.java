@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -99,7 +100,11 @@ public class VentanaGym extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPuerta) {
-			cont.irDePaseo(criatura);
+			if(cont.irDePaseo(criatura)) {
+				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA HA GANADO","RESULTADO DEL PASEO",JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA TIENE DEMASIADA HAMBRE O ESTA DEMASIADO CANSADA COMO PARA SALIR","NO SE HA DADO EL PASEO",JOptionPane.INFORMATION_MESSAGE);
+			}
 
 		}
 		
