@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,6 +55,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JButton BOTONCOCINA;
 	private JButton bOTONGYM;
 	private Creature criatura;
+	private JLabel accesoriolabel;
 
 
 	/**
@@ -68,22 +70,22 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		super(ventanas,true);
 		this.criatura = criatura;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
-		
+
 		this.cont = controlador;
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
-		
+
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
 		this.setSize(1536, 1024);
 		this.setLocationRelativeTo(null);
-		
+
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		list = new JList();
-		
+
 		list.setFont(new Font("Monospaced", Font.BOLD, 14));
 		list.setBackground(new Color(173, 216, 230));
 		list.setForeground(new Color(0, 64, 128));
@@ -92,18 +94,39 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		list.setBounds(73, 47, 342, 208);
 		list.setVisible(false); //que no sea visible de primeras
 		contentPanel.add(list);
-		
+
 		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 128, 192), 2),"OBJECTS"));
 
 		//seleccionar objetos clickando con el raton
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
+				if (e.getClickCount() == 2) { //clickar dos veces
 					Objetos seleccionado = (Objetos) list.getSelectedValue();
 
 					if(seleccionado != null) {
-						JOptionPane.showMessageDialog(null, "You selected: " + seleccionado.toString());
-						//crear acciones
+						String nombre = seleccionado.getObjectName(); 
+						switch(nombre) {
+						case "birthdayHat": {
+							// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
+					        accesoriolabel.setBounds(524, 438, 200, 200);
+							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+							//para escalar la imagen
+							Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+							accesoriolabel.setIcon(new ImageIcon(img));
+							break;
+						}
+						case "Sunglasses": {
+					        ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+					        Image img = icono.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+					     // POSICIÓN MÁS ABAJO PARA LAS GAFAS
+					        accesoriolabel.setBounds(500, 400, 250, icono.getIconHeight());
+					        accesoriolabel.setIcon(new ImageIcon(img));
+							break;
+						}
+						default:
+							accesoriolabel.setIcon(null);
+							break;
+						}
 					}
 				}
 			}
@@ -133,6 +156,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(BOTONCOCINA);
 		BOTONCOCINA.addActionListener(this);
 
+		accesoriolabel = new JLabel("");
+		accesoriolabel.setBounds(524, 438, 200, 200);
+		contentPanel.add(accesoriolabel);
+
 		// Scroll
 		scroll = new JScrollPane(list);
 		scroll.setBounds(73, 47, 342, 208);
@@ -145,7 +172,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(bichito);
 
 		contentPanel.add(scroll);
-		
+
 		btnArmario = new JButton();
 		btnArmario.setBounds(84, 285, 342, 427); // posición y tamaño del armario
 		btnArmario.setOpaque(false);
@@ -153,7 +180,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		btnArmario.setBorderPainted(false);
 		btnArmario.addActionListener(this);
 		contentPanel.add(btnArmario);
-		
+
 		btnCama = new JButton();
 		btnCama.setBounds(1058, 481, 400, 306); // AJUSTA ESTO A TU CAMA
 		btnCama.setOpaque(false);
@@ -161,7 +188,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		btnCama.setBorderPainted(false);
 		btnCama.addActionListener(this);
 		contentPanel.add(btnCama);
-		
+
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
 		lblNewLabel.setBounds(0, 0, ancho, alto);
@@ -183,9 +210,9 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 			List<Objetos> objetos = cont.verObjectos();
 			list.setListData(objetos.toArray()); //rellenar la lista
 			list.setVisible(true); //hacer visible la lista
-			
+
 			scroll.setVisible(true); //hacer visible el scroll
-			
+
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Are you sure you want to leave the game?","Log out...",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
 			if(opcion==JOptionPane.YES_OPTION) {
@@ -195,14 +222,13 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 			this.dispose();
 			VentanaGym gym = new VentanaGym(this, cont,criatura);
 			gym.setVisible(true);
-			
+
 		}else if(e.getSource()==BOTONCOCINA) { //ir a la cocina
 			this.dispose();
 			VentanaCocina cocina = new VentanaCocina(this, cont,criatura);
 			cocina.setVisible(true);
-			
+
 		}
 
 	}
-	
 }

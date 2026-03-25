@@ -54,8 +54,8 @@ public class VentanaGym extends JDialog implements ActionListener{
 		bOTONCOCINA.setForeground(Color.WHITE);
 		bOTONCOCINA.setFont(new Font("Monospaced", Font.BOLD, 20));
 		bOTONCOCINA.setFocusPainted(false);
-		bOTONCOCINA.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
-		bOTONCOCINA.setBackground(new Color(123, 31, 162));
+		bOTONCOCINA.setBorder(BorderFactory.createLineBorder(new Color(25, 118, 210), 3));
+		bOTONCOCINA.setBackground(new Color(33, 150, 243));
 		bOTONCOCINA.setBounds(1349, 805, 150, 60);
 		contentPanel.add(bOTONCOCINA);
 		bOTONCOCINA.addActionListener(this);
@@ -83,13 +83,10 @@ public class VentanaGym extends JDialog implements ActionListener{
 		btnPuerta.setContentAreaFilled(false);
 		btnPuerta.setBorderPainted(false);
 		btnPuerta.addActionListener(this);
-
 		contentPanel.add(btnPuerta);
 
 		lblNewLabel = new JLabel("");
-
 		lblNewLabel.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Gym.png")));
-
 		lblNewLabel.setBounds(10, 10, 1536, 1024);
 		contentPanel.add(lblNewLabel);
 

@@ -30,25 +30,16 @@ public class ImplementacionBD implements CriaturasDAO{
 	// Sentencias SQL
 	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
 	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)"; //PREGUNTAR SI TIENE QUE SER EN MAYUSCULAS 
-
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
-
 	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
-
-	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
-	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
-	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
-	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
-
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //paera modificar
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
-
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
-
+	final String SQLEQUIPAR ="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HAPPINESS=(C.HAPPINESS+?) WHERE O.COD_OBJECT=E.COD_OBJECT AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
@@ -274,6 +265,28 @@ public class ImplementacionBD implements CriaturasDAO{
 		return ok;
 	}
 
+	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
+		boolean ok=false;
+		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQLEQUIPAR); 
+			stmt.setInt(1, accesorio.getHapiness_effect());
+			stmt.setInt(2, criatura.getCodC());
+			if (stmt.executeUpdate()>0) {
+				ok=true;
+
+			}	
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return ok;
+	}
+	
 	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre
 		// Abrimos la conexion
 		boolean existe=false;
@@ -317,9 +330,6 @@ public class ImplementacionBD implements CriaturasDAO{
 			} else {
 				expGanada=0;
 			}
-
-		
-
 
 			// meter los nuevos datos
 			creatureName.setExperience(creatureName.getExperience() + expGanada);
