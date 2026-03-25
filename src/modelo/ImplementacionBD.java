@@ -311,16 +311,16 @@ public class ImplementacionBD implements CriaturasDAO{
 	}
 
 	@Override
-	public boolean irDePaseo(Creature creatureName) {
+	public boolean irDePaseo(Creature creature) {
 		boolean ok=false;
-		if (comprobarCriatura(creatureName))
+		if (comprobarCriatura(creature))
 		{
 			//Generar experiencia aleatoria
 			int expGanada=0;
 
 			// Baja el hambre
-			int hambreNueva=creatureName.getHunger()-(int)(Math.random() * 30);
-			int energiaNueva=creatureName.getEnergy()-(int)(Math.random() * 30);
+			int hambreNueva=creature.getHunger()-(int)(Math.random() * 30);
+			int energiaNueva=creature.getEnergy()-(int)(Math.random() * 30);
 			if (hambreNueva<0) {
 				hambreNueva=0;
 			}
@@ -332,17 +332,17 @@ public class ImplementacionBD implements CriaturasDAO{
 			}
 
 			// meter los nuevos datos
-			creatureName.setExperience(creatureName.getExperience() + expGanada);
-			creatureName.setHunger(hambreNueva);
-			creatureName.setEnergy(energiaNueva);
+			creature.setExperience(creature.getExperience() + expGanada);
+			creature.setHunger(hambreNueva);
+			creature.setEnergy(energiaNueva);
 			this.openConnection();
 			try {
 				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
 				stmt = con.prepareStatement(SQLMODIFICAR);
-				stmt.setDouble(1, creatureName.getExperience());
-				stmt.setInt(2, creatureName.getHunger());
-				stmt.setInt(3, creatureName.getEnergy());
-				stmt.setInt(4, creatureName.getCodC());
+				stmt.setDouble(1, creature.getExperience());
+				stmt.setInt(2, creature.getHunger());
+				stmt.setInt(3, creature.getEnergy());
+				stmt.setInt(4, creature.getCodC());
 				if (stmt.executeUpdate()>0) {
 					ok=true;
 				}			

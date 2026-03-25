@@ -25,7 +25,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private CriaturasControlador cont;
-	private JLabel lblNewLabel;
+	private JLabel lblNewLabel, lblCriatura;
 	private Toolkit tk;
 	private JButton btnPuerta, bOTONCOCINA, btnHabitacion;
 	private Creature criatura;
@@ -71,8 +71,8 @@ public class VentanaGym extends JDialog implements ActionListener{
 		contentPanel.add(btnHabitacion);
 		btnHabitacion.addActionListener(this);
 
-		JLabel lblCriatura = new JLabel("");
-		lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource("/image/Feliz.png")));
+		lblCriatura = new JLabel("");
+		lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
 		lblCriatura.setBounds(621, 479, 664, 400);
 		contentPanel.add(lblCriatura);
 
@@ -99,6 +99,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 		if (e.getSource() == btnPuerta) {
 			if(cont.irDePaseo(criatura)) {
 				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA HA GANADO","RESULTADO DEL PASEO",JOptionPane.INFORMATION_MESSAGE);
+				lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
 			} else {
 				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA TIENE DEMASIADA HAMBRE O ESTA DEMASIADO CANSADA COMO PARA SALIR","NO SE HA DADO EL PASEO",JOptionPane.INFORMATION_MESSAGE);
 			}

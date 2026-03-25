@@ -166,7 +166,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		scroll.setVisible(false);
 
 		bichito = new JLabel("");
-		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource("/image/Feliz.png"));
+		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));
 		bichito.setIcon(icon);
 		bichito.setBounds(399, 506, icon.getIconWidth(), icon.getIconHeight());
 		contentPanel.add(bichito);
