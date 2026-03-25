@@ -2,6 +2,8 @@ package interfaces;
 
 import java.awt.Image;
 
+import modelo.Creature;
+
 public interface Estados {
-	 Image getImagen(String emocion); //depende que emocion, sale una foto diferente
+	 String setImage(Creature criatura); //depende que emocion, sale una foto diferente
 }
