@@ -33,7 +33,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 
-	final String SQLCONSULTA = "SELECT * FROM Object";
+	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
 
@@ -42,7 +42,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
 
-	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=? WHERE cod_creature=?"; //paera modificar
+	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //paera modificar
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 
@@ -306,7 +306,8 @@ public class ImplementacionBD implements CriaturasDAO{
 			int expGanada=0;
 
 			// Baja el hambre
-			int hambreNueva=creatureName.getHunger()-20;
+			int hambreNueva=creatureName.getHunger()-(int)(Math.random() * 30);
+			int energiaNueva=creatureName.getEnergy()-(int)(Math.random() * 30);
 			if (hambreNueva<0) {
 				hambreNueva=0;
 			}
@@ -323,14 +324,15 @@ public class ImplementacionBD implements CriaturasDAO{
 			// meter los nuevos datos
 			creatureName.setExperience(creatureName.getExperience() + expGanada);
 			creatureName.setHunger(hambreNueva);
-
+			creatureName.setEnergy(energiaNueva);
 			this.openConnection();
 			try {
 				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
 				stmt = con.prepareStatement(SQLMODIFICAR);
 				stmt.setDouble(1, creatureName.getExperience());
 				stmt.setInt(2, creatureName.getHunger());
-				stmt.setInt(3, creatureName.getCodC());
+				stmt.setInt(3, creatureName.getEnergy());
+				stmt.setInt(4, creatureName.getCodC());
 				if (stmt.executeUpdate()>0) {
 					ok=true;
 				}			
