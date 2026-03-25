@@ -366,7 +366,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setInt(3, c.getExperience());
 			stmt.setInt(4, c.getEnergy());
 			stmt.setInt(5, c.getHunger());
-			stmt.setInt(6, c.getHasppiness());
+			stmt.setInt(6, c.getHappiness());
 
 			if (stmt.executeUpdate() > 0) {
 				ok = true;
