@@ -24,7 +24,7 @@ import javax.swing.border.TitledBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
-import modelo.Objectos;
+import modelo.Objetos;
 
 import javax.swing.JList;
 
@@ -99,7 +99,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					Objectos seleccionado = (Objectos) list.getSelectedValue();
+					Objetos seleccionado = (Objetos) list.getSelectedValue();
 
 					if(seleccionado != null) {
 						JOptionPane.showMessageDialog(null, "You selected: " + seleccionado.toString());
@@ -180,7 +180,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
-			List<Objectos> objetos = cont.verObjectos();
+			List<Objetos> objetos = cont.verObjectos();
 			list.setListData(objetos.toArray()); //rellenar la lista
 			list.setVisible(true); //hacer visible la lista
 			

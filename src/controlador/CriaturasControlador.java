@@ -43,7 +43,7 @@ public class CriaturasControlador {
 	public boolean eliminarPartida(Creature creature) {
 		return dao.eliminarPartida(creature);
 	}
-	public List<Objectos> verObjectos() {
+	public List<Objetos> verObjectos() {
 		return dao.verObjectos();
 	}
 	public ArrayList<Food> listaComida(){

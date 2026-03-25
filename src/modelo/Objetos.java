@@ -2,20 +2,20 @@ package modelo;
 
 import interfaces.NamedObject;
 
-public class Objectos implements NamedObject{
+public class Objetos implements NamedObject{
 	protected int cod_object;
 	protected String objectName;
  
-	public Objectos() {
+	public Objetos() {
 		this.cod_object=0;
 		this.objectName="";
 	}
-	public Objectos(int cod_object,String objectName) {
+	public Objetos(int cod_object,String objectName) {
 		this.cod_object=cod_object;
 		this.objectName=objectName;
 	}
 	
-	public Objectos(String objectName) {
+	public Objetos(String objectName) {
 		this.objectName=objectName;
 	}
 

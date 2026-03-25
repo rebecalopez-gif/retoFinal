@@ -202,8 +202,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	}
 
 
-	public List<Objectos> verObjectos() {
-		List<Objectos> objetos= new ArrayList<>();
+	public List<Objetos> verObjectos() {
+		List<Objetos> objetos= new ArrayList<>();
 
 		this.openConnection();
 		try {
@@ -211,7 +211,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt = con.prepareStatement(SQLCONSULTA);
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				Objectos objeto=new Objectos(resultado.getInt("cod_object"),resultado.getString("objectName"));
+				Objetos objeto=new Objetos(resultado.getInt("cod_object"),resultado.getString("objectName"));
 				objetos.add(objeto);
 			}
 			resultado.close();

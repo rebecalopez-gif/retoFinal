@@ -1,6 +1,6 @@
 package modelo;
 
-public class Food extends Objectos{
+public class Food extends Objetos{
 	private int hunger_effect;
 	
 	public Food() {
