@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
@@ -44,20 +46,26 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		this.controlador=cont;
 		this.creatureName = criatura;
 		listaComida=cont.listaComida();
-		setBounds(100, 100, 1308, 825);
-		getContentPane().setLayout(null);
 
 		// PANEL PRINCIPAL
+		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
+		
+		int ancho = tk.getScreenSize().width;
+		int alto = tk.getScreenSize().height;
+		this.setSize(1536, 1024);
+		this.setLocationRelativeTo(null);
+		
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		contentPanel.setBounds(0, 0, 1308, 825);
-		getContentPane().add(contentPanel);
 
 		// BOTÓN HABITACIÓN
 		botonroom = new JButton("BEDROOM");
 		botonroom.setFont(new Font("Monospaced", Font.BOLD, 20));
 		botonroom.setForeground(Color.WHITE);
 		botonroom.setBackground(new Color(123, 31, 162));
-		botonroom.setBounds(1100, 700, 150, 60);
+		botonroom.setBounds(1349, 805, 150, 60);
 		contentPanel.add(botonroom);
 		botonroom.addActionListener(this);
 
@@ -66,7 +74,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		BOTONGIM.setFont(new Font("Monospaced", Font.BOLD, 20));
 		BOTONGIM.setForeground(Color.WHITE);
 		BOTONGIM.setBackground(new Color(33, 150, 243));
-		BOTONGIM.setBounds(31, 700, 150, 60);
+		BOTONGIM.setBounds(31, 805, 150, 60);
 		contentPanel.add(BOTONGIM);
 		BOTONGIM.addActionListener(this);
 
@@ -87,7 +95,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		// FONDO (AL FINAL, PARA QUE QUEDE DETRÁS)
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(VentanaCocina.class.getResource("/image/Cocina.png")));
-		lblNewLabel.setBounds(0, 0, 1294, 808);
+		lblNewLabel.setBounds(0, 0, ancho, alto);
 		contentPanel.add(lblNewLabel);
 
 	}
