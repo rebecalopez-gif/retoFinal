@@ -103,8 +103,8 @@ public class VentanaCocina extends JDialog implements ActionListener{
 
 
 			if(controlador.darComida(creatureName, ob)) {
-
-			}
+				
+			} 
 
 
 		}else if(e.getSource()==BOTONGIM) {//ir al gym

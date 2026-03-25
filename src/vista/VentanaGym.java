@@ -101,9 +101,9 @@ public class VentanaGym extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPuerta) {
 			if(cont.irDePaseo(criatura)) {
-				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA HA GANADO","RESULTADO DEL PASEO",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String)"YOUR PET HAS GAINED","WALK OUT RESULT",JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA TIENE DEMASIADA HAMBRE O ESTA DEMASIADO CANSADA COMO PARA SALIR","NO SE HA DADO EL PASEO",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String)"YOUR PET IS TO HUNGRY OR TO TIRED TO GO OUTSIDE!","WALKING OUT CANCELLED",JOptionPane.INFORMATION_MESSAGE);
 			}
 
 		}

@@ -35,7 +35,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
-	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
+	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+(?)), C.ENERGY=(C.ENERGY+(?)), C.HAPPINESS=(C.HAPPINESS+(?)) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
 
 	//final String SQLCONSULTA_Vendido= "SELECT * FROM vendido WHERE dni=?";
 	//final String SQLBORRAR = "DELETE FROM usuario WHERE nombre=?";
@@ -238,7 +238,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			ResultSet rs=stmt.executeQuery();
 
 			while (rs.next()) {
-				Food o =new Food( rs.getString("objectName"),rs.getInt("HungerEffect"));
+				Food o =new Food( rs.getString("objectName"),rs.getInt("HungerEffect"),rs.getInt("energy_effect"),rs.getInt("happiness_effect"));
 				listaComida.add(o);
 			}	
 
@@ -259,7 +259,9 @@ public class ImplementacionBD implements CriaturasDAO{
 		try {
 			stmt = con.prepareStatement(SQLDARCOMIDA); 
 			stmt.setInt(1, comida.getHunger_effect());
-			stmt.setInt(2, criatura.getCodC());
+			stmt.setInt(2, comida.getEnergy_effect());
+			stmt.setInt(3, comida.getHappiness_effect());
+			stmt.setInt(4, criatura.getCodC());
 			if (stmt.executeUpdate()>0) {
 				ok=true;
 
