@@ -96,7 +96,7 @@ public class Creature {
 	
 	@Override
 	public String toString() {
-		return creatureName;
+		return creatureName ;
 	}
 	public String getEmotion() { //ME DEVUELVE LA EMOCION SEGUN LOS VALORES 
 		 if (happiness > 80) {
