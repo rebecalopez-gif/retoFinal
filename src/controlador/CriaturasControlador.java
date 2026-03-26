@@ -56,15 +56,15 @@ public class CriaturasControlador {
 		return dao.irDePaseo(creatureName);
 		
 	}
-
 	public Object insertarCriatura(Creature criatura) {
 		return dao.insertarCriatura(criatura);
 		
 	}
-
-
 	public boolean mirarEmocion(Creature creature) {
 		return dao.mirarEmocion(creature);
+	}
+	public boolean descansar(Creature criatura) {
+		return dao.descansar(criatura);
 	}
 }
 
