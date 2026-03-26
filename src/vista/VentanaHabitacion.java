@@ -216,7 +216,9 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Are you sure you want to leave the game?","Log out...",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
 			if(opcion==JOptionPane.YES_OPTION) {
-				this.dispose(); //para cerrar la ventana actual
+				cont.descansar(criatura);
+				this.dispose(); // para cerrar la ventana actual
+				System.exit(0); // Termina la ejecucion del programa
 			}
 		} else if(e.getSource()==bOTONGYM) {//ir al gym
 			this.dispose();

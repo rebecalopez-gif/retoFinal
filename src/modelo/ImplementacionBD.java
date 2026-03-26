@@ -41,6 +41,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
 	final String SQLEQUIPAR ="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HAPPINESS=(C.HAPPINESS+?) WHERE O.COD_OBJECT=E.COD_OBJECT AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
+	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 
@@ -217,7 +218,6 @@ public class ImplementacionBD implements CriaturasDAO{
 	}
 
 	public ArrayList <Food> listaComida() {
-		// TODO Auto-generated method stub
 		ArrayList <Food> listaComida  = new ArrayList <Food>();
 
 
@@ -404,6 +404,28 @@ public class ImplementacionBD implements CriaturasDAO{
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
 		}
 
+		return ok;
+	}
+	
+	public boolean descansar(Creature criatura) {
+		boolean ok=false;
+		this.openConnection();
+		
+		try {
+			stmt = con.prepareStatement(SQL_DESCANSAR);
+			stmt.setInt(1, criatura.getCodC());
+
+			if (stmt.executeUpdate() > 0) {
+				ok = true;
+			}
+			
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+		
 		return ok;
 	}
 
