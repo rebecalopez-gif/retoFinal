@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	private final JPanel contentPanel = new JPanel();
 	private JButton botonroom;
 	private JButton BOTONGIM;
-	private JLabel lblNewLabel, bichito;
+	private JLabel lblNewLabel, bichito, accesoriolabel;
 
 
 	public VentanaCocina( JDialog ventanas,CriaturasControlador cont, Creature criatura) {
@@ -59,6 +60,15 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		//ACCESORIO
+		accesoriolabel = new JLabel("");
+		accesoriolabel.setBounds(825, 438, 200, 200);
+		ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+		//para escalar la imagen
+		Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+		accesoriolabel.setIcon(new ImageIcon(img));
+		contentPanel.add(accesoriolabel);
 		
 		//CRIATURA
 		bichito = new JLabel("");
