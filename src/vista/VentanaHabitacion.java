@@ -68,12 +68,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 */
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
-		this.criatura = criatura;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
-
 		this.cont = controlador;
+		this.criatura = criatura;
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
-
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
 		this.setSize(1536, 1024);
@@ -106,26 +105,26 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 					if(seleccionado != null) {
 						String nombre = seleccionado.getObjectName(); 
 						switch(nombre) {
-						case "birthdayHat": {
-							// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
-					        accesoriolabel.setBounds(524, 438, 200, 200);
-							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-							//para escalar la imagen
-							Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
-							accesoriolabel.setIcon(new ImageIcon(img));
-							break;
-						}
-						case "Sunglasses": {
-					        ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-					        Image img = icono.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-					     // POSICIÓN MÁS ABAJO PARA LAS GAFAS
-					        accesoriolabel.setBounds(500, 400, 250, icono.getIconHeight());
-					        accesoriolabel.setIcon(new ImageIcon(img));
-							break;
-						}
-						default:
-							accesoriolabel.setIcon(null);
-							break;
+							case "birthdayHat": {
+								// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
+						        accesoriolabel.setBounds(524, 438, 200, 200);
+								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+								//para escalar la imagen
+								Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+								accesoriolabel.setIcon(new ImageIcon(img));
+								break;
+							}
+							case "Sunglasses": {
+						        ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+						        Image img = icono.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+						     // POSICIÓN MÁS ABAJO PARA LAS GAFAS
+						        accesoriolabel.setBounds(500, 400, 250, icono.getIconHeight());
+						        accesoriolabel.setIcon(new ImageIcon(img));
+								break;
+							}
+							default:
+								accesoriolabel.setIcon(null);
+								break;
 						}
 					}
 				}
@@ -207,11 +206,15 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
-			List<Objetos> objetos = cont.verObjectos();
-			list.setListData(objetos.toArray()); //rellenar la lista
-			list.setVisible(true); //hacer visible la lista
-
-			scroll.setVisible(true); //hacer visible el scroll
+			if (!list.isVisible()) {
+				List<Objetos> objetos = cont.verObjectos();
+				list.setListData(objetos.toArray()); //rellenar la lista
+				list.setVisible(true); //hacer visible la lista
+				scroll.setVisible(true); //hacer visible el scroll
+			} else {
+				list.setVisible(false);
+				scroll.setVisible(false);
+			}
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Are you sure you want to leave the game?","Log out...",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
