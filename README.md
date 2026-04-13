@@ -4,6 +4,7 @@
 Este proyecto es un juego educativo donde los usuarios pueden crear criaturas, interactuar con ellas y administrar objetos en su habitación virtual.
 
 🧰 Tecnologías utilizadas
+
 💻 Java + JavaFX
 🗄️ MySQL + XAMPP
 🔌 JDBC (MySQL Connector)
@@ -11,6 +12,7 @@ Este proyecto es un juego educativo donde los usuarios pueden crear criaturas, i
 📚 Javadoc
 🛠️ Eclipse
 🔄 Git + GitHub
+
 📚 Dependencias
 
 Este proyecto utiliza las siguientes librerías externas:
@@ -18,42 +20,44 @@ Este proyecto utiliza las siguientes librerías externas:
 🔌 Conector JDBC MySQL (mysql-connector-java-x.x.x.jar)
 🧪 Mockito (mockito-core-x.x.x.jar)
 
-👉 Asegúrate de añadir los .jar al proyecto:
+👉 Añadir los .jar al proyecto:
 
-🟦 NetBeans: Properties → Libraries → Add JAR/Folder
-🟪 IntelliJ: File → Project Structure → Modules → Dependencies
+🟦 NetBeans → Properties → Libraries → Add JAR/Folder
+🟪 IntelliJ → File → Project Structure → Modules → Dependencies
 🗄️ Base de datos
 
-El proyecto incluye el script de base de datos:
-
 📄 VirtualCreatures.sql
-→ Contiene la estructura y datos necesarios del sistema.
+Contiene la estructura y datos necesarios del sistema.
 
 ▶️ Cómo usarlo
-Crear una base de datos en MySQL
-Importar el fichero VirtualCreatures.sql
-💻 Desde consola:
+1. Crear base de datos en MySQL
+2. Importar el script
+
+💻 Consola:
+
 mysql -u usuario -p nombre_bd < VirtualCreatures.sql
-🖥️ Con herramienta gráfica:
-MySQL Workbench → “Import SQL File”
+
+🖥️ MySQL Workbench:
+
+Import SQL File
 📦 Instalación
-📥 Clonar el repositorio
+📥 Clonar repositorio
 git clone https://github.com/rebecalopez-gif/retoFinal.git
-📁 Importar el proyecto
-Abrir el proyecto en Eclipse / IntelliJ / VS Code
-Añadir dependencias manualmente (JARs)
-➕ Añadir dependencias
+📁 Importar proyecto
+Abrir en Eclipse / IntelliJ / VS Code
+Añadir dependencias (.jar)
+➕ Dependencias manuales
 Descargar:
-Conector JDBC MySQL
+MySQL Connector
 Mockito
-Añadir los .jar al proyecto
+Añadir al proyecto
 ▶️ Ejecución
-Configurar conexión a la base de datos
-Ejecutar la aplicación desde el main
+Configurar conexión a MySQL
+Ejecutar clase main
 🧪 Tests
 
-El proyecto incluye pruebas unitarias con Mockito.
+El proyecto incluye tests con Mockito.
 
-▶️ Cómo ejecutarlos
-Ejecutar tests desde el IDE
-Asegurarse de que los JAR de Mockito están añadidos
+▶️ Ejecución
+Desde el IDE ejecutar tests
+Verificar que los JAR están añadidos
