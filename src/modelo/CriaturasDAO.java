@@ -17,9 +17,8 @@ public interface CriaturasDAO {
 	public ArrayList<Food> listaComida();
 	public boolean darComida(Creature criatura, Food comida);
 	public boolean irDePaseo(Creature creatureName);
-
 	public Object insertarCriatura(Creature criatura);
-
 	public boolean mirarEmocion(Creature creature);
+	public boolean descansar(Creature criatura);
 
 }

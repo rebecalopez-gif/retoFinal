@@ -65,12 +65,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 */
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
-		this.criatura = criatura;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
-
 		this.cont = controlador;
+		this.criatura = criatura;
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
-
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
 		this.setSize(1536, 1024);
@@ -123,6 +122,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 						default:
 							accesoriolabel.setIcon(null);
 							break;
+
 						}
 					}
 				}
@@ -204,16 +204,22 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
-			List<Objetos> objetos = cont.verObjectos();
-			list.setListData(objetos.toArray()); //rellenar la lista
-			list.setVisible(true); //hacer visible la lista
-
-			scroll.setVisible(true); //hacer visible el scroll
+			if (!list.isVisible()) {
+				List<Objetos> objetos = cont.verObjectos();
+				list.setListData(objetos.toArray()); //rellenar la lista
+				list.setVisible(true); //hacer visible la lista
+				scroll.setVisible(true); //hacer visible el scroll
+			} else {
+				list.setVisible(false);
+				scroll.setVisible(false);
+			}
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Are you sure you want to leave the game?","Log out...",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
 			if(opcion==JOptionPane.YES_OPTION) {
-				this.dispose(); //para cerrar la ventana actual
+				cont.descansar(criatura);
+				this.dispose(); // para cerrar la ventana actual
+				System.exit(0); // Termina la ejecucion del programa
 			}
 		} else if(e.getSource()==bOTONGYM) {//ir al gym
 			this.dispose();
