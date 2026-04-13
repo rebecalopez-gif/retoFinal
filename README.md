@@ -5,13 +5,13 @@ Este proyecto es un juego educativo donde los usuarios pueden crear criaturas, i
 
 🧰 Tecnologías utilizadas
 
-💻 Java + JavaFX
-🗄️ MySQL + XAMPP
-🔌 JDBC (MySQL Connector)
-🧪 JUnit / Mockito
-📚 Javadoc
-🛠️ Eclipse
-🔄 Git + GitHub
+💻 Java + JavaFX  
+🗄️ MySQL + XAMPP  
+🔌 JDBC (MySQL Connector)  
+🧪 JUnit / Mockito  
+📚 Javadoc  
+🛠️ Eclipse  
+🔄 Git + GitHub  
 
 📚 Dependencias
 
