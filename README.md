@@ -1,7 +1,8 @@
-🚀 Proyecto: Juego de Criaturas Virtuales 
+🚀 Proyecto: Juego de Criaturas Virtuales
 📝 Descripción
+
 Este proyecto es un juego educativo donde los usuarios pueden crear criaturas, interactuar con ellas y administrar objetos en su habitación virtual.
- 
+
 🧰 Tecnologías utilizadas
 💻 Java + JavaFX
 🗄️ MySQL + XAMPP
@@ -10,47 +11,49 @@ Este proyecto es un juego educativo donde los usuarios pueden crear criaturas, i
 📚 Javadoc
 🛠️ Eclipse
 🔄 Git + GitHub
- 
 📚 Dependencias
+
 Este proyecto utiliza las siguientes librerías externas:
-·        🔌 Conector JDBC MySQL (ej: mysql-connector-java-x.x.x.jar)
-·        🧪 Mockito (ej: mockito-core-x.x.x.jar)
+
+🔌 Conector JDBC MySQL (mysql-connector-java-x.x.x.jar)
+🧪 Mockito (mockito-core-x.x.x.jar)
+
 👉 Asegúrate de añadir los .jar al proyecto:
-·        En NetBeans: Properties → Libraries → Add JAR/Folder
-·        En IntelliJ: File → Project Structure → Modules → Dependencies
- 
+
+🟦 NetBeans: Properties → Libraries → Add JAR/Folder
+🟪 IntelliJ: File → Project Structure → Modules → Dependencies
 🗄️ Base de datos
+
 El proyecto incluye el script de base de datos:
+
 📄 VirtualCreatures.sql
+→ Contiene la estructura y datos necesarios del sistema.
+
 ▶️ Cómo usarlo
-1.     Crear una base de datos en MySQL
-2.  Importar el fichero VirtualCreatures.sql
-a.     Desde consola:
+Crear una base de datos en MySQL
+Importar el fichero VirtualCreatures.sql
+💻 Desde consola:
 mysql -u usuario -p nombre_bd < VirtualCreatures.sql
-
-
-b. 	O usando una herramienta gráfica como MySQL Workbench
- 
+🖥️ Con herramienta gráfica:
+MySQL Workbench → “Import SQL File”
 📦 Instalación
 📥 Clonar el repositorio
 git clone https://github.com/rebecalopez-gif/retoFinal.git
-
-
-
 📁 Importar el proyecto
-·        Abrir el proyecto en tu IDE (Eclipse/ IntelliJ / VS Code)
-➕ Añadir dependencias manualmente
-1.     Descargar:
-a.     Conector JDBC de MySQL
-b.     Librerías de Mockito
-2.     Añadir los .jar al proyecto (ver sección anterior)
- 
+Abrir el proyecto en Eclipse / IntelliJ / VS Code
+Añadir dependencias manualmente (JARs)
+➕ Añadir dependencias
+Descargar:
+Conector JDBC MySQL
+Mockito
+Añadir los .jar al proyecto
 ▶️ Ejecución
-1.     Configurar la conexión a la base de datos en el proyecto
-2.  Ejecutar la aplicación desde el main
- 
+Configurar conexión a la base de datos
+Ejecutar la aplicación desde el main
 🧪 Tests
-El proyecto incluye pruebas unitarias usando Mockito.
-Para ejecutarlas:
-·        Desde el IDE → Ejecutar tests
-·        Asegúrate de que los JAR de Mockito están correctamente añadidos
+
+El proyecto incluye pruebas unitarias con Mockito.
+
+▶️ Cómo ejecutarlos
+Ejecutar tests desde el IDE
+Asegurarse de que los JAR de Mockito están añadidos
