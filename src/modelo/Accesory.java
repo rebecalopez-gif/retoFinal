@@ -1,6 +1,6 @@
 package modelo;
 
-public class Accesory extends Objectos{
+public class Accesory extends Objetos{
 	private int hapiness_effect;
 	private int energy_effect;
 	

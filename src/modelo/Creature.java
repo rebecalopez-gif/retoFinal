@@ -1,10 +1,9 @@
 package modelo;
-
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
+import interfaces.Estados;
 
-public class Creature {
+public class Creature implements Estados{
 
 	//ATRIBUTOS
 	private int codC;
@@ -14,7 +13,7 @@ public class Creature {
 	private int energy;
 	private int hunger;
 	private int happiness;
-	
+
 	//CONSTRUCTORES
 	public Creature(int codC, String userName, String creatureName, int experience, int energy, int hunger, int happiness) {
 		this.codC = codC;
@@ -34,11 +33,20 @@ public class Creature {
 		this.hunger = 0;
 		this.happiness = 0;
 	}
+	public Creature(String userName, String creatureName) {
+		this.userName = userName;
+		this.creatureName = creatureName;
+		this.experience = 0;
+		this.energy = 50;
+		this.hunger = 50;
+		this.happiness = 50;
+	}
+
 	public Creature(String creatureName) {
 		this.creatureName =creatureName;
-		
+
 	}
-	
+
 	//GETTERS Y SETTERS
 	public int getCodC() {
 		return codC;
@@ -76,49 +84,33 @@ public class Creature {
 	public void setHunger(int hunger) {
 		this.hunger = hunger;
 	}
-	public int getHasppiness() {
+	public int getHappiness() {
 		return happiness;
 	}
-	public void setHasppiness(int happiness) {
+	public void setHappiness(int happiness) {
 		this.happiness = happiness;
 	}
-	
-	public String getEmotion() { //ME DEVUELVE LA EMOCION SEGUN LOS VALORES 
-		 if (happiness > 80) {
-	            return "MuyFeliz";
-	        }
-	        if (happiness > 50) {
-	            return "Feliz";
-	        }
-	        if (happiness < 30 || hunger > 70) {
-	            return "Triste";
-	        }
-	        if (energy < 30) {
-	            return "Cansado";
-	        }
-	        return "Feliz";
-	}
-	
-	public Image getEmotionImage() { //METODO QUE DEVUELVE LA IMAGEN SEGUN LA EMOCION 
-        String emotion = getEmotion();
-        switch (emotion) {
-            case "MuyFeliz":
-                return new ImageIcon(getClass().getResource("/image/MuyFeliz.png")).getImage();
-            case "Feliz":
-                return new ImageIcon(getClass().getResource("/image/Feliz.png")).getImage();
-            case "Triste":
-                return new ImageIcon(getClass().getResource("/image/Triste.png")).getImage();
-            case "Cansado":
-                return new ImageIcon(getClass().getResource("/image/Cansado.png")).getImage();
-            default:
-                return new ImageIcon(getClass().getResource("/image/Feliz.png")).getImage();
-        }
-    }
 
-	//toString
+
 	@Override
 	public String toString() {
-		return getCreatureName();
+		return creatureName ;
 	}
-	
+
+	@Override
+	public String setImage(Creature criatura) {
+		String url = "";
+
+		if (criatura.getHunger() < 30 || criatura.getHappiness() < 30) {
+			url = "/image/Triste.png";
+		} else if (criatura.getEnergy() < 30) {
+			url = "/image/Cansado.png";
+		} else if (criatura.getHappiness() >= 80) {
+			url = "/image/MuyFeliz.png";
+		} else {
+			url = "/image/Feliz.png";
+		}
+
+		return url;
+	}
 }

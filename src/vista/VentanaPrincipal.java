@@ -45,6 +45,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
     public VentanaPrincipal(CriaturasControlador controlador) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
         this.cont = controlador;
+		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);//PA QUE SEA PANTALLA COMPLETA 
         setBounds(100, 100, 1097, 759);
@@ -123,7 +124,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, 
                     "¡YOU MUST FILL IN ALL FIELDS!",  
                     "WARNING", JOptionPane.WARNING_MESSAGE);
-                return;
             }
             if(cont.iniciarSesion(user)) {
                 this.dispose();

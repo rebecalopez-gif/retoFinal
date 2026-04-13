@@ -4,13 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,11 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-
 import controlador.CriaturasControlador;
 import modelo.Creature;
-import modelo.Objectos;
-
+import modelo.Objetos;
 import javax.swing.JList;
 
 /**
@@ -36,14 +34,11 @@ import javax.swing.JList;
  *   <li>La cama: salir del juego</li>
  *   <li>El bichito: representación de la criatura del usuario</li>
  * </ul>
- * 
  * Esta clase extiende JDialog y utiliza un layout nulo para posicionar los elementos.
- * 
  * @author TuNombre //poner nuestro nombre
  * @version 1.0
  */
 public class VentanaHabitacion extends JDialog implements ActionListener {
-
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private Toolkit tk;
@@ -54,25 +49,30 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JList list;
 	private JScrollPane scroll;
 	private JLabel bichito;
-	
+	private JButton BOTONCOCINA;
+	private JButton bOTONGYM;
+	private Creature criatura;
+	private JLabel accesoriolabel;
+
+
 	/**
-     * Crea e inicializa la ventana de la habitación del juego.
-     * Configura los botones, el fondo, el scroll de objetos y el bichito.
-     * 
-     * @param ventanas el diálogo padre de esta ventana
-     * @param controlador el controlador de criaturas para acceder a la lógica del juego
-     * @param criatura la criatura del usuario asociada a esta habitación
-     */
+	 * Crea e inicializa la ventana de la habitación del juego.
+	 * Configura los botones, el fondo, el scroll de objetos y el bichito.
+	 * 
+	 * @param ventanas el diálogo padre de esta ventana
+	 * @param controlador el controlador de criaturas para acceder a la lógica del juego
+	 * @param criatura la criatura del usuario asociada a esta habitación
+	 */
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
-
 		this.cont = controlador;
+		this.criatura = criatura;
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
-
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
-		this.setSize(1737, 1285);
+		this.setSize(1536, 1024);
 		this.setLocationRelativeTo(null);
 
 		getContentPane().setLayout(new BorderLayout());
@@ -92,33 +92,82 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(list);
 
 		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 128, 192), 2),"OBJECTS"));
-		
+
 		//seleccionar objetos clickando con el raton
 		list.addMouseListener(new MouseAdapter() {
-		    public void mouseClicked(MouseEvent e) {
-		        if (e.getClickCount() == 2) {
-		            Objectos seleccionado = (Objectos) list.getSelectedValue();
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) { //clickar dos veces
+					Objetos seleccionado = (Objetos) list.getSelectedValue();
 
-		            if(seleccionado != null) {
-		                JOptionPane.showMessageDialog(null, 
-		                    "You selected: " + seleccionado.toString());
-		                //crear acciones
-		            }
-		        }
-		    }
+					if(seleccionado != null) {
+						String nombre = seleccionado.getObjectName(); 
+						switch(nombre) {
+						case "birthdayHat": {
+							// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
+							accesoriolabel.setBounds(524, 438, 200, 200);
+							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+							//para escalar la imagen
+							Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+							accesoriolabel.setIcon(new ImageIcon(img));
+							break;
+						}
+						case "Sunglasses": {
+							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+							Image img = icono.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+							// POSICIÓN MÁS ABAJO PARA LAS GAFAS
+							accesoriolabel.setBounds(500, 400, 250, icono.getIconHeight());
+							accesoriolabel.setIcon(new ImageIcon(img));
+							break;
+						}
+						default:
+							accesoriolabel.setIcon(null);
+							break;
+
+						}
+					}
+				}
+			}
 		});
+
+		// BOTÓN GYM
+		bOTONGYM = new JButton("GYM");
+		bOTONGYM.setFont(new Font("Monospaced", Font.BOLD, 20));
+		bOTONGYM.setForeground(Color.WHITE);
+		bOTONGYM.setBackground(new Color(33, 150, 243)); // azul bonito
+		bOTONGYM.setFocusPainted(false);
+		bOTONGYM.setBorder(BorderFactory.createLineBorder(new Color(25, 118, 210), 3));
+		bOTONGYM.setBounds(1349, 805, 150, 60); // más grande
+		bOTONGYM.setOpaque(true);
+		contentPanel.add(bOTONGYM);
+		bOTONGYM.addActionListener(this);
+
+		// BOTÓN COCINA
+		BOTONCOCINA = new JButton("KITCHEN");
+		BOTONCOCINA.setFont(new Font("Monospaced", Font.BOLD, 20));
+		BOTONCOCINA.setForeground(Color.WHITE);
+		BOTONCOCINA.setBackground(new Color(123, 31, 162)); // morado bonito
+		BOTONCOCINA.setFocusPainted(false);
+		BOTONCOCINA.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
+		BOTONCOCINA.setBounds(31, 805, 150, 60); // más grande
+		BOTONCOCINA.setOpaque(true);
+		contentPanel.add(BOTONCOCINA);
+		BOTONCOCINA.addActionListener(this);
+
+		accesoriolabel = new JLabel("");
+		accesoriolabel.setBounds(524, 438, 200, 200);
+		contentPanel.add(accesoriolabel);
 
 		// Scroll
 		scroll = new JScrollPane(list);
 		scroll.setBounds(73, 47, 342, 208);
 		scroll.setVisible(false);
-		
+
 		bichito = new JLabel("");
-		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png"));
+		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));
 		bichito.setIcon(icon);
 		bichito.setBounds(399, 506, icon.getIconWidth(), icon.getIconHeight());
 		contentPanel.add(bichito);
-		
+
 		contentPanel.add(scroll);
 
 		btnArmario = new JButton();
@@ -139,35 +188,50 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
-		lblNewLabel.setBounds(10, 10, 1536, 1024);
+		lblNewLabel.setBounds(0, 0, ancho, alto);
 		contentPanel.add(lblNewLabel);
 	}
 
 	/**
-     * Gestiona los eventos de los botones de la habitación.
-     * <ul>
-     *   <li>btnArmario: muestra los objetos del armario.</li>
-     *   <li>btnCama: pregunta si se desea salir del juego y cierra la ventana.</li>
-     * </ul>
-     * 
-     * @param e el evento de acción generado por los botones
-     */
+	 * Gestiona los eventos de los botones de la habitación.
+	 * <ul>
+	 *   <li>btnArmario: muestra los objetos del armario.</li>
+	 *   <li>btnCama: pregunta si se desea salir del juego y cierra la ventana.</li>
+	 * </ul>
+	 * 
+	 * @param e el evento de acción generado por los botones
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
-			List<Objectos> objetos = cont.verObjectos();
-			list.setListData(objetos.toArray()); //rellenar la lista
-			list.setVisible(true); //hacer visible la lista
-
-			scroll.setVisible(true); //hacer visible el scroll
+			if (!list.isVisible()) {
+				List<Objetos> objetos = cont.verObjectos();
+				list.setListData(objetos.toArray()); //rellenar la lista
+				list.setVisible(true); //hacer visible la lista
+				scroll.setVisible(true); //hacer visible el scroll
+			} else {
+				list.setVisible(false);
+				scroll.setVisible(false);
+			}
 
 		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Are you sure you want to leave the game?","Log out...",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
 			if(opcion==JOptionPane.YES_OPTION) {
-				this.dispose(); //para cerrar la ventana actual
+				cont.descansar(criatura);
+				this.dispose(); // para cerrar la ventana actual
+				System.exit(0); // Termina la ejecucion del programa
 			}
-		} 
+		} else if(e.getSource()==bOTONGYM) {//ir al gym
+			this.dispose();
+			VentanaGym gym = new VentanaGym(this, cont,criatura);
+			gym.setVisible(true);
+
+		}else if(e.getSource()==BOTONCOCINA) { //ir a la cocina
+			this.dispose();
+			VentanaCocina cocina = new VentanaCocina(this, cont,criatura);
+			cocina.setVisible(true);
+
+		}
 
 	}
-
 }

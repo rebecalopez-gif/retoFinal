@@ -13,10 +13,12 @@ public interface CriaturasDAO {
 	public ArrayList<Creature> obtenerPartidas(UserGame user);
 	public boolean comprobarUser(UserGame user);
 	public boolean eliminarPartida(Creature creature);
-	public List<Objectos> verObjectos();
+	public List<Objetos> verObjectos();
 	public ArrayList<Food> listaComida();
 	public boolean darComida(Creature criatura, Food comida);
 	public boolean irDePaseo(Creature creatureName);
+	public Object insertarCriatura(Creature criatura);
 	public boolean mirarEmocion(Creature creature);
+	public boolean descansar(Creature criatura);
 
 }

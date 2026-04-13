@@ -1,6 +1,6 @@
 package modelo;
 
-public class Food extends Objectos{
+public class Food extends Objetos{
 	private int hunger_effect;
 	
 	public Food() {
@@ -23,8 +23,7 @@ public class Food extends Objectos{
 
 	@Override
 	public String toString() {
-		return "Food [hunger_effect=" + hunger_effect + ", getCod_object()=" + getCod_object() + ", getObjectName()="
-				+ getObjectName() + "]";
+		return getObjectName()+ " - Effect: "+hunger_effect;
 	}
 	
 	

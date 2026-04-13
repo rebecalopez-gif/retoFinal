@@ -13,22 +13,34 @@ import exception.UserExisteException;
 
 public class CriaturasControlador {
 	CriaturasDAO dao = new ImplementacionBD();
+	private UserGame usuarioActual; 
 
 	public void visualizarPantalla() {
 		VentanaPrincipal ven = new VentanaPrincipal(this);
 		ven.setVisible(true);	
 	}
-	public boolean iniciarSesion(UserGame user) {
-		return dao.iniciarSesion(user);
-	}
 	public boolean introducirUser(UserGame user) throws UserExisteException{ //desde el controlador lanzo la exepcion
 		 if (comprobarUser(user)) { 
 		        throw new UserExisteException("That username is not available.");
 		    }
-		 
 		//si no existe lo introduzco
-		return dao.introducirUser(user);
+		 return dao.introducirUser(user);
 	}
+
+	 public boolean iniciarSesion(UserGame user) {
+	        if (dao.iniciarSesion(user)) {
+	            this.usuarioActual = user;  //SE GUARDA EL USUARIO
+	            return true;
+	        }
+	        return false;
+	    }
+	 public UserGame getUsuarioActual() { //PARA GUARDARLO EN EL USUARIO QUE INICIA SESION
+	        return usuarioActual;
+	    }
+
+	    public String getUserNameActual() {
+	        return usuarioActual != null ? usuarioActual.getUserName() : null;
+	    }
 	public ArrayList<Creature> obtenerPartidas(UserGame user) {
 		return dao.obtenerPartidas(user);
 	}
@@ -38,7 +50,7 @@ public class CriaturasControlador {
 	public boolean eliminarPartida(Creature creature) {
 		return dao.eliminarPartida(creature);
 	}
-	public List<Objectos> verObjectos() {
+	public List<Objetos> verObjectos() {
 		return dao.verObjectos();
 	}
 	public ArrayList<Food> listaComida(){
@@ -51,7 +63,15 @@ public class CriaturasControlador {
 		return dao.irDePaseo(creatureName);
 		
 	}
+	public Object insertarCriatura(Creature criatura) {
+		return dao.insertarCriatura(criatura);
+		
+	}
 	public boolean mirarEmocion(Creature creature) {
 		return dao.mirarEmocion(creature);
 	}
+	public boolean descansar(Creature criatura) {
+		return dao.descansar(criatura);
+	}
 }
+
