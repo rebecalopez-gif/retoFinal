@@ -114,7 +114,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		scroll.setVisible(false);
 		
 		bichito = new JLabel("");
-		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource("/image/Monstruito adorable2 .png"));
+		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png"));
 		bichito.setIcon(icon);
 		bichito.setBounds(399, 506, icon.getIconWidth(), icon.getIconHeight());
 		contentPanel.add(bichito);
@@ -171,4 +171,3 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	}
 
 }
-

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
+import exception.UserExisteException;
 import modelo.UserGame;
 
 import javax.swing.JTextField;
@@ -159,27 +160,30 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 			}else if(pass.isEmpty()) {
 				JOptionPane.showMessageDialog(this, "The password cannot be empty.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
 				
-			}else if(cont.comprobarUser(user)){
-				JOptionPane.showMessageDialog(this, "That username is not available.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
-				
 			}else if (!new String(passwordField.getPassword()).equals(new String(passwordField_1.getPassword()))) {
 				JOptionPane.showMessageDialog(this, "The passwords do not match.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
 			
 			} else {
-			    insertado = cont.introducirUser(user);
+				try {
+					insertado = cont.introducirUser(user);
 
-			    if (insertado) {
-			        this.dispose();
-			        VentanaPartidaNew venta = new VentanaPartidaNew(this, cont, true);
-			        venta.setVisible(true);
-
-			    }else {
-			        JOptionPane.showMessageDialog(this,
-			                "The user could not be created. They must be at least 6 years old.",
-			                "Error",
-			                JOptionPane.ERROR_MESSAGE);
-			    }
+				    if (insertado) {
+				        this.dispose();
+				        VentanaPartidaNew venta = new VentanaPartidaNew(this, cont, true);
+				        venta.setVisible(true);
+	
+				    }else {
+				        JOptionPane.showMessageDialog(this,
+				                "The user could not be created. They must be at least 6 years old.",
+				                "Error",
+				                JOptionPane.ERROR_MESSAGE);
+				    }
+				} catch(UserExisteException ex) {
+					System.err.println(ex.getMessage()); //El mensaje en la consola (ROJO)
+					JOptionPane.showMessageDialog(this,ex.getMessage(),"ERROR", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		}
 	}
+	
 }
