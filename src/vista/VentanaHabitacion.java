@@ -25,6 +25,8 @@ import controlador.CriaturasControlador;
 import modelo.Creature;
 import modelo.Objetos;
 import javax.swing.JList;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 
 /**
  * VentanaHabitacion representa la interfaz de la habitación del juego.
@@ -51,9 +53,18 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JLabel bichito;
 	private JButton BOTONCOCINA;
 	private JButton bOTONGYM;
-	private Creature criatura;
+	private Creature criatura;/////////
 	private JLabel accesoriolabel;
-
+	private JTabbedPane tabbedPane;
+	private JLabel lblNewLabel_1;
+	private JLabel lblainx;
+	private JLabel lblNewLabel_EXP;
+	private JLabel lblNewLabel_EMOTI;
+	private JLabel lblNewLabel_NumExp;
+	private JLabel lblNewLabel_Back;
+	private JLabel lblNewLabel_NumHunger;
+	private JLabel lblNewLabel_NumHappy;
+	private JLabel lblNewLabel_NumEnergy;
 
 	/**
 	 * Crea e inicializa la ventana de la habitación del juego.
@@ -66,7 +77,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
 		this.cont = controlador;
-		this.criatura = criatura;
+		this.criatura = criatura;////
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
@@ -156,6 +167,50 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		accesoriolabel = new JLabel("");
 		accesoriolabel.setBounds(524, 438, 200, 200);
 		contentPanel.add(accesoriolabel);
+		
+		lblNewLabel_NumExp = new JLabel("");
+		lblNewLabel_NumExp.setBounds(1374, 31, 54, 25);
+		lblNewLabel_NumExp.setForeground(new Color(128, 0, 64));
+		lblNewLabel_NumExp.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lblNewLabel_NumExp.setText(String.valueOf(criatura.getExperience()));
+		contentPanel.add(lblNewLabel_NumExp);
+		
+		lblNewLabel_EXP = new JLabel("EXPERIENCE:");
+		lblNewLabel_EXP.setBackground(new Color(240, 240, 240));
+		lblNewLabel_EXP.setForeground(new Color(248, 52, 140));
+		lblNewLabel_EXP.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lblNewLabel_EXP.setBounds(1247, 26, 117, 34);
+		contentPanel.add(lblNewLabel_EXP);
+		
+		lblNewLabel_EMOTI = new JLabel("<html>ENERGY:<br>HUNGER:<br>HAPPINESS:</html>");
+		lblNewLabel_EMOTI.setBackground(new Color(255, 217, 236));
+		lblNewLabel_EMOTI.setForeground(new Color(255, 89, 172));
+		lblNewLabel_EMOTI.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lblNewLabel_EMOTI.setBounds(1247, 57, 117, 79);
+		contentPanel.add(lblNewLabel_EMOTI);
+		
+		lblNewLabel_NumHappy = new JLabel("");
+		lblNewLabel_NumHappy.setForeground(new Color(128, 0, 64));
+		lblNewLabel_NumHappy.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lblNewLabel_NumHappy.setBounds(1374, 111, 54, 25);
+		lblNewLabel_NumHappy.setText(String.valueOf(criatura.getHappiness()));
+		contentPanel.add(lblNewLabel_NumHappy);
+		
+		lblNewLabel_NumHunger = new JLabel("");
+		lblNewLabel_NumHunger.setForeground(new Color(128, 0, 64));
+		lblNewLabel_NumHunger.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lblNewLabel_NumHunger.setBounds(1374, 85, 54, 25);
+		lblNewLabel_NumHunger.setText(String.valueOf(criatura.getHunger()));
+		contentPanel.add(lblNewLabel_NumHunger);
+		
+		lblNewLabel_NumEnergy = new JLabel("");
+		lblNewLabel_NumEnergy.setForeground(new Color(128, 0, 64));
+		lblNewLabel_NumEnergy.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lblNewLabel_NumEnergy.setBounds(1374, 60, 54, 25);
+		lblNewLabel_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
+		contentPanel.add(lblNewLabel_NumEnergy);
+		
+
 
 		// Scroll
 		scroll = new JScrollPane(list);
@@ -164,6 +219,13 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
 		bichito = new JLabel("");
 		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));
+		
+		lblNewLabel_Back = new JLabel("");
+		lblNewLabel_Back.setBounds(1241, 31, 271, 112);
+		lblNewLabel_Back.setOpaque(true);
+		lblNewLabel_Back.setBackground(new Color(255, 217, 236));
+		contentPanel.add(lblNewLabel_Back);
+		
 		bichito.setIcon(icon);
 		bichito.setBounds(399, 506, icon.getIconWidth(), icon.getIconHeight());
 		contentPanel.add(bichito);
@@ -187,6 +249,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(btnCama);
 
 		lblNewLabel = new JLabel("");
+		lblNewLabel.setBackground(new Color(240, 240, 240));
 		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
 		lblNewLabel.setBounds(0, 0, ancho, alto);
 		contentPanel.add(lblNewLabel);

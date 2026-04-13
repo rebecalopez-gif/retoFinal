@@ -1,47 +1,87 @@
-# Juego de Criaturas Virtuales
+# 🚀 Proyecto: Juego de Criaturas Virtuales
 
+---
+
+## 📝 Descripción
 Este proyecto es un juego educativo donde los usuarios pueden crear criaturas, interactuar con ellas y administrar objetos en su habitación virtual.
 
-## Contenido
+---
 
-- **Vista**: Interfaces gráficas (`VentanaPrincipal`, `VentanaNewUsuario`, `VentanaPartidaNew`, `VentanaPartidas`, `VentanaHabitacion`)  
-- **Modelo**: Clases `Creature`, `UserGame`, `Objectos`  
-- **Controlador**: `CriaturasControlador` gestiona la lógica del juego y acceso a la base de datos
+## 🧰 Tecnologías utilizadas
 
-## Funcionalidades principales
+* **Lenguaje:** Java + JavaFX 💻
+* **Base de Datos:** MySQL + XAMPP 🗄️
+* **Conector:** JDBC (MySQL Connector) 🔌
+* **Testing:** JUnit / Mockito 🧪
+* **Documentación:** Javadoc 📚
+* **IDE:** Eclipse 🛠️
+* **Control de versiones:** Git + GitHub 🔄
 
-1. **Inicio de sesión y registro**
-   - Ventana principal para loguearse
-   - Registro de nuevos usuarios
-2. **Gestión de partidas**
-   - Crear, eliminar y seleccionar partidas de criaturas
-3. **Habitación de la criatura**
-   - Interacción con la criatura (bichito)
-   - Acceso al armario y objetos
-   - Opción de dormir / salir del juego
+---
 
-## Acceso a la base de datos
+## 📚 Dependencias
 
-- La clase `CriaturasControlador` implementa los métodos de acceso a la BD
-- Los métodos incluyen:
-  - `iniciarSesion(UserGame user)`
-  - `introducirUser(UserGame user)`
-  - `comprobarUser(UserGame user)`
-  - `obtenerPartidas(UserGame user)`
-  - `eliminarPartida(Creature criatura)`
+Este proyecto utiliza las siguientes librerías externas que deben ser añadidas al *Build Path*:
 
-## Documentación
+1. **Conector JDBC MySQL** (`mysql-connector-java-x.x.x.jar`)
+2. **Mockito** (`mockito-core-x.x.x.jar`)
 
-- La documentación de cada clase se encuentra en los comentarios **Javadoc** de las clases  
-- Cada `actionPerformed` de las vistas está documentado indicando qué botones y acciones controla  
+### 🔹 Cómo añadir los .jar al proyecto:
 
-## Instalación y ejecución
+* **NetBeans:** `Properties` ➔ `Libraries` ➔ `Add JAR/Folder`
+* **IntelliJ:** `File` ➔ `Project Structure` ➔ `Modules` ➔ `Dependencies`
+* **Eclipse:** `Right Click Project` ➔ `Build Path` ➔ `Configure Build Path`
 
-1. Clonar el repositorio
-2. Abrir el proyecto en un IDE Java (Eclipse, IntelliJ, NetBeans)
-3. Ejecutar la clase `VentanaPrincipal` para iniciar el juego
+---
 
-## Autor
+## 🗄️ Base de datos
 
-- Tu Nombre
-- Fecha / versión: 2026-03-23
+El archivo principal es **`VirtualCreatures.sql`**. Contiene la estructura y datos necesarios del sistema.
+
+### ▶️ Cómo usarlo:
+1. Crear base de datos en MySQL.
+2. Importar el script.
+
+**Comando de Consola:**
+```bash
+mysql -u usuario -p nombre_bd < VirtualCreatures.sql
+```
+
+---
+
+## 📦 Instalación
+
+### 📥 Clonar repositorio
+```bash
+git clone [https://github.com/rebecalopez-gif/retoFinal.git](https://github.com/rebecalopez-gif/retoFinal.git)
+```
+
+### 📁 Importar proyecto
+Abrir en Eclipse, IntelliJ o VS Code.
+
+### ➕ Añadir las dependencias .jar mencionadas anteriormente de forma manual al Build Path.
+  1. **Descargar**:  
+      a. Conector JDBC de MySQL  
+      b. Librerías de Mockito  
+  2. Añadir los .jar al proyecto (ver sección anterior)  
+
+---
+
+## ▶️ Ejecución
+Configurar los parámetros de conexión a MySQL (host, usuario, contraseña) en el código fuente.
+
+Localizar y ejecutar la clase Main.
+
+---
+
+## 🧪 Tests
+El proyecto incluye pruebas unitarias para validar la lógica de negocio de las criaturas.
+
+**Herramienta**: Mockito / JUnit.
+
+**Ejecución**: Clic derecho sobre el archivo de test ➔ Run as JUnit Test.
+
+---
+
+
+**Nota**: Asegúrate de tener los archivos JAR de Mockito correctamente vinculados en las librerías del proyecto antes de ejecutar las pruebas.

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import exception.UserExisteException;
+
 public class CriaturasControlador {
 	CriaturasDAO dao = new ImplementacionBD();
 	private UserGame usuarioActual; 
@@ -17,6 +19,14 @@ public class CriaturasControlador {
 		VentanaPrincipal ven = new VentanaPrincipal(this);
 		ven.setVisible(true);	
 	}
+	public boolean introducirUser(UserGame user) throws UserExisteException{ //desde el controlador lanzo la exepcion
+		 if (comprobarUser(user)) { 
+		        throw new UserExisteException("That username is not available.");
+		    }
+		//si no existe lo introduzco
+		 return dao.introducirUser(user);
+	}
+
 	 public boolean iniciarSesion(UserGame user) {
 	        if (dao.iniciarSesion(user)) {
 	            this.usuarioActual = user;  //SE GUARDA EL USUARIO
@@ -31,9 +41,6 @@ public class CriaturasControlador {
 	    public String getUserNameActual() {
 	        return usuarioActual != null ? usuarioActual.getUserName() : null;
 	    }
-	public boolean introducirUser(UserGame user) {
-		return dao.introducirUser(user);
-	}
 	public ArrayList<Creature> obtenerPartidas(UserGame user) {
 		return dao.obtenerPartidas(user);
 	}
