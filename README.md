@@ -1,63 +1,87 @@
-🚀 Proyecto: Juego de Criaturas Virtuales
-📝 Descripción
+# 🚀 Proyecto: Juego de Criaturas Virtuales
 
+---
+
+## 📝 Descripción
 Este proyecto es un juego educativo donde los usuarios pueden crear criaturas, interactuar con ellas y administrar objetos en su habitación virtual.
 
-🧰 Tecnologías utilizadas
+---
 
-💻 Java + JavaFX  
-🗄️ MySQL + XAMPP  
-🔌 JDBC (MySQL Connector)  
-🧪 JUnit / Mockito  
-📚 Javadoc  
-🛠️ Eclipse  
-🔄 Git + GitHub  
+## 🧰 Tecnologías utilizadas
 
-📚 Dependencias
+* **Lenguaje:** Java + JavaFX 💻
+* **Base de Datos:** MySQL + XAMPP 🗄️
+* **Conector:** JDBC (MySQL Connector) 🔌
+* **Testing:** JUnit / Mockito 🧪
+* **Documentación:** Javadoc 📚
+* **IDE:** Eclipse 🛠️
+* **Control de versiones:** Git + GitHub 🔄
 
-Este proyecto utiliza las siguientes librerías externas:
+---
 
-🔌 Conector JDBC MySQL (mysql-connector-java-x.x.x.jar)
-🧪 Mockito (mockito-core-x.x.x.jar)
+## 📚 Dependencias
 
-👉 Añadir los .jar al proyecto:
+Este proyecto utiliza las siguientes librerías externas que deben ser añadidas al *Build Path*:
 
-🟦 NetBeans → Properties → Libraries → Add JAR/Folder
-🟪 IntelliJ → File → Project Structure → Modules → Dependencies
-🗄️ Base de datos
+1. **Conector JDBC MySQL** (`mysql-connector-java-x.x.x.jar`)
+2. **Mockito** (`mockito-core-x.x.x.jar`)
 
-📄 VirtualCreatures.sql
-Contiene la estructura y datos necesarios del sistema.
+### 🔹 Cómo añadir los .jar al proyecto:
 
-▶️ Cómo usarlo
-1. Crear base de datos en MySQL
-2. Importar el script
+* **NetBeans:** `Properties` ➔ `Libraries` ➔ `Add JAR/Folder`
+* **IntelliJ:** `File` ➔ `Project Structure` ➔ `Modules` ➔ `Dependencies`
+* **Eclipse:** `Right Click Project` ➔ `Build Path` ➔ `Configure Build Path`
 
-💻 Consola:
+---
 
+## 🗄️ Base de datos
+
+El archivo principal es **`VirtualCreatures.sql`**. Contiene la estructura y datos necesarios del sistema.
+
+### ▶️ Cómo usarlo:
+1. Crear base de datos en MySQL.
+2. Importar el script.
+
+**Comando de Consola:**
+```bash
 mysql -u usuario -p nombre_bd < VirtualCreatures.sql
+```
 
-🖥️ MySQL Workbench:
+---
 
-Import SQL File
-📦 Instalación
-📥 Clonar repositorio
-git clone https://github.com/rebecalopez-gif/retoFinal.git
-📁 Importar proyecto
-Abrir en Eclipse / IntelliJ / VS Code
-Añadir dependencias (.jar)
-➕ Dependencias manuales
-Descargar:
-MySQL Connector
-Mockito
-Añadir al proyecto
-▶️ Ejecución
-Configurar conexión a MySQL
-Ejecutar clase main
-🧪 Tests
+## 📦 Instalación
 
-El proyecto incluye tests con Mockito.
+### 📥 Clonar repositorio
+```bash
+git clone [https://github.com/rebecalopez-gif/retoFinal.git](https://github.com/rebecalopez-gif/retoFinal.git)
+```
 
-▶️ Ejecución
-Desde el IDE ejecutar tests
-Verificar que los JAR están añadidos
+### 📁 Importar proyecto
+Abrir en Eclipse, IntelliJ o VS Code.
+
+### ➕ Añadir las dependencias .jar mencionadas anteriormente de forma manual al Build Path.
+  1. **Descargar**:  
+      a. Conector JDBC de MySQL  
+      b. Librerías de Mockito  
+  2. Añadir los .jar al proyecto (ver sección anterior)  
+
+---
+
+## ▶️ Ejecución
+Configurar los parámetros de conexión a MySQL (host, usuario, contraseña) en el código fuente.
+
+Localizar y ejecutar la clase Main.
+
+---
+
+## 🧪 Tests
+El proyecto incluye pruebas unitarias para validar la lógica de negocio de las criaturas.
+
+**Herramienta**: Mockito / JUnit.
+
+**Ejecución**: Clic derecho sobre el archivo de test ➔ Run as JUnit Test.
+
+---
+
+
+**Nota**: Asegúrate de tener los archivos JAR de Mockito correctamente vinculados en las librerías del proyecto antes de ejecutar las pruebas.
