@@ -11,6 +11,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import modelo.Creature;
+import modelo.CriaturasDAO;
+import modelo.ImplementacionBD;
+
 public class XMLGenerator {
 
     public static void generarXML() {
@@ -22,6 +26,8 @@ public class XMLGenerator {
 //    	Este XML es el que luego se arrastra a nuestra página web para mostrar las criaturas. 
     	
         try {
+        	CriaturasDAO dao = new ImplementacionBD(); // acceso a la BD
+        	
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); //crea documento xml
             DocumentBuilder builder = factory.newDocumentBuilder(); //la herramienta que lo construye
             Document doc = builder.newDocument(); //este es el documento que se va a rellenar
@@ -42,9 +48,9 @@ public class XMLGenerator {
             Element creatures = doc.createElement("creatures"); //lo mismo que lo de usuario
             root.appendChild(creatures);
 
-            creatures.appendChild(createCreature(doc, 1, "Alissa", "Razer", "birthdayHat")); //pero aqui el metodo crea toda la estructura, el nombre el item, hapiness, etc
-            creatures.appendChild(createCreature(doc, 2, "Sinclair", "Juan", "Sunglasses"));
-            creatures.appendChild(createCreature(doc, 3, "Alicia", "Edurne", "Hamburger"));
+            creatures.appendChild(createCreature(doc, 1, "Alissa", "Razer", "birthdayHat",dao)); //pero aqui el metodo crea toda la estructura, el nombre el item, hapiness, etc
+            creatures.appendChild(createCreature(doc, 2, "Sinclair", "Juan", "Sunglasses",dao));
+            creatures.appendChild(createCreature(doc, 3, "Alicia", "Edurne", "Hamburger",dao));
 
             //  CONFIGURACION ---------------------------------------
             Element config = doc.createElement("configuration");
@@ -87,8 +93,11 @@ public class XMLGenerator {
         //este metodo hace que eviotemos escribir las 3 lineas cada vez que añadamos usuarios
     }
 
-    private static Element createCreature(Document doc, int id, String name, String owner, String itemName) {
+    private static Element createCreature(Document doc, int id, String name, String owner, String itemName, CriaturasDAO dao) {
 
+    	// Obtener datos reales desde la BD
+        Creature datos = dao.obtenerDatosCriatura(id);
+        
         Element creature = doc.createElement("creature");
         creature.setAttribute("id", String.valueOf(id));
         creature.setAttribute("type", "default");
@@ -110,10 +119,11 @@ public class XMLGenerator {
         status.appendChild(doc.createElement("happy"));
         creature.appendChild(status);
 
-        creature.appendChild(simpleTag(doc, "experience", "0"));
-        creature.appendChild(simpleTag(doc, "energy", "50"));
-        creature.appendChild(simpleTag(doc, "hunger", "50"));
-        creature.appendChild(simpleTag(doc, "happiness", "50"));
+        // VALORES REALES DE LA BD, se carga arriba y aqui se coge con el getter
+        creature.appendChild(simpleTag(doc, "experience", String.valueOf(datos.getExperience())));
+        creature.appendChild(simpleTag(doc, "energy", String.valueOf(datos.getEnergy())));
+        creature.appendChild(simpleTag(doc, "hunger", String.valueOf(datos.getHunger())));
+        creature.appendChild(simpleTag(doc, "happiness", String.valueOf(datos.getHappiness())));
 
         Element photo = doc.createElement("photo");
         photo.setAttribute("path", "img/creature" + id + ".png");

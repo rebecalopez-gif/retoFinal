@@ -108,7 +108,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         btnInicioSesion.setBackground(new Color(196, 236, 255));
         btnInicioSesion.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
         btnInicioSesion.setForeground(new Color(0, 128, 192));
-        btnInicioSesion.setBounds(422, 628, 179, 90);
+        btnInicioSesion.setBounds(595, 629, 179, 90);
         contentPane.add(btnInicioSesion);
 
         lblIMAGEN = new JLabel("");

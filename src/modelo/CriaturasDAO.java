@@ -20,5 +20,6 @@ public interface CriaturasDAO {
 	public Object insertarCriatura(Creature criatura);
 	public boolean mirarEmocion(Creature creature);
 	public boolean descansar(Creature criatura);
+	public Creature obtenerDatosCriatura(int codCreature);
 
 }

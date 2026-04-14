@@ -73,5 +73,10 @@ public class CriaturasControlador {
 	public boolean descansar(Creature criatura) {
 		return dao.descansar(criatura);
 	}
+	
+	public Creature obtenerDatosCriatura(int codCreature) {
+		return dao.obtenerDatosCriatura(codCreature);
+	}
+
 }
 

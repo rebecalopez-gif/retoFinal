@@ -312,7 +312,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 			// Baja el hambre
 			int hambreNueva=creature.getHunger()-(int)(Math.random() * 30);
-			int energiaNueva=creature.getEnergy()-(int)(Math.random() * 30);
+			int energiaNueva = Math.max(0, creature.getEnergy() - (int)(Math.random() * 30));
 			if (hambreNueva<0) {
 				hambreNueva=0;
 			}
@@ -417,5 +417,37 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
+
+	@Override
+	public Creature obtenerDatosCriatura(int codCreature) {
+		Creature c = null;
+	    this.openConnection();
+	    try {
+	        PreparedStatement stmt = con.prepareStatement(
+	            "SELECT * FROM Creature WHERE cod_creature = ?"
+	        );
+	        stmt.setInt(1, codCreature);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            c = new Creature(
+	                rs.getInt("cod_creature"),
+	                rs.getString("userName"),
+	                rs.getString("creatureName"),
+	                rs.getInt("experience"),
+	                rs.getInt("energy"),
+	                rs.getInt("hunger"),
+	                rs.getInt("happiness")
+	            );
+	        }
+	        rs.close();
+	        stmt.close();
+	        con.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al obtener datos de criatura: " + e.getMessage());
+	    }
+	    return c;
+	}
+
 
 }
