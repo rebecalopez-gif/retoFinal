@@ -33,8 +33,11 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
-	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
-	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
+	
+	final String SQLDARCOMIDA="UPDATE CREATURE C JOIN EQUIP E ON C.COD_CREATURE = E.COD_CREATURE JOIN OBJECT O ON O.COD_OBJECT = E.COD_OBJECT SET C.HUNGER = LEAST(100, C.HUNGER + O.HungerEffect),C.ENERGY = LEAST(100, C.ENERGY + O.energy_effect),C.HAPPINESS = LEAST(100, C.HAPPINESS + O.happiness_effect) WHERE C.COD_CREATURE = ? AND O.objectName = ?;"; 
+	//LEAST es una funcion que sirve pa elegir el numero mas bajo
+
+  final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
@@ -44,10 +47,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 	//final String SQL_ESTADO="SELECT C.experience, energy,hunger, happiness FROM Creature C WHERE cod_creature=?"; //PARA VER EL ESTADO DEL MOUNSTRUO
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
-
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
-	//COPIAR--------------
 	public ImplementacionBD() {
 		this.configFile = ResourceBundle.getBundle("configClase");
 		this.driverBD = this.configFile.getString("Driver");
@@ -227,7 +228,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			ResultSet rs=stmt.executeQuery();
 
 			while (rs.next()) {
-				Food o =new Food( rs.getString("objectName"),rs.getInt("HungerEffect"));
+				Food o =new Food(rs.getString("objectName"),rs.getInt("HungerEffect"),rs.getInt("energy_effect"),rs.getInt("happiness_effect"));
 				listaComida.add(o);
 			}	
 
@@ -247,8 +248,9 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		try {
 			stmt = con.prepareStatement(SQLDARCOMIDA); 
-			stmt.setInt(1, comida.getHunger_effect()); // EN EL STM SE SUMA SU EFECTO 
-			stmt.setInt(2, criatura.getCodC());
+			stmt.setInt(1, criatura.getCodC());
+			stmt.setString(2, comida.getObjectName());
+	
 			if (stmt.executeUpdate()>0) {
 				ok=true;
 			}	
