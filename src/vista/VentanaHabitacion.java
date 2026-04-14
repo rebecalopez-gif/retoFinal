@@ -27,7 +27,7 @@ import modelo.Objetos;
 import javax.swing.JList;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 
 /**
  * VentanaHabitacion representa la interfaz de la habitación del juego.

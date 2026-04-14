@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import modelo.Creature;
 import modelo.UserGame;
 
-public class TestUserGame {
+public class TestCreature {
+	
 	/*
 	 @Test
 	    void testEdad_MayorDe9() {
