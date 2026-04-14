@@ -13,7 +13,7 @@ public interface CriaturasDAO {
 	public ArrayList<Creature> obtenerPartidas(UserGame user);
 	public boolean comprobarUser(UserGame user);
 	public boolean eliminarPartida(Creature creature);
-	public List<Objeto> verObjectos();
+	public List<Objeto> verObjectos(Creature creature);
 	public ArrayList<Food> listaComida();
 	public boolean darComida(Creature criatura, Food comida);
 	public boolean irDePaseo(Creature creatureName);
@@ -21,6 +21,6 @@ public interface CriaturasDAO {
 	public boolean mirarEmocion(Creature creature);
 	public boolean descansar(Creature criatura);
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio);
-	public boolean quitarObjeto(Creature criatura);
+	public boolean quitarObjeto(Creature criatura, Accesory accesorio);
 	public boolean comprobarObjeto(Creature criatura);
 }

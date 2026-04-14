@@ -43,8 +43,8 @@ public class CriaturasControlador {
 	public boolean eliminarPartida(Creature creature) {
 		return dao.eliminarPartida(creature);
 	}
-	public List<Objeto> verObjectos() {
-		return dao.verObjectos();
+	public List<Objeto> verObjectos(Creature creature) {
+		return dao.verObjectos(creature);
 	}
 	public ArrayList<Food> listaComida(){
 		return dao.listaComida();
@@ -57,7 +57,6 @@ public class CriaturasControlador {
 	}
 	public Object insertarCriatura(Creature criatura) {
 		return dao.insertarCriatura(criatura);
-		
 	}
 	public boolean mirarEmocion(Creature creature) {
 		return dao.mirarEmocion(creature);
@@ -68,8 +67,8 @@ public class CriaturasControlador {
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
 		return dao.equiparObjeto(criatura, accesorio);
 	}
-	public boolean quitarObjeto(Creature criatura) {
-		return dao.quitarObjeto(criatura);
+	public boolean quitarObjeto(Creature criatura, Accesory accesorio) {
+		return dao.quitarObjeto(criatura, accesorio);
 	}
 	public boolean comprobarObjeto(Creature criatura) {
 		return dao.comprobarObjeto(criatura);

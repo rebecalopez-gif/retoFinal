@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import controlador.CriaturasControlador;
+import modelo.Accesory;
 import modelo.Creature;
 import modelo.Objeto;
 
@@ -56,6 +57,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	private JButton bOTONGYM;
 	private Creature criatura;
 	private JLabel accesoriolabel;
+	private String nombreAccesorio = "";
 
 
 	/**
@@ -70,6 +72,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		super(ventanas,true);
 		this.cont = controlador;
 		this.criatura = criatura;
+		
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
@@ -100,39 +103,42 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) { //clickar dos veces
-					Objeto seleccionado = (Objeto) list.getSelectedValue();
+					Accesory seleccionado = (Accesory) list.getSelectedValue();
 
 					if(seleccionado != null) {
-						String nombre = seleccionado.getObjectName(); 
+						String nombre = seleccionado.getObjectName();
 						switch(nombre) {
-						case "birthdayHat":
-							// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
-					        accesoriolabel.setBounds(524, 438, 200, 200);
-							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-							//para escalar la imagen
-							Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
-							
-							if (accesoriolabel.getIcon() != img) {
-								accesoriolabel.setIcon(new ImageIcon(img));
-							} else {
-								accesoriolabel.setIcon(null);
-							}
-							break;
-						case "Sunglasses":
-					        ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-					        Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-					     // POSICIÓN MÁS ABAJO PARA LAS GAFAS
-					        accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
-					        
-							if (accesoriolabel.getIcon() != imgSG) {
-						        accesoriolabel.setIcon(new ImageIcon(imgSG));
-							} else {
-								accesoriolabel.setIcon(null);
-							}
-							break;
-						default:
-							accesoriolabel.setIcon(null);
-							break;
+							case "birthdayHat":
+								// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
+						        accesoriolabel.setBounds(524, 438, 200, 200);
+								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+								//para escalar la imagen
+								Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+								if (nombreAccesorio != nombre) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+									accesoriolabel.setIcon(new ImageIcon(imgBH));
+									nombreAccesorio = nombre;
+									cont.equiparObjeto(criatura, seleccionado);
+								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
+									accesoriolabel.setIcon(null);
+									nombreAccesorio = "";
+									cont.quitarObjeto(criatura, seleccionado);
+								}
+								break;
+							case "Sunglasses":
+						        ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+						        Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+						        // POSICIÓN MÁS ABAJO PARA LAS GAFAS
+						        accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
+						        if (nombreAccesorio != nombre) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+									accesoriolabel.setIcon(new ImageIcon(imgSG));
+									nombreAccesorio = nombre;
+									cont.equiparObjeto(criatura, seleccionado);
+								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
+									accesoriolabel.setIcon(null);
+									nombreAccesorio = "";
+									cont.quitarObjeto(criatura, seleccionado);
+								}
+								break;
 						}
 					}
 				}
@@ -215,7 +221,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 			if (!list.isVisible()) {
-				List<Objeto> objetos = cont.verObjectos();
+				List<Objeto> objetos = cont.verObjectos(criatura);
 				list.setListData(objetos.toArray()); //rellenar la lista
 				list.setVisible(true); //hacer visible la lista
 				scroll.setVisible(true); //hacer visible el scroll

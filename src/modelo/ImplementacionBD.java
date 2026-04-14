@@ -31,7 +31,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
 	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)"; //PREGUNTAR SI TIENE QUE SER EN MAYUSCULAS 
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
-	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
+	//final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
+	final String SQLCONSULTA = "SELECT object.cod_object, object.objectName FROM equip, object WHERE equip.cod_object = object.cod_object AND equip.cod_creature = ?";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	final String SQLDARCOMIDA="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HUNGER=(C.HUNGER+?) WHERE O.COD_OBJECT=E.cod_object AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //paera modificar
@@ -39,9 +40,9 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
-	final String SQL_EQUIPAR_OBJETO="UPDATE EQUIP SET EQUIPPED= TRUE WHERE cod_object = ? AND cod_creature = ?";
-	final String SQL_QUITAR_OBJETO="UPDATE EQUIP SET EQUIPPED= FALSE WHERE cod_object = ? AND cod_creature = ?";
-	final String SQL_COMPROBAR_OBJETO = "SEELECT cod_object FROM equip WHERE cod_creature=? AND equiped = TRUE";
+	final String SQL_EQUIPAR_OBJETO="UPDATE EQUIP SET EQUIPED= TRUE WHERE cod_object = ? AND cod_creature = ?";
+	final String SQL_QUITAR_OBJETO="UPDATE EQUIP SET EQUIPED= FALSE WHERE cod_object = ? AND cod_creature = ?";
+	final String SQL_COMPROBAR_OBJETO = "SELECT cod_object FROM equip WHERE cod_creature=? AND equiped = TRUE";
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
@@ -195,20 +196,20 @@ public class ImplementacionBD implements CriaturasDAO{
 	}
 
 
-	public List<Objeto> verObjectos() {
+	public List<Objeto> verObjectos(Creature creature) {
 		List<Objeto> objetos= new ArrayList<>();
 
 		this.openConnection();
 		try {
 			// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
 			stmt = con.prepareStatement(SQLCONSULTA);
+			stmt.setInt(1, creature.getCodC());
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				Objeto objeto=new Objeto(resultado.getInt("cod_object"),resultado.getString("objectName"));
-				objetos.add(objeto);
+				Accesory accesorio=new Accesory(resultado.getInt("cod_object"),resultado.getString("objectName"));
+				objetos.add(accesorio);
 			}
 			resultado.close();
-
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
@@ -288,13 +289,14 @@ public class ImplementacionBD implements CriaturasDAO{
 		return ok;
 	}
 	
-	public boolean quitarObjeto(Creature criatura) {
+	public boolean quitarObjeto(Creature criatura, Accesory accesorio) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
 
 		try {
 			stmt = con.prepareStatement(SQL_QUITAR_OBJETO);
-			stmt.setInt(1, criatura.getCodC());
+			stmt.setInt(1, accesorio.getCod_object());
+			stmt.setInt(2, criatura.getCodC());
 			if (stmt.executeUpdate()>0) {
 				ok=true;
 			}	
