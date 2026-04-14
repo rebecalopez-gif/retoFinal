@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.CriaturasControlador;
+import controlador.XMLGenerator;
 import modelo.*;
 
 import javax.swing.JLabel;
@@ -41,6 +42,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
     private JLabel lblIMAGEN;
     private boolean nickVacio; 
     private JLabel lblMensaje;
+    private JButton botonxml;
 
     public VentanaPrincipal(CriaturasControlador controlador) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
@@ -53,6 +55,14 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        
+        botonxml = new JButton("Generate XML");
+        botonxml.setBackground(new Color(255, 128, 192));
+        botonxml.setForeground(new Color(128, 0, 255));
+        botonxml.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 14));
+        botonxml.setBounds(422, 519, 152, 39);
+        contentPane.add(botonxml);
+        botonxml.addActionListener(this);
         
         lblMensaje = new JLabel("");
         lblMensaje.setForeground(new Color(0, 128, 192));
@@ -98,7 +108,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         btnInicioSesion.setBackground(new Color(196, 236, 255));
         btnInicioSesion.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
         btnInicioSesion.setForeground(new Color(0, 128, 192));
-        btnInicioSesion.setBounds(422, 628, 179, 90);
+        btnInicioSesion.setBounds(595, 629, 179, 90);
         contentPane.add(btnInicioSesion);
 
         lblIMAGEN = new JLabel("");
@@ -137,6 +147,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             this.dispose();
             VentanaNewUsuario venta = new VentanaNewUsuario(this, cont, true);
             venta.setVisible(true);
+            
+        }else if(e.getSource() == botonxml) { //es el boton de generar el xml automatico
+            XMLGenerator.generarXML(); // llama a la clase y al metodo
+            JOptionPane.showMessageDialog(this, "XML generated successfully!");
         }
     }
 }

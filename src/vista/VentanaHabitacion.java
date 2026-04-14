@@ -28,7 +28,6 @@ import javax.swing.JList;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
-
 /**
  * VentanaHabitacion representa la interfaz de la habitación del juego.
  * Permite al usuario interactuar con:
