@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<virtualCreatures>
+    <users>
+        <user birthDate="2009-04-02" name="Razer"/>
+        <user birthDate="2007-09-11" name="Juan"/>
+        <user birthDate="2009-02-04" name="Edurne"/>
+    </users>
+    <creatures>
+        <creature id="1" owner="Razer" type="default">
+            <name>Alissa</name>
+            <items>
+                <item name="birthdayHat" quantity="1"/>
+            </items>
+            <status>
+                <happy/>
+            </status>
+            <experience>91</experience>
+            <energy>100</energy>
+            <hunger>60</hunger>
+            <happiness>50</happiness>
+            <photo path="img/creature1.png"/>
+        </creature>
+        <creature id="2" owner="Juan" type="default">
+            <name>Sinclair</name>
+            <items>
+                <item name="Sunglasses" quantity="1"/>
+            </items>
+            <status>
+                <happy/>
+            </status>
+            <experience>0</experience>
+            <energy>50</energy>
+            <hunger>50</hunger>
+            <happiness>50</happiness>
+            <photo path="img/creature2.png"/>
+        </creature>
+        <creature id="3" owner="Edurne" type="default">
+            <name>Alicia</name>
+            <items>
+                <item name="Hamburger" quantity="1"/>
+            </items>
+            <status>
+                <happy/>
+            </status>
+            <experience>0</experience>
+            <energy>50</energy>
+            <hunger>50</hunger>
+            <happiness>50</happiness>
+            <photo path="img/creature3.png"/>
+        </creature>
+    </creatures>
+    <configuration difficulty="medium">
+        <gameCode>CR-1234-ABC</gameCode>
+        <welcomeMessage>Welcome to Virtual Creatures!</welcomeMessage>
+        <maxCreaturesPerUser>5</maxCreaturesPerUser>
+    </configuration>
+</virtualCreatures>
