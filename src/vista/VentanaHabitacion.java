@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
 
 import controlador.CriaturasControlador;
 import modelo.Creature;
-import modelo.Objetos;
+import modelo.Objeto;
 
 import javax.swing.JList;
 
@@ -100,31 +100,39 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) { //clickar dos veces
-					Objetos seleccionado = (Objetos) list.getSelectedValue();
+					Objeto seleccionado = (Objeto) list.getSelectedValue();
 
 					if(seleccionado != null) {
 						String nombre = seleccionado.getObjectName(); 
 						switch(nombre) {
-							case "birthdayHat": {
-								// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
-						        accesoriolabel.setBounds(524, 438, 200, 200);
-								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-								//para escalar la imagen
-								Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+						case "birthdayHat":
+							// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
+					        accesoriolabel.setBounds(524, 438, 200, 200);
+							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+							//para escalar la imagen
+							Image img = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+							
+							if (accesoriolabel.getIcon() != img) {
 								accesoriolabel.setIcon(new ImageIcon(img));
-								break;
-							}
-							case "Sunglasses": {
-						        ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-						        Image img = icono.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-						     // POSICIÓN MÁS ABAJO PARA LAS GAFAS
-						        accesoriolabel.setBounds(500, 400, 250, icono.getIconHeight());
-						        accesoriolabel.setIcon(new ImageIcon(img));
-								break;
-							}
-							default:
+							} else {
 								accesoriolabel.setIcon(null);
-								break;
+							}
+							break;
+						case "Sunglasses":
+					        ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+					        Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+					     // POSICIÓN MÁS ABAJO PARA LAS GAFAS
+					        accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
+					        
+							if (accesoriolabel.getIcon() != imgSG) {
+						        accesoriolabel.setIcon(new ImageIcon(imgSG));
+							} else {
+								accesoriolabel.setIcon(null);
+							}
+							break;
+						default:
+							accesoriolabel.setIcon(null);
+							break;
 						}
 					}
 				}
@@ -207,7 +215,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
 			if (!list.isVisible()) {
-				List<Objetos> objetos = cont.verObjectos();
+				List<Objeto> objetos = cont.verObjectos();
 				list.setListData(objetos.toArray()); //rellenar la lista
 				list.setVisible(true); //hacer visible la lista
 				scroll.setVisible(true); //hacer visible el scroll

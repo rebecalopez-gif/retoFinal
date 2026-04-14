@@ -43,7 +43,7 @@ public class CriaturasControlador {
 	public boolean eliminarPartida(Creature creature) {
 		return dao.eliminarPartida(creature);
 	}
-	public List<Objetos> verObjectos() {
+	public List<Objeto> verObjectos() {
 		return dao.verObjectos();
 	}
 	public ArrayList<Food> listaComida(){
@@ -54,7 +54,6 @@ public class CriaturasControlador {
 	}
 	public boolean irDePaseo(Creature creatureName) {
 		return dao.irDePaseo(creatureName);
-		
 	}
 	public Object insertarCriatura(Creature criatura) {
 		return dao.insertarCriatura(criatura);
@@ -65,6 +64,15 @@ public class CriaturasControlador {
 	}
 	public boolean descansar(Creature criatura) {
 		return dao.descansar(criatura);
+	}
+	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
+		return dao.equiparObjeto(criatura, accesorio);
+	}
+	public boolean quitarObjeto(Creature criatura) {
+		return dao.quitarObjeto(criatura);
+	}
+	public boolean comprobarObjeto(Creature criatura) {
+		return dao.comprobarObjeto(criatura);
 	}
 }
 

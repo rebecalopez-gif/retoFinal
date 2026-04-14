@@ -39,10 +39,11 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
-	final String SQLEQUIPAR ="UPDATE CREATURE C, OBJECT O, EQUIP E SET C.HAPPINESS=(C.HAPPINESS+?) WHERE O.COD_OBJECT=E.COD_OBJECT AND E.COD_CREATURE=E.COD_CREATURE AND C.COD_CREATURE=?";
+	final String SQL_EQUIPAR_OBJETO="UPDATE EQUIP SET EQUIPPED= TRUE WHERE cod_object = ? AND cod_creature = ?";
+	final String SQL_QUITAR_OBJETO="UPDATE EQUIP SET EQUIPPED= FALSE WHERE cod_object = ? AND cod_creature = ?";
+	final String SQL_COMPROBAR_OBJETO = "SEELECT cod_object FROM equip WHERE cod_creature=? AND equiped = TRUE";
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
-
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
@@ -194,8 +195,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	}
 
 
-	public List<Objetos> verObjectos() {
-		List<Objetos> objetos= new ArrayList<>();
+	public List<Objeto> verObjectos() {
+		List<Objeto> objetos= new ArrayList<>();
 
 		this.openConnection();
 		try {
@@ -203,7 +204,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt = con.prepareStatement(SQLCONSULTA);
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				Objetos objeto=new Objetos(resultado.getInt("cod_object"),resultado.getString("objectName"));
+				Objeto objeto=new Objeto(resultado.getInt("cod_object"),resultado.getString("objectName"));
 				objetos.add(objeto);
 			}
 			resultado.close();
@@ -265,17 +266,17 @@ public class ImplementacionBD implements CriaturasDAO{
 		return ok;
 	}
 
+	
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
 
 		try {
-			stmt = con.prepareStatement(SQLEQUIPAR); 
-			stmt.setInt(1, accesorio.getHapiness_effect());
+			stmt = con.prepareStatement(SQL_EQUIPAR_OBJETO);
+			stmt.setInt(1, accesorio.getCod_object());
 			stmt.setInt(2, criatura.getCodC());
 			if (stmt.executeUpdate()>0) {
 				ok=true;
-
 			}	
 			stmt.close();
 			con.close();
@@ -285,6 +286,48 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 
 		return ok;
+	}
+	
+	public boolean quitarObjeto(Creature criatura) {
+		boolean ok=false;
+		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQL_QUITAR_OBJETO);
+			stmt.setInt(1, criatura.getCodC());
+			if (stmt.executeUpdate()>0) {
+				ok=true;
+			}	
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return ok;
+	}
+	
+	public boolean comprobarObjeto(Creature criatura) {
+		boolean existe=false;
+		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQL_COMPROBAR_OBJETO);
+			stmt.setInt(1, criatura.getCodC());
+			ResultSet resultado = stmt.executeQuery();
+			if (resultado.next()) {
+				existe = true;
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+
+		return existe;
 	}
 	
 	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre

@@ -33,11 +33,9 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	private JComboBox<Food> comboBoxComida;
 	private CriaturasControlador controlador;
 	private Creature criatura;
-	private JButton BOTONROOM;
 	private JButton BOTONGYM;
 	private final JPanel contentPanel = new JPanel();
-	private JButton botonroom;
-	private JButton BOTONGIM;
+	private JButton BOTONROOM;
 	private JLabel lblNewLabel, bichito, accesoriolabel;
 
 
@@ -78,22 +76,22 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		contentPanel.add(bichito);
 
 		// BOTÓN HABITACIÓN
-		botonroom = new JButton("BEDROOM");
-		botonroom.setFont(new Font("Monospaced", Font.BOLD, 20));
-		botonroom.setForeground(Color.WHITE);
-		botonroom.setBackground(new Color(123, 31, 162));
-		botonroom.setBounds(1349, 805, 150, 60);
-		contentPanel.add(botonroom);
-		botonroom.addActionListener(this);
+		BOTONROOM = new JButton("BEDROOM");
+		BOTONROOM.setFont(new Font("Monospaced", Font.BOLD, 20));
+		BOTONROOM.setForeground(Color.WHITE);
+		BOTONROOM.setBackground(new Color(123, 31, 162));
+		BOTONROOM.setBounds(1349, 805, 150, 60);
+		contentPanel.add(BOTONROOM);
+		BOTONROOM.addActionListener(this);
 
 		// BOTÓN GYM
-		BOTONGIM = new JButton("GYM");
-		BOTONGIM.setFont(new Font("Monospaced", Font.BOLD, 20));
-		BOTONGIM.setForeground(Color.WHITE);
-		BOTONGIM.setBackground(new Color(33, 150, 243));
-		BOTONGIM.setBounds(31, 805, 150, 60);
-		contentPanel.add(BOTONGIM);
-		BOTONGIM.addActionListener(this);
+		BOTONGYM = new JButton("GYM");
+		BOTONGYM.setFont(new Font("Monospaced", Font.BOLD, 20));
+		BOTONGYM.setForeground(Color.WHITE);
+		BOTONGYM.setBackground(new Color(33, 150, 243));
+		BOTONGYM.setBounds(31, 805, 150, 60);
+		contentPanel.add(BOTONGYM);
+		BOTONGYM.addActionListener(this);
 
 		// NEVERA
 		btnNevera = new JButton();
@@ -133,12 +131,12 @@ public class VentanaCocina extends JDialog implements ActionListener{
 			
 			bichito.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
 
-		}else if(e.getSource()==BOTONGIM) {//ir al gym
+		}else if(e.getSource()==BOTONGYM) {//ir al gym
 			this.dispose();
 			VentanaGym gym = new VentanaGym(this, controlador,criatura);
 			gym.setVisible(true);
 
-		}else if(e.getSource()==botonroom) { //ir a la HABITACION
+		}else if(e.getSource()==BOTONROOM) { //ir a la HABITACION
 			this.dispose();
 			VentanaHabitacion habitacion = new VentanaHabitacion(this, controlador,criatura);
 			habitacion.setVisible(true);
