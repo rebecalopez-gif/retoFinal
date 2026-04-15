@@ -1,6 +1,5 @@
 package modelo;
-
-public class Accesory extends Objeto{
+public class Accesory extends Objetos{
 	private int hapiness_effect;
 	private int energy_effect;
 	
@@ -19,9 +18,8 @@ public class Accesory extends Objeto{
 		super(cod_object, objectName);
 		this.hapiness_effect=0;
 		this.energy_effect=0;
-  }
-  
-	public Accesory(String objectName,int hapiness_effect,int energy_effect) {
+ }
+ 	public Accesory(String objectName,int hapiness_effect,int energy_effect) {
 		super(objectName);
 		this.hapiness_effect=hapiness_effect;
 		this.energy_effect=energy_effect;
@@ -30,11 +28,9 @@ public class Accesory extends Objeto{
 	public Accesory(int cod_object,String objectName) {
 		super(cod_object, objectName);
 	}
-
 	public int getHapiness_effect() {
 		return hapiness_effect;
 	}
-
 	// lo de if es el añadido para EDE ----------------------------------------------------
 	public void setHapiness_effect(int hapiness_effect) {
 		if (hapiness_effect < 0) {
@@ -47,17 +43,15 @@ public class Accesory extends Objeto{
 	public int getEnergy_effect() {
 		return energy_effect;
 	}
-
 	public void setEnergy_effect(int energy_effect) {
 		this.energy_effect = energy_effect;
 	}
-
 	@Override
 	public String toString() {
 		return cod_object + " - " + objectName;
 	}
 	
 	
-
 	
 }
+
