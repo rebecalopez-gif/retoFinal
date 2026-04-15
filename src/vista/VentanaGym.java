@@ -19,6 +19,7 @@ import modelo.Creature;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import java.awt.Font;
+import java.awt.Image;
 
 public class VentanaGym extends JDialog implements ActionListener{
 
@@ -29,6 +30,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 	private Toolkit tk;
 	private JButton btnPuerta, bOTONCOCINA, btnHabitacion;
 	private Creature criatura;
+	private JLabel accesoriolabel;
 
 	private JLabel lblNewLabel_EXP;
 	private JLabel lblNewLabel_EMOTI;
@@ -79,6 +81,23 @@ public class VentanaGym extends JDialog implements ActionListener{
 		btnHabitacion.setOpaque(true);
 		contentPanel.add(btnHabitacion);
 		btnHabitacion.addActionListener(this);
+		
+		if (cont.comprobarObjeto(criatura)==1) {
+	        accesoriolabel.setBounds(524, 438, 200, 200);
+			ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+			Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
+			accesoriolabel.setIcon(new ImageIcon(imgBH));
+		} else if (cont.comprobarObjeto(criatura)==2) {
+			ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+	        Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+	        // POSICIÓN MÁS ABAJO PARA LAS GAFAS
+	        accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
+	        accesoriolabel.setIcon(new ImageIcon(imgSG));	
+		} else {
+			accesoriolabel = new JLabel("");
+			accesoriolabel.setBounds(524, 438, 200, 200);
+			contentPanel.add(accesoriolabel);
+		}
 
 		lblCriatura = new JLabel("");
 		lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
