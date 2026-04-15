@@ -122,9 +122,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 							//para escalar la imagen
 							Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
-							if (nombreAccesorio != nombre) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+							if (!nombreAccesorio.equals(nombre)) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
 								accesoriolabel.setIcon(new ImageIcon(imgBH));
 								nombreAccesorio = nombre;
+								cont.quitarCualquierObjeto(criatura);
 								cont.equiparObjeto(criatura, seleccionado);
 							} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 								accesoriolabel.setIcon(null);
@@ -137,9 +138,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 							Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
 							// POSICIÓN MÁS ABAJO PARA LAS GAFAS
 							accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
-							if (nombreAccesorio != nombre) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+							if (!nombreAccesorio.equals(nombre)) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
 								accesoriolabel.setIcon(new ImageIcon(imgSG));
 								nombreAccesorio = nombre;
+								cont.quitarCualquierObjeto(criatura);
 								cont.equiparObjeto(criatura, seleccionado);
 							} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 								accesoriolabel.setIcon(null);

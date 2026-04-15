@@ -70,8 +70,23 @@ public class CriaturasControlador {
 	public boolean quitarObjeto(Creature criatura, Accesory accesorio) {
 		return dao.quitarObjeto(criatura, accesorio);
 	}
+	public boolean quitarCualquierObjeto(Creature criatura) {
+		return dao.quitarCualquierObjeto(criatura);
+	}
 	public int comprobarObjeto(Creature criatura) {
 		return dao.comprobarObjeto(criatura);
+	}
+	public boolean desbloqueoBH(Creature criatura) {
+		return dao.desbloqueoBH(criatura);
+	}
+	public boolean desbloqueoSG(Creature criatura) {
+		return dao.desbloqueoSG(criatura);
+	}
+	public boolean comprobarBH(Creature criatura) {
+		return dao.comprobarBH(criatura);
+	}
+	public boolean comprobarSG(Creature criatura) {
+		return dao.comprobarSG(criatura);
 	}
 	public Creature obtenerDatosCriatura(int codCreature) {
 		return dao.obtenerDatosCriatura(codCreature);
