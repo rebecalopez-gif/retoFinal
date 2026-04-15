@@ -9,11 +9,26 @@ public class Accesory extends Objetos{
 		this.hapiness_effect=0;
 		this.energy_effect=0;
 	}
+	public Accesory(int cod_object) {
+		super(cod_object);
+		this.hapiness_effect=0;
+		this.energy_effect=0;
+	}
 	
+	public Accesory(int cod_object,String objectName,int hapiness_effect,int energy_effect) {
+		super(cod_object, objectName);
+		this.hapiness_effect=0;
+		this.energy_effect=0;
+  }
+  
 	public Accesory(String objectName,int hapiness_effect,int energy_effect) {
 		super(objectName);
 		this.hapiness_effect=hapiness_effect;
 		this.energy_effect=energy_effect;
+	}
+	
+	public Accesory(int cod_object,String objectName) {
+		super(cod_object, objectName);
 	}
 
 	public int getHapiness_effect() {
@@ -39,8 +54,7 @@ public class Accesory extends Objetos{
 
 	@Override
 	public String toString() {
-		return "Accesory [hapiness_effect=" + hapiness_effect + ", energy_effect=" + energy_effect
-				+ ", getCod_object()=" + getCod_object() + ", getObjectName()=" + getObjectName() + "]";
+		return cod_object + " - " + objectName;
 	}
 	
 	

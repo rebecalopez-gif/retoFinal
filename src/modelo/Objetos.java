@@ -10,6 +10,10 @@ public class Objetos implements NamedObject{
 		this.cod_object=0;
 		this.objectName="";
 	}
+	public Objetos(int cod_object) {
+		this.cod_object=cod_object;
+		this.objectName="";
+	}
 	public Objetos(int cod_object,String objectName) {
 		this.cod_object=cod_object;
 		this.objectName=objectName;
