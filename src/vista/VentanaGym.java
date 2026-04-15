@@ -82,21 +82,25 @@ public class VentanaGym extends JDialog implements ActionListener{
 		contentPanel.add(btnHabitacion);
 		btnHabitacion.addActionListener(this);
 		
+		accesoriolabel = new JLabel();
+		accesoriolabel.setBounds(524, 438, 200, 200);
+		contentPanel.add(accesoriolabel);
+		
+		//ACCESORIO
 		if (cont.comprobarObjeto(criatura)==1) {
-	        accesoriolabel.setBounds(524, 438, 200, 200);
-			ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-			Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
-			accesoriolabel.setIcon(new ImageIcon(imgBH));
+		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+		    Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(), accesoriolabel.getHeight(), Image.SCALE_SMOOTH);
+		    accesoriolabel.setIcon(new ImageIcon(imgBH));
+
 		} else if (cont.comprobarObjeto(criatura)==2) {
-			ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-	        Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-	        // POSICIÓN MÁS ABAJO PARA LAS GAFAS
-	        accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
-	        accesoriolabel.setIcon(new ImageIcon(imgSG));	
+		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+		    accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
+		    accesoriolabel.setIcon(new ImageIcon(imgSG));
+
 		} else {
-			accesoriolabel = new JLabel("");
-			accesoriolabel.setBounds(524, 438, 200, 200);
-			contentPanel.add(accesoriolabel);
+		    // No accesorio → lo dejas vacío
+		    accesoriolabel.setIcon(null);
 		}
 
 		lblCriatura = new JLabel("");

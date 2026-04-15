@@ -46,12 +46,13 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	private JLabel lblNewLabel_NumHappy;
 	private JLabel lblNewLabel_NumEnergy;
 
-	public VentanaCocina( JDialog ventanas,CriaturasControlador cont, Creature criatura) {
+	public VentanaCocina(JDialog ventanas,CriaturasControlador cont, Creature criatura) {
 		super(ventanas,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCocina.class.getResource("/image/Monstruito adorable .png")));
 		this.controlador=cont;
 		this.criatura = criatura;
 		listaComida=cont.listaComida();
+		
 
 		// PANEL PRINCIPAL
 		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
@@ -66,22 +67,27 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
+		accesoriolabel = new JLabel();
+		accesoriolabel.setBounds(524, 438, 200, 200);
+		contentPanel.add(accesoriolabel);
+		
 		//ACCESORIO
 		if (cont.comprobarObjeto(criatura)==1) {
-	        accesoriolabel.setBounds(524, 438, 200, 200);
-			ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-			Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
-			accesoriolabel.setIcon(new ImageIcon(imgBH));
-		} else if (cont.comprobarObjeto(criatura)==2) {
-			ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-	        Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-	        // POSICIÓN MÁS ABAJO PARA LAS GAFAS
-	        accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
-	        accesoriolabel.setIcon(new ImageIcon(imgSG));	
-		} else {
-			accesoriolabel = new JLabel("");
 			accesoriolabel.setBounds(524, 438, 200, 200);
-			contentPanel.add(accesoriolabel);
+		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+		    Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(), accesoriolabel.getHeight(), Image.SCALE_SMOOTH);
+		    accesoriolabel.setIcon(new ImageIcon(imgBH));
+
+		} else if (cont.comprobarObjeto(criatura)==2) {
+
+		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+		    accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
+		    accesoriolabel.setIcon(new ImageIcon(imgSG));
+
+		} else {
+		    
+		    accesoriolabel.setIcon(null);
 		}
 		
 		//CRIATURA
