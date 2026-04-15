@@ -23,4 +23,3 @@ public interface CriaturasDAO {
 	public int comprobarObjeto(Creature criatura);
 	public Creature obtenerDatosCriatura(int codCreature);
 }
-

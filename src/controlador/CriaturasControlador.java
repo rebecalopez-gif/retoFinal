@@ -76,5 +76,3 @@ public class CriaturasControlador {
 	public Creature obtenerDatosCriatura(int codCreature) {
 		return dao.obtenerDatosCriatura(codCreature);
 	}
-}
-

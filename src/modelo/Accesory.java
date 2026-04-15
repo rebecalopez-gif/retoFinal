@@ -18,7 +18,7 @@ public class Accesory extends Objetos{
 		super(cod_object, objectName);
 		this.hapiness_effect=0;
 		this.energy_effect=0;
- }
+
  	public Accesory(String objectName,int hapiness_effect,int energy_effect) {
 		super(objectName);
 		this.hapiness_effect=hapiness_effect;
@@ -51,7 +51,4 @@ public class Accesory extends Objetos{
 		return cod_object + " - " + objectName;
 	}
 	
-	
-	
-}
-
+  }

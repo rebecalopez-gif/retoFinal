@@ -40,6 +40,5 @@ public class Objetos implements NamedObject{
 		return objectName;
 	}
 	
-	
 }
 
