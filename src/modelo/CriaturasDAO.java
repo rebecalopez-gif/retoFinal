@@ -1,12 +1,10 @@
 package modelo;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 public interface CriaturasDAO {
 	public boolean introducirUser(UserGame user);
 	public boolean iniciarSesion(UserGame user);
@@ -24,5 +22,4 @@ public interface CriaturasDAO {
 	public boolean quitarObjeto(Creature criatura, Accesory accesorio);
 	public int comprobarObjeto(Creature criatura);
 	public Creature obtenerDatosCriatura(int codCreature);
-
 }
