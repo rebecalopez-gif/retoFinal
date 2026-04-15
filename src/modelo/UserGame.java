@@ -33,9 +33,14 @@ public class UserGame {
 		this.passwordUser = passwordUser;
 	}
 
+	// el if para lo de EDE-----------------------------------------
 	public int getBirthDate() {
+		if (birthDate < 0) {
+	        throw new IllegalArgumentException("Fecha inválida");
+	    }
 		return birthDate;
 	}
+	//----------------------------------------------------------------------
 
 	public void setBirthDate(int birthDate) {
 		this.birthDate = birthDate;
