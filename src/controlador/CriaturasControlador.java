@@ -70,7 +70,7 @@ public class CriaturasControlador {
 	public boolean quitarObjeto(Creature criatura, Accesory accesorio) {
 		return dao.quitarObjeto(criatura, accesorio);
 	}
-	public boolean comprobarObjeto(Creature criatura) {
+	public int comprobarObjeto(Creature criatura) {
 		return dao.comprobarObjeto(criatura);
 	}
 }

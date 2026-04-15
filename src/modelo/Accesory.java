@@ -9,6 +9,11 @@ public class Accesory extends Objeto{
 		this.hapiness_effect=0;
 		this.energy_effect=0;
 	}
+	public Accesory(int cod_object) {
+		super(cod_object);
+		this.hapiness_effect=0;
+		this.energy_effect=0;
+	}
 	
 	public Accesory(int cod_object,String objectName,int hapiness_effect,int energy_effect) {
 		super(cod_object, objectName);

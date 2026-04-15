@@ -310,8 +310,8 @@ public class ImplementacionBD implements CriaturasDAO{
 		return ok;
 	}
 	
-	public boolean comprobarObjeto(Creature criatura) {
-		boolean existe=false;
+	public int comprobarObjeto(Creature criatura) {
+		int cod = 0;
 		this.openConnection();//abro la conecexion
 
 		try {
@@ -319,7 +319,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setInt(1, criatura.getCodC());
 			ResultSet resultado = stmt.executeQuery();
 			if (resultado.next()) {
-				existe = true;
+				cod = resultado.getInt("cod_object");
 			}
 			resultado.close();
 			stmt.close();
@@ -329,7 +329,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
 		}
 
-		return existe;
+		return cod;
 	}
 	
 	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre

@@ -22,5 +22,5 @@ public interface CriaturasDAO {
 	public boolean descansar(Creature criatura);
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio);
 	public boolean quitarObjeto(Creature criatura, Accesory accesorio);
-	public boolean comprobarObjeto(Creature criatura);
+	public int comprobarObjeto(Creature criatura);
 }
