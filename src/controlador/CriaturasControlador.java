@@ -1,32 +1,26 @@
 package controlador;
-
 import vista.*;
 import modelo.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import exception.UserExisteException;
-
 public class CriaturasControlador {
 	CriaturasDAO dao = new ImplementacionBD();
-	private UserGame usuarioActual; 
-
+	private UserGame usuarioActual;
 	public void visualizarPantalla() {
 		VentanaPrincipal ven = new VentanaPrincipal(this);
 		ven.setVisible(true);	
 	}
 	public boolean introducirUser(UserGame user) throws UserExisteException{ //desde el controlador lanzo la exepcion
-		 if (comprobarUser(user)) { 
+		 if (comprobarUser(user)) {
 		        throw new UserExisteException("That username is not available.");
 		    }
 		//si no existe lo introduzco
 		 return dao.introducirUser(user);
 	}
-
 	 public boolean iniciarSesion(UserGame user) {
 	        if (dao.iniciarSesion(user)) {
 	            this.usuarioActual = user;  //SE GUARDA EL USUARIO
@@ -37,7 +31,6 @@ public class CriaturasControlador {
 	 public UserGame getUsuarioActual() { //PARA GUARDARLO EN EL USUARIO QUE INICIA SESION
 	        return usuarioActual;
 	    }
-
 	    public String getUserNameActual() {
 	        return usuarioActual != null ? usuarioActual.getUserName() : null;
 	    }
@@ -50,7 +43,7 @@ public class CriaturasControlador {
 	public boolean eliminarPartida(Creature creature) {
 		return dao.eliminarPartida(creature);
 	}
-	public List<Objeto> verObjectos(Creature creature) {
+	public List<Objetos> verObjectos(Creature creature) {
 		return dao.verObjectos(creature);
 	}
 	public ArrayList<Food> listaComida(){
@@ -83,6 +76,5 @@ public class CriaturasControlador {
 	public Creature obtenerDatosCriatura(int codCreature) {
 		return dao.obtenerDatosCriatura(codCreature);
 	}
-
 }
 

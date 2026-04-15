@@ -46,7 +46,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	private JLabel lblNewLabel_NumHappy;
 	private JLabel lblNewLabel_NumEnergy;
 
-	public VentanaCocina( JDialog ventanas,CriaturasControlador cont, Creature criatura) {
+	public VentanaCocina(JDialog ventanas,CriaturasControlador cont, Creature criatura) {
 		super(ventanas,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCocina.class.getResource("/image/Monstruito adorable .png")));
 		this.controlador=cont;
@@ -216,3 +216,4 @@ public class VentanaCocina extends JDialog implements ActionListener{
 
 	}
 }
+

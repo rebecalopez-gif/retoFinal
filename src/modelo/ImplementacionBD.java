@@ -28,15 +28,14 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 	final String SQLCONSULTA = "SELECT object.cod_object, object.objectName FROM equip, object WHERE equip.cod_object = object.cod_object AND equip.cod_creature = ?";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
-
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
-	final String SQL_EQUIPAR_OBJETO="UPDATE EQUIP SET EQUIPED= TRUE WHERE cod_object = ? AND cod_creature = ?";
-	final String SQL_QUITAR_OBJETO="UPDATE EQUIP SET EQUIPED= FALSE WHERE cod_object = ? AND cod_creature = ?";
-	final String SQL_COMPROBAR_OBJETO = "SELECT cod_object FROM equip WHERE cod_creature=? AND equiped = TRUE";
+	final String SQL_EQUIPAR_OBJETO="UPDATE EQUIP SET EQUIPPED= TRUE WHERE cod_object = ? AND cod_creature = ?";
+	final String SQL_QUITAR_OBJETO="UPDATE EQUIP SET EQUIPPED= FALSE WHERE cod_object = ? AND cod_creature = ?";
+	final String SQL_COMPROBAR_OBJETO = "SELECT cod_object FROM equip WHERE cod_creature=? AND equipped = TRUE";
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 	//final String SQL_ESTADO="SELECT C.experience, energy,hunger, happiness FROM Creature C WHERE cod_creature=?"; //PARA VER EL ESTADO DEL MOUNSTRUO
@@ -168,10 +167,8 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-  
-	public List<Objeto> verObjectos(Creature creature) {
-		List<Objeto> objetos= new ArrayList<>();
-
+ 	public List<Objetos> verObjectos(Creature creature) {
+		List<Objetos> objetos= new ArrayList<>();
 		this.openConnection();
 		try {
 			// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
@@ -243,8 +240,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-  
-	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
+ 	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
 		try {
@@ -256,18 +252,15 @@ public class ImplementacionBD implements CriaturasDAO{
 			}	
 			stmt.close();
 			con.close();
-
 		} catch (SQLException e) {
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
 		}
-
 		return ok;
 	}
 	
 	public boolean quitarObjeto(Creature criatura, Accesory accesorio) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
-
 		try {
 			stmt = con.prepareStatement(SQL_QUITAR_OBJETO);
 			stmt.setInt(1, accesorio.getCod_object());
@@ -286,7 +279,6 @@ public class ImplementacionBD implements CriaturasDAO{
 	public int comprobarObjeto(Creature criatura) {
 		int cod = 0;
 		this.openConnection();//abro la conecexion
-
 		try {
 			stmt = con.prepareStatement(SQL_COMPROBAR_OBJETO);
 			stmt.setInt(1, criatura.getCodC());
@@ -297,11 +289,9 @@ public class ImplementacionBD implements CriaturasDAO{
 			resultado.close();
 			stmt.close();
 			con.close();
-
 		} catch (SQLException e) {
 			System.out.println("Error al verificar credenciales: " + e.getMessage());
 		}
-
 		return cod;
 	}
 	
@@ -331,19 +321,17 @@ public class ImplementacionBD implements CriaturasDAO{
 		if (comprobarCriatura(creature)){
 			//Generar experiencia aleatoria
 			int expGanada=0;
-
 			// Baja el hambre
 			int hambreNueva=creature.getHunger()-(int)(Math.random() * 30);
 			
 			int energiaNueva = Math.max(0, creature.getEnergy() - (int)(Math.random() * 30));
 			
-			if (energiaNueva<0) {//por si el numero es negativo 
+			if (energiaNueva<0) {//por si el numero es negativo
 				energiaNueva=0;
 			}else if (energiaNueva>100) {
 				energiaNueva=100;
 			}
-
-			if (hambreNueva<0) {//por si el numero es negativo 
+			if (hambreNueva<0) {//por si el numero es negativo
 				hambreNueva=0;
 			}else if (hambreNueva>100) {
 				hambreNueva=100;
@@ -351,7 +339,6 @@ public class ImplementacionBD implements CriaturasDAO{
 			
 			expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
 			
-
 			// meter los nuevos datos
 			creature.setExperience(creature.getExperience() + expGanada);
 			creature.setHunger(hambreNueva);
