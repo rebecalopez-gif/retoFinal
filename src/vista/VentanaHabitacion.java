@@ -177,13 +177,14 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(BOTONCOCINA);
 		BOTONCOCINA.addActionListener(this);
 
-		accesoriolabel = new JLabel("");
+		// Crear SIEMPRE el JLabel antes de usarlo
 		accesoriolabel = new JLabel();
 		accesoriolabel.setBounds(524, 438, 200, 200);
 		contentPanel.add(accesoriolabel);
-		
+
 		//ACCESORIO
 		if (cont.comprobarObjeto(criatura)==1) {
+
 		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 		    Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(), accesoriolabel.getHeight(), Image.SCALE_SMOOTH);
 		    accesoriolabel.setIcon(new ImageIcon(imgBH));
@@ -338,3 +339,4 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
 	}
 }
+

@@ -222,3 +222,4 @@ public class VentanaCocina extends JDialog implements ActionListener{
 
 	}
 }
+

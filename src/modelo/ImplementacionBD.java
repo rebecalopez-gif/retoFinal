@@ -40,7 +40,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_QUITAR_OBJETO="UPDATE EQUIP SET EQUIPPED= FALSE WHERE cod_object = ? AND cod_creature = ?";
 	
 	final String SQL_COMPROBAR_OBJETO = "SELECT cod_object FROM equip WHERE cod_creature=? AND equipped = TRUE";
-	
+
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 	//final String SQL_ESTADO="SELECT C.experience, energy,hunger, happiness FROM Creature C WHERE cod_creature=?"; //PARA VER EL ESTADO DEL MOUNSTRUO

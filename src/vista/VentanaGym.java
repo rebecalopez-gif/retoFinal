@@ -212,3 +212,4 @@ public class VentanaGym extends JDialog implements ActionListener{
 		}
 	}
 }
+
