@@ -10,7 +10,6 @@ public class TestFood_Irene {
     @Test
     void testAssertEquals() {
         Food f = new Food("Apple", 10, 5, 3);
-
         assertEquals("Apple", f.getObjectName());
         assertEquals(10, f.getHunger_effect());
         assertEquals(5, f.getEnergy_effect());
@@ -26,7 +25,6 @@ public class TestFood_Irene {
     @Test
     void testAssertNull() {
         Food f = new Food(null, 7);
-
         assertNull(f.getObjectName());
     }
 

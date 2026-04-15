@@ -34,11 +34,11 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 	
-	final String SQLDARCOMIDA="UPDATE CREATURE C JOIN EQUIP E ON C.COD_CREATURE = E.COD_CREATURE JOIN OBJECT O ON O.COD_OBJECT = E.COD_OBJECT SET C.HUNGER = LEAST(100, C.HUNGER + O.HungerEffect),C.ENERGY = LEAST(100, C.ENERGY + O.energy_effect),C.HAPPINESS = LEAST(100, C.HAPPINESS + O.happiness_effect) WHERE C.COD_CREATURE = ? AND O.objectName = ?;"; 
+	final String SQLDARCOMIDA="UPDATE CREATURE C JOIN EQUIP E ON C.COD_CREATURE = E.COD_CREATURE JOIN OBJECT O ON O.COD_OBJECT = E.COD_OBJECT SET C.HUNGER = LEAST(100, C.HUNGER + O.HungerEffect),C.ENERGY = LEAST(100, C.ENERGY + O.energy_effect),C.HAPPINESS = LEAST(100, C.HAPPINESS + O.happiness_effect) WHERE C.COD_CREATURE = ? AND O.COD_OBJECT = ?;"; 
 	//LEAST es una funcion que sirve pa elegir el numero mas bajo
 	
-	
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
+	
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
@@ -47,12 +47,13 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 	//final String SQL_ESTADO="SELECT C.experience, energy,hunger, happiness FROM Creature C WHERE cod_creature=?"; //PARA VER EL ESTADO DEL MOUNSTRUO
+	
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
 	public ImplementacionBD() {
 		this.configFile = ResourceBundle.getBundle("configClase");
-		this.driverBD = this.configFile.getString("Driver");
+		//this.driverBD = this.configFile.getString("Driver");
 		this.urlBD = this.configFile.getString("Conn");
 		this.userBD = this.configFile.getString("DBUser");
 		this.passwordBD = this.configFile.getString("DBPass");
@@ -104,9 +105,9 @@ public class ImplementacionBD implements CriaturasDAO{
 
 			// combierto el INT en una fecha pa poder mandarla al SQL
 			int year = user.getBirthDate();
-			LocalDate fecha = LocalDate.of(year, 1, 1);
+			LocalDate fecha = LocalDate.of(year, 1, 1); 
 
-			// Insertar como DATE se guardarian todos ocmo YYYY-01-01
+			// Insertar como DATE se guardarian todos como YYYY-01-01
 			stmt.setDate(3, java.sql.Date.valueOf(fecha));
 
 			boolean tieneResultado = stmt.execute();
@@ -249,8 +250,8 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		try {
 			stmt = con.prepareStatement(SQLDARCOMIDA); 
-			stmt.setInt(1, criatura.getCodC());
-			stmt.setString(2, comida.getObjectName());
+			stmt.setString(1, comida.getObjectName());
+			stmt.setInt(2, criatura.getCodC());
 			
 			if (stmt.executeUpdate()>0) {
 				ok=true;
@@ -300,7 +301,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			con.close();
 
 		} catch (SQLException e) {
-			System.out.println("Error al verificar credenciales: " + e.getMessage());
+			System.out.println("Error al verificar credenciales 1: " + e.getMessage());
 		}
 		return existe;
 	}
@@ -308,29 +309,38 @@ public class ImplementacionBD implements CriaturasDAO{
 	@Override
 	public boolean irDePaseo(Creature creature) {
 		boolean ok=false;
-		if (comprobarCriatura(creature))
-		{
+		
+		if (comprobarCriatura(creature)){
 			//Generar experiencia aleatoria
 			int expGanada=0;
 
 			// Baja el hambre
 			int hambreNueva=creature.getHunger()-(int)(Math.random() * 30);
+			
 			int energiaNueva = Math.max(0, creature.getEnergy() - (int)(Math.random() * 30));
-			if (hambreNueva<0) {
-				hambreNueva=0;
+			
+			if (energiaNueva<0) {//por si el numero es negativo 
+				energiaNueva=0;
+			}else if (energiaNueva>100) {
+				energiaNueva=100;
 			}
 
-			if(hambreNueva!=0) {
-				expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
-			} else {
-				expGanada=0;
+			if (hambreNueva<0) {//por si el numero es negativo 
+				hambreNueva=0;
+			}else if (hambreNueva>100) {
+				hambreNueva=100;
 			}
+			
+			expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
+			
 
 			// meter los nuevos datos
 			creature.setExperience(creature.getExperience() + expGanada);
 			creature.setHunger(hambreNueva);
 			creature.setEnergy(energiaNueva);
+			
 			this.openConnection();
+			
 			try {
 				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
 				stmt = con.prepareStatement(SQLMODIFICAR);
@@ -344,7 +354,7 @@ public class ImplementacionBD implements CriaturasDAO{
 				stmt.close();
 				con.close();
 			} catch (SQLException e) {
-				System.out.println("Error al modificar credenciales: " + e.getMessage());
+				System.out.println("Error al modificar credenciales 2: " + e.getMessage());
 			}
 		}
 		return ok;	
