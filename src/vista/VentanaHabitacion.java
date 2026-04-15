@@ -24,7 +24,7 @@ import javax.swing.border.TitledBorder;
 import controlador.CriaturasControlador;
 import modelo.Accesory;
 import modelo.Creature;
-import modelo.Objetos;
+import modelo.Objeto;
 import javax.swing.JList;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
