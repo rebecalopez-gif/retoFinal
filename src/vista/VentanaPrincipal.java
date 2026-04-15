@@ -67,7 +67,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         lblMensaje = new JLabel("");
         lblMensaje.setForeground(new Color(0, 128, 192));
         lblMensaje.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 20));
-        lblMensaje.setBounds(502, 519, 515, 45);
+        lblMensaje.setBounds(595, 513, 515, 45);
         contentPane.add(lblMensaje);
 
         btnNoTienesCuenta = new JButton("NO ACCOUNT?");

@@ -264,6 +264,13 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 * 
 	 * @param e el evento de acción generado por los botones
 	 */
+	private void actualizarEmociones() { //metodo para actualizar el numero de actualizaciones 
+	    lblNewLabel_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
+	    lblNewLabel_NumHunger.setText(String.valueOf(criatura.getHunger()));
+	    lblNewLabel_NumHappy.setText(String.valueOf(criatura.getHappiness()));
+	    lblNewLabel_NumExp.setText(String.valueOf(criatura.getExperience()));
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnArmario) { //ver objetos
@@ -272,6 +279,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 				list.setListData(objetos.toArray()); //rellenar la lista
 				list.setVisible(true); //hacer visible la lista
 				scroll.setVisible(true); //hacer visible el scroll
+				actualizarEmociones();
 			} else {
 				list.setVisible(false);
 				scroll.setVisible(false);
