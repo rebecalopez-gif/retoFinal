@@ -33,11 +33,11 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
-	
+
 	final String SQLDARCOMIDA="UPDATE CREATURE C JOIN EQUIP E ON C.COD_CREATURE = E.COD_CREATURE JOIN OBJECT O ON O.COD_OBJECT = E.COD_OBJECT SET C.HUNGER = LEAST(100, C.HUNGER + O.HungerEffect),C.ENERGY = LEAST(100, C.ENERGY + O.energy_effect),C.HAPPINESS = LEAST(100, C.HAPPINESS + O.happiness_effect) WHERE C.COD_CREATURE = ? AND O.objectName = ?;"; 
 	//LEAST es una funcion que sirve pa elegir el numero mas bajo
 
-  final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
+	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
@@ -242,26 +242,50 @@ public class ImplementacionBD implements CriaturasDAO{
 		return listaComida;		
 	}
 
-	public boolean darComida(Creature criatura, Food comida) {
-		boolean ok=false;
-		this.openConnection();//abro la conecexion
+	public boolean darComida(Creature creature, Food comida) {
+		boolean ok = false;
 
-		try {
-			stmt = con.prepareStatement(SQLDARCOMIDA); 
-			stmt.setInt(1, criatura.getCodC());
-			stmt.setString(2, comida.getObjectName());
-	
-			if (stmt.executeUpdate()>0) {
-				ok=true;
-			}	
-			stmt.close();
-			con.close();
+		if (comprobarCriatura(creature)) {
 
-		} catch (SQLException e) {
-			System.out.println("Error al verificar credenciales: " + e.getMessage());
+			// Subir hambre según el efecto de la comida
+			int hambreNueva = creature.getHunger() + comida.getHunger_effect();
+			hambreNueva = Math.min(100, hambreNueva); // no pasar de 100
+
+			// Subir energía si la comida da energía
+			int energiaNueva = creature.getEnergy() + comida.getEnergy_effect();
+			energiaNueva = Math.min(100, energiaNueva);
+
+			// Subir felicidad si aplica
+			int felicidadNueva = creature.getHappiness() + comida.getHappines_effect();
+			felicidadNueva = Math.min(100, felicidadNueva);
+
+			// Actualizar objeto en memoria
+			creature.setHunger(hambreNueva);
+			creature.setEnergy(energiaNueva);
+			creature.setHappiness(felicidadNueva);
+
+			this.openConnection();
+			try {
+				stmt = con.prepareStatement(SQLMODIFICAR);	
+				stmt.setInt(1, creature.getHunger());
+				stmt.setInt(2, creature.getEnergy());
+				stmt.setInt(3, creature.getHappiness());
+				stmt.setInt(4, creature.getCodC());
+
+				if (stmt.executeUpdate() > 0) {
+					ok = true;
+				}
+
+				stmt.close();
+				con.close();
+
+			} catch (SQLException e) {
+				System.out.println("Error al modificar criatura: " + e.getMessage());
+			}
 		}
 
 		return ok;
+
 	}
 
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
@@ -283,7 +307,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre (SE USA EN OTROS METODOS)
 		boolean existe=false;
 		this.openConnection();
@@ -399,7 +423,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return ok;
 	}
-	
+
 	public boolean descansar(Creature criatura) {
 		boolean ok=false;
 		this.openConnection();
@@ -410,7 +434,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			if (stmt.executeUpdate() > 0) {
 				ok = true;
 			}
-			
+
 			stmt.close();
 			con.close();
 
@@ -423,32 +447,32 @@ public class ImplementacionBD implements CriaturasDAO{
 	@Override
 	public Creature obtenerDatosCriatura(int codCreature) {
 		Creature c = null;
-	    this.openConnection();
-	    try {
-	        PreparedStatement stmt = con.prepareStatement(
-	            "SELECT * FROM Creature WHERE cod_creature = ?"
-	        );
-	        stmt.setInt(1, codCreature);
-	        ResultSet rs = stmt.executeQuery();
-	        if (rs.next()) {
-	            c = new Creature(
-	                rs.getInt("cod_creature"),
-	                rs.getString("userName"),
-	                rs.getString("creatureName"),
-	                rs.getInt("experience"),
-	                rs.getInt("energy"),
-	                rs.getInt("hunger"),
-	                rs.getInt("happiness")
-	            );
-	        }
-	        rs.close();
-	        stmt.close();
-	        con.close();
+		this.openConnection();
+		try {
+			PreparedStatement stmt = con.prepareStatement(
+					"SELECT * FROM Creature WHERE cod_creature = ?"
+					);
+			stmt.setInt(1, codCreature);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				c = new Creature(
+						rs.getInt("cod_creature"),
+						rs.getString("userName"),
+						rs.getString("creatureName"),
+						rs.getInt("experience"),
+						rs.getInt("energy"),
+						rs.getInt("hunger"),
+						rs.getInt("happiness")
+						);
+			}
+			rs.close();
+			stmt.close();
+			con.close();
 
-	    } catch (SQLException e) {
-	        System.out.println("Error al obtener datos de criatura: " + e.getMessage());
-	    }
-	    return c;
+		} catch (SQLException e) {
+			System.out.println("Error al obtener datos de criatura: " + e.getMessage());
+		}
+		return c;
 	}
 
 
