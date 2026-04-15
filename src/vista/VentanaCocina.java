@@ -68,12 +68,11 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		contentPanel.setLayout(null);
 		
 		accesoriolabel = new JLabel();
-		accesoriolabel.setBounds(524, 438, 200, 200);
+		accesoriolabel.setBounds(823, 436, 200, 200);
 		contentPanel.add(accesoriolabel);
 		
 		//ACCESORIO
 		if (cont.comprobarObjeto(criatura)==1) {
-			accesoriolabel.setBounds(524, 438, 200, 200);
 		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 		    Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(), accesoriolabel.getHeight(), Image.SCALE_SMOOTH);
 		    accesoriolabel.setIcon(new ImageIcon(imgBH));

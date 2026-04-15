@@ -83,7 +83,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 		btnHabitacion.addActionListener(this);
 		
 		accesoriolabel = new JLabel();
-		accesoriolabel.setBounds(524, 438, 200, 200);
+		accesoriolabel.setBounds(746, 410, 200, 200);
 		contentPanel.add(accesoriolabel);
 		
 		//ACCESORIO
