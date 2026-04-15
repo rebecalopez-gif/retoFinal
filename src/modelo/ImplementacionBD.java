@@ -34,9 +34,6 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 
-	final String SQLDARCOMIDA="UPDATE CREATURE C JOIN EQUIP E ON C.COD_CREATURE = E.COD_CREATURE JOIN OBJECT O ON O.COD_OBJECT = E.COD_OBJECT SET C.HUNGER = LEAST(100, C.HUNGER + O.HungerEffect),C.ENERGY = LEAST(100, C.ENERGY + O.energy_effect),C.HAPPINESS = LEAST(100, C.HAPPINESS + O.happiness_effect) WHERE C.COD_CREATURE = ? AND O.objectName = ?;"; 
-	//LEAST es una funcion que sirve pa elegir el numero mas bajo
-
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
