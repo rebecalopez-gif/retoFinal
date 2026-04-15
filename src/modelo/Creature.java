@@ -1,11 +1,7 @@
 package modelo;
-
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
-
 import interfaces.Estados;
-
 
 public class Creature implements Estados{
 
@@ -18,6 +14,25 @@ public class Creature implements Estados{
 	private int hunger;
 	private int happiness;
 	
+	// EDE ------------
+	private UserGame dueno; 
+	
+	public boolean comprobarEdad (UserGame dueno) {
+		boolean ok;
+		int edadDe9= 2026-6; 
+		
+		if (edadDe9<dueno.getBirthDate()) {
+			ok=false;
+			
+		}else {
+			ok=true;
+			
+		}
+		return ok;
+	}
+	
+	//---------------
+
 	//CONSTRUCTORES
 	public Creature(int codC, String userName, String creatureName, int experience, int energy, int hunger, int happiness) {
 		this.codC = codC;
@@ -38,19 +53,19 @@ public class Creature implements Estados{
 		this.happiness = 0;
 	}
 	public Creature(String userName, String creatureName) {
-	    this.userName = userName;
-	    this.creatureName = creatureName;
-	    this.experience = 0;
-	    this.energy = 50;
-	    this.hunger = 50;
-	    this.happiness = 50;
+		this.userName = userName;
+		this.creatureName = creatureName;
+		this.experience = 0;
+		this.energy = 50;
+		this.hunger = 50;
+		this.happiness = 50;
 	}
 
 	public Creature(String creatureName) {
 		this.creatureName =creatureName;
-		
+
 	}
-	
+
 	//GETTERS Y SETTERS
 	public int getCodC() {
 		return codC;
@@ -94,17 +109,17 @@ public class Creature implements Estados{
 	public void setHappiness(int happiness) {
 		this.happiness = happiness;
 	}
-	
-	
+
+
 	@Override
 	public String toString() {
 		return creatureName ;
 	}
-	
+
 	@Override
 	public String setImage(Creature criatura) {
 		String url = "";
-		
+
 		if (criatura.getHunger() < 30 || criatura.getHappiness() < 30) {
 			url = "/image/Triste.png";
 		} else if (criatura.getEnergy() < 30) {
@@ -114,7 +129,7 @@ public class Creature implements Estados{
 		} else {
 			url = "/image/Feliz.png";
 		}
-		
+
 		return url;
 	}
 }
