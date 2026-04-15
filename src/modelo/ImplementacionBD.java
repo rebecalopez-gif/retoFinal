@@ -28,7 +28,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
 	final String SQLCONSULTA = "SELECT * FROM Object WHERE HungerEffect=0";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
-	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
+	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; 
+	final String SQLMODIFICAR_COMIDA = "UPDATE Creature SET hunger=?, energy=?,happiness=?  WHERE cod_creature=?"; 
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
@@ -40,6 +41,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
+	
 	public ImplementacionBD() {
 		this.configFile = ResourceBundle.getBundle("configClase");
 		//this.driverBD = this.configFile.getString("Driver");
@@ -47,7 +49,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		this.userBD = this.configFile.getString("DBUser");
 		this.passwordBD = this.configFile.getString("DBPass");
 	}
-	//COPIAR--------------
+	
 	private void openConnection() {//abre la conexion con la base de datos
 		try {
 			con = DriverManager.getConnection(urlBD, this.userBD, this.passwordBD);
@@ -221,7 +223,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			creature.setHappiness(felicidadNueva);
 			this.openConnection();
 			try {
-				stmt = con.prepareStatement(SQLMODIFICAR);	
+				stmt = con.prepareStatement(SQLMODIFICAR_COMIDA);	
 				stmt.setInt(1, creature.getHunger());
 				stmt.setInt(2, creature.getEnergy());
 				stmt.setInt(3, creature.getHappiness());
@@ -297,9 +299,9 @@ public class ImplementacionBD implements CriaturasDAO{
 				hambreNueva=100;
 			}
 			
-			expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
+			expGanada = (int)(Math.random() * 31) + 10; // entre 10 y 40
 			
-
+			
 			// meter los nuevos datos
 			creature.setExperience(creature.getExperience() + expGanada);
 			creature.setHunger(hambreNueva);
@@ -314,6 +316,7 @@ public class ImplementacionBD implements CriaturasDAO{
 				stmt.setInt(2, creature.getHunger());
 				stmt.setInt(3, creature.getEnergy());
 				stmt.setInt(4, creature.getCodC());
+	
 				if (stmt.executeUpdate()>0) {
 					ok=true;
 				}			
