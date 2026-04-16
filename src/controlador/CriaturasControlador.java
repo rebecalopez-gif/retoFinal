@@ -10,6 +10,7 @@ import exception.UserExisteException;
 public class CriaturasControlador {
 	CriaturasDAO dao = new ImplementacionBD();
 	private UserGame usuarioActual;
+	
 	public void visualizarPantalla() {
 		VentanaPrincipal ven = new VentanaPrincipal(this);
 		ven.setVisible(true);	
