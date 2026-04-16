@@ -88,6 +88,9 @@ public class CriaturasControlador {
 	public boolean comprobarSG(Creature criatura) {
 		return dao.comprobarSG(criatura);
 	}
+	public boolean efectoAccesorio(Creature criatura, Accesory accesorio) {
+		return dao.efectoAccesorio(criatura, accesorio);
+	}
 	public Creature obtenerDatosCriatura(int codCreature) {
 		return dao.obtenerDatosCriatura(codCreature);
 	}

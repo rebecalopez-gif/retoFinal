@@ -1,8 +1,29 @@
 package modelo;
 import interfaces.NamedObject;
-public class Objetos implements NamedObject{
+
+/**
+ * La clase Objetos representa un objeto genérico dentro del juego.
+ * 
+ * Cada objeto tiene:
+ * <ul>
+ *   <li><b>cod_object</b>: identificador numérico del objeto.</li>
+ *   <li><b>objectName</b>: nombre del objeto.</li>
+ * </ul>
+ *
+ * Esta clase implementa {@link NamedObject}, lo que permite obtener el nombre
+ * del objeto mediante el método {@code getName()}.
+ *
+ * Se utiliza como clase base para otros tipos de objetos del juego, como
+ * accesorios o elementos del inventario.
+ *
+ * @author Rebeca
+ * @version 1.0
+ * @since 2026-04-16
+ */
+public class Objetos{
 	protected int cod_object;
 	protected String objectName;
+	
 	public Objetos() {
 		this.cod_object=0;
 		this.objectName="";
@@ -31,13 +52,16 @@ public class Objetos implements NamedObject{
 	public void setObjectName(String objectName) {
 		this.objectName = objectName;
 	}
+	
+	/**
+	 * Devuelve una representación en texto del objeto,
+	 * mostrando su código y su nombre.
+	 *
+	 * @return cadena con el formato "codigo - nombre".
+	 */
 	@Override
 	public String toString() {
 		return cod_object+" - " + objectName ;
-	}
-	@Override
-	public String getName() {
-		return objectName;
 	}
 	
 }

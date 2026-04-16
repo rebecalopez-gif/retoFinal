@@ -24,26 +24,55 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 
+/**
+ * VentanaPrincipal representa la pantalla inicial del juego, donde el usuario
+ * puede iniciar sesión, crear una nueva cuenta o generar el archivo XML de datos.
+ * 
+ * Esta ventana funciona como punto de entrada al sistema y gestiona:
+ * - Validación de usuario y contraseña.
+ * - Navegación hacia la ventana de creación de usuario.
+ * - Navegación hacia la ventana de partidas si el inicio de sesión es correcto.
+ * - Generación automática del archivo XML mediante XMLGenerator.
+ * 
+ * La interfaz está construida con Swing y utiliza un controlador de tipo
+ * {@link CriaturasControlador} para gestionar la lógica del juego.
+ * 
+ * @author Irene
+ * @version 1.0, 16/04/2026
+ */
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-
+    /** Panel principal del JFrame. */
     private JPanel contentPane;
+    /** Controlador principal que gestiona la lógica del juego. */
     private CriaturasControlador cont;
-
+    /** Campo de texto para introducir el nombre de usuario. */
     private JTextField textField;
+    /** Campo de contraseña para introducir la clave del usuario. */
     private JPasswordField passwordField;
-
+    /** Botón para acceder a la ventana de registro. */
     private JButton btnNoTienesCuenta;
+    /** Botón para iniciar sesión. */
     private JButton btnInicioSesion;
-
+    /** Etiqueta para el texto "PASSWORD". */
     private JLabel lblContrasea;
+    /** Etiqueta para el texto "USER". */
     private JLabel lblUser;
+    /** Etiqueta que contiene la imagen de fondo. */
     private JLabel lblIMAGEN;
-    private boolean nickVacio; 
+    /** Etiqueta para mostrar mensajes de error o información. */
     private JLabel lblMensaje;
+    /** Botón para generar el archivo XML automáticamente. */
     private JButton botonxml;
 
+    /**
+     * Crea la ventana principal del juego, inicializando todos los componentes
+     * gráficos y configurando los listeners de los botones.
+     *
+     * @param controlador instancia de {@link CriaturasControlador} que gestiona
+     *                    la lógica del juego y la autenticación de usuarios.
+     */
     public VentanaPrincipal(CriaturasControlador controlador) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/image/Monstruito adorable .png")));
         this.cont = controlador;
@@ -121,6 +150,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         
     }
 
+    /**
+     * Maneja los eventos de los botones de la interfaz:
+     * 
+     * - LOG IN: valida los campos, intenta iniciar sesión y abre la ventana de partidas.
+     * - NO ACCOUNT?: abre la ventana de creación de nuevo usuario.
+     * - Generate XML: genera automáticamente el archivo XML del juego.
+     *
+     * @param e el evento de acción generado por el usuario.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

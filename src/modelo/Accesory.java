@@ -1,4 +1,23 @@
 package modelo;
+
+/**
+ * La clase Accesory representa un accesorio que una criatura puede equipar.
+ * 
+ * Hereda de {@link Objetos} el código y el nombre del objeto, y añade:
+ * <ul>
+ *   <li><b>hapiness_effect</b>: efecto sobre la felicidad de la criatura.</li>
+ *   <li><b>energy_effect</b>: efecto sobre la energía de la criatura.</li>
+ * </ul>
+ *
+ * Los accesorios pueden desbloquearse y equiparse en distintas zonas del juego,
+ * afectando a las estadísticas de la criatura.
+ *
+ * Incluye validación EDE para evitar valores negativos en el efecto de felicidad.
+ *
+ * @author Irene
+ * @version 1.0
+ * @since 2026-04-16
+ */
 public class Accesory extends Objetos{
 	private int hapiness_effect;
 	

@@ -28,17 +28,57 @@ import java.awt.Toolkit;
 
 import javax.swing.JComboBox;
 
+/**
+ * VentanaPartidas es la interfaz donde el usuario puede gestionar sus partidas
+ * guardadas. Desde esta ventana puede:
+ * 
+ * - Seleccionar una criatura/partida existente y continuar jugando.
+ * - Crear una nueva partida.
+ * - Eliminar una partida seleccionada.
+ * - Volver a la ventana principal.
+ * 
+ * Esta ventana se muestra como un JDialog modal para evitar que el usuario
+ * interactúe con otras ventanas hasta cerrar esta.
+ *
+ * Utiliza un {@link CriaturasControlador} para obtener, eliminar y gestionar
+ * las partidas asociadas al usuario.
+ * 
+ * @author Unai
+ * @version 1.0, 16/04/2026
+ */
 public class VentanaPartidas extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
+	/** Panel principal del contenido del diálogo. */
 	private final JPanel contentPanel = new JPanel();
+	/** Controlador que gestiona la lógica del juego y las partidas. */
 	private CriaturasControlador cont;
-	private JLabel lblGames, lblIMAGEN;
+	/** Etiqueta que muestra el título "GAMES". */
+	private JLabel lblGames;
+	/** Etiqueta que contiene la imagen de fondo. */
+	private JLabel lblIMAGEN;
+	/** Lista desplegable que muestra las criaturas/partidas del usuario. */
 	private JComboBox<Creature> comboBox;
+	/** Usuario actualmente autenticado. */
 	private UserGame user;
-	private JButton btnPlay, btnCreate, btnDelete;
+	/** Botón para jugar la partida seleccionada. */
+	private JButton btnPlay;
+	/** Botón para crear una nueva partida. */
+	private JButton btnCreate;
+	/** Botón para eliminar la partida seleccionada. */
+	private JButton btnDelete;
+	/** Botón para volver a la ventana principal. */
 	private JButton btnBack;
 
+	/**
+	 * Crea la ventana de selección de partidas del usuario. Carga todas las
+	 * criaturas asociadas al usuario y configura los botones para gestionar
+	 * las partidas.
+	 *
+	 * @param parent ventana padre desde la cual se abre este diálogo.
+	 * @param controlador instancia del controlador que gestiona la lógica del juego.
+	 * @param user usuario actualmente autenticado.
+	 */
 	public VentanaPartidas(JFrame parent, CriaturasControlador controlador, UserGame user) {
 		super(parent,true);
 		this.cont=controlador;
@@ -113,6 +153,16 @@ public class VentanaPartidas extends JDialog implements ActionListener{
 		contentPanel.add(lblIMAGEN);
 	}
 
+	/**
+	 * Gestiona las acciones de los botones de la ventana:
+	 * 
+	 * - Play: abre la ventana de habitación con la criatura seleccionada.
+	 * - Delete game: solicita confirmación y elimina la partida seleccionada.
+	 * - Create new game: abre la ventana para crear una nueva partida.
+	 * - Back: regresa a la ventana principal.
+	 *
+	 * @param e evento generado por la interacción del usuario.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int opcion;

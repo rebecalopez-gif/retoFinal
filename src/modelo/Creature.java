@@ -3,6 +3,30 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import interfaces.Estados;
 
+/**
+ * La clase Creature representa a la criatura virtual asociada a un usuario dentro del juego.
+ * 
+ * Cada criatura tiene:
+ * <ul>
+ *   <li><b>codC</b>: identificador único.</li>
+ *   <li><b>userName</b>: nombre del usuario propietario.</li>
+ *   <li><b>creatureName</b>: nombre de la criatura.</li>
+ *   <li><b>experience</b>: experiencia acumulada.</li>
+ *   <li><b>energy</b>: nivel de energía.</li>
+ *   <li><b>hunger</b>: nivel de hambre.</li>
+ *   <li><b>happiness</b>: nivel de felicidad.</li>
+ * </ul>
+ *
+ * Además, implementa la interfaz {@link interfaces.Estados}, que permite
+ * determinar la imagen que debe mostrarse según el estado emocional de la criatura.
+ *
+ * Incluye también una comprobación de edad (EDE) para validar si el usuario
+ * cumple la edad mínima requerida para jugar.
+ *
+ * @author Unai
+ * @version 1.0
+ * @since 2026-04-16
+ */
 public class Creature implements Estados{
 
 	//ATRIBUTOS
@@ -113,6 +137,20 @@ public class Creature implements Estados{
 		return creatureName ;
 	}
 
+	/**
+	 * Determina la imagen que debe mostrarse según el estado actual de la criatura.
+	 *
+	 * Reglas:
+	 * <ul>
+	 *   <li>Si hambre < 30 o felicidad < 30 → imagen triste.</li>
+	 *   <li>Si energía < 30 → imagen cansada.</li>
+	 *   <li>Si felicidad ≥ 80 → imagen muy feliz.</li>
+	 *   <li>En cualquier otro caso → imagen feliz.</li>
+	 * </ul>
+	 *
+	 * @param criatura criatura cuyo estado se evalúa.
+	 * @return ruta del recurso de imagen correspondiente.
+	 */
 	@Override
 	public String setImage(Creature criatura) {
 		String url = "";
@@ -126,7 +164,6 @@ public class Creature implements Estados{
 		} else {
 			url = "/image/Feliz.png";
 		}
-
 		return url;
 	}
 }
