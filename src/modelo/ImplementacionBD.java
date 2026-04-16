@@ -26,7 +26,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
 	final String SQLINSERTUSER = "INSERT INTO UserGame VALUES (?,?,?)";//NO SE USA PORQUE USAMOS EL METODO
 	final String SQL_EXISTE= "SELECT * FROM UserGame WHERE userName = ?";
-	final String SQLCONSULTA = "SELECT object.cod_object, object.objectName FROM equip, object WHERE equip.cod_object = object.cod_object AND equip.cod_creature = ?";
+	final String SQLCONSULTA = "SELECT object.cod_object, object.objectName, object.happiness_effect FROM equip, object WHERE equip.cod_object = object.cod_object AND equip.cod_creature = ?";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
@@ -44,7 +44,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_DESBLOQUEO_SG = "INSERT INTO equip VALUES (2, ?, FALSE);";
 	final String SQL_COMPROBAR_BH = "SELECT * FROM equip WHERE cod_object = 1 AND cod_creature = ?";
 	final String SQL_COMPROBAR_SG = "SELECT * FROM equip WHERE cod_object = 2 AND cod_creature = ?";
-	final String SQL_EFECTO_ACCESORIO = "UPDATE Creature SET  happiness = (happiness + ?) WHERE cod_creature = ?";
+	final String SQL_EFECTO_ACCESORIO = "UPDATE Creature SET  happiness = LEAST (happiness + ? , 100) WHERE cod_creature = ?";
 	
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
@@ -191,7 +191,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setInt(1, creature.getCodC());
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				Accesory accesorio=new Accesory(resultado.getInt("cod_object"),resultado.getString("objectName"));
+				Accesory accesorio=new Accesory(resultado.getInt("cod_object"),resultado.getString("objectName"), resultado.getInt("happiness_effect"));
 				objetos.add(accesorio);
 			}
 			resultado.close();

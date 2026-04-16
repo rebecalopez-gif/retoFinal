@@ -137,7 +137,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 					if(seleccionado != null) {
 						String nombre = seleccionado.getObjectName();
 						switch(nombre) {
-							case "birthdayHat":
+							case "Birthday Hat":
 								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 								//POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
 								lbl_Accesorio.setBounds(524, 438, 200, 200);
@@ -163,9 +163,13 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
 									lbl_Accesorio.setIcon(new ImageIcon(imgSG));
 									nombreAccesorio = nombre;
+									System.out.println(1);
 									cont.quitarCualquierObjeto(criatura);
+									System.out.println(2);
 									cont.equiparObjeto(criatura, seleccionado);
+									System.out.println(3);
 									cont.efectoAccesorio(criatura, seleccionado);
+									System.out.println(4);
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
