@@ -50,22 +50,37 @@ import javax.swing.JList;
 public class VentanaHabitacion extends JDialog implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
+	/** Panel principal que contiene todos los elementos gráficos. */
 	private final JPanel contentPanel = new JPanel();
-	
+
+	/** Herramienta para ajustar el tamaño de la ventana*/
 	private Toolkit tk;
+	/** Controlador que gestiona la lógica del juego y las criaturas. */
 	private CriaturasControlador cont;
+	/** Nombre del accesorio actualmente equipado. */
 	private String nombreAccesorio = "";
+	/** Criatura asociada a esta habitación. */
 	private Creature criatura;
-	
+
+	/** Lista de objetos disponibles en el armario. */
 	private JList list;
+	/** Scroll asociado a la lista de objetos. */
 	private JScrollPane scroll;
+	/** Botón para abrir el armario. */
 	private JButton btn_Armario;
+	/** Botón para salir del juego (cama). */
 	private JButton btn_Cama;
+	/** Botón para ir a la cocina. */
 	private JButton btn_Cocina;
+	/** Botón para ir al gimnasio. */
 	private JButton btn_Gym;
+	/** Imagen principal de la criatura. */
 	private JLabel lbl_Criatura;
+	/** Etiqueta donde se muestra el accesorio equipado. */
 	private JLabel lbl_Accesorio;
+	/** Imagen de la habitación */
 	private JLabel lbl_Habitacion;
+	/** Etiquetas que muestran las estadísticas de la criatura. */
 	private JLabel lbl_EXP;
 	private JLabel lbl_EMOTI;
 	private JLabel lbl_NumExp;
@@ -82,6 +97,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 * @param controlador el controlador de criaturas para acceder a la lógica del juego
 	 * @param criatura la criatura del usuario asociada a esta habitación
 	 */
+	
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
 		this.cont = controlador;
