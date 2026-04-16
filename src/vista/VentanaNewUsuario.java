@@ -155,13 +155,13 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
         UserGame user = new UserGame(nom, pass,birthYear);
 			
 			if(nom.isEmpty()) {
-				JOptionPane.showMessageDialog(this, "The user cannot be empty.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, "The user cannot be empty.",  "ERROR", JOptionPane.WARNING_MESSAGE);
 				
 			}else if(pass.isEmpty()) {
-				JOptionPane.showMessageDialog(this, "The password cannot be empty.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, "The password cannot be empty.",  "ERROR", JOptionPane.WARNING_MESSAGE);
 				
 			}else if (!new String(passwordField.getPassword()).equals(new String(passwordField_1.getPassword()))) {
-				JOptionPane.showMessageDialog(this, "The passwords do not match.",  "ERROR", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, "The passwords do not match.",  "ERROR", JOptionPane.ERROR_MESSAGE);
 			
 			} else {
 				try {
@@ -180,7 +180,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 				    }
 				} catch(UserExisteException ex) {
 					System.err.println(ex.getMessage()); //El mensaje en la consola (ROJO)
-					JOptionPane.showMessageDialog(this,ex.getMessage(),"ERROR", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(this,ex.getMessage(),"ERROR", JOptionPane.INFORMATION_MESSAGE);//COMPROBAR SI ESTO HACE FALTA 
 				}
 			}
 		}

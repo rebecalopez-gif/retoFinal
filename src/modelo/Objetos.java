@@ -1,8 +1,10 @@
 package modelo;
 import interfaces.NamedObject;
+
 public class Objetos implements NamedObject{
 	protected int cod_object;
 	protected String objectName;
+	
 	public Objetos() {
 		this.cod_object=0;
 		this.objectName="";
@@ -35,6 +37,8 @@ public class Objetos implements NamedObject{
 	public String toString() {
 		return cod_object+" - " + objectName ;
 	}
+	
+	//////
 	@Override
 	public String getName() {
 		return objectName;
