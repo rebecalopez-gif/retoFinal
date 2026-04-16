@@ -48,20 +48,33 @@ import java.awt.Toolkit;
 public class VentanaCocina extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
+	/** Panel principal que contiene todos los elementos gráficos. */
 	private final JPanel contentPanel = new JPanel();
-	
+
+	/** Herramienta para ajustar el tamaño de la ventana*/
 	private Toolkit tk;
+	/** Lista de alimentos disponibles para alimentar a la criatura. */
 	private ArrayList <Food> listaComida =new ArrayList<Food>();
+	/** Controlador que gestiona la lógica del juego. */
 	private CriaturasControlador cont;
+	/** Criatura asociada a esta ventana. */
 	private Creature criatura;
 
+	/** ComboBox que muestra los alimentos disponibles. */
 	private JComboBox<Food> comboBox_Comida;
+	/** Botón invisible que representa la nevera donde se elige la comida. */
 	private JButton btn_Nevera;
+	/** Botón para ir al gimnasio. */
 	private JButton btn_Gym;
+	/** Botón para ir a la habitación. */
 	private JButton btn_Habitacion;
+	/** Imagen principal de la criatura. */
 	private JLabel lbl_Criatura;
+	/** Etiqueta donde se muestra el accesorio equipado. */
 	private JLabel lbl_Accesorio;
+	/** Etiqueta que muestra la imagen de la cocina */
 	private JLabel lbl_Cocina;
+	/** Etiquetas que muestran las estadísticas de la criatura. */
 	private JLabel lbl_EXP;
 	private JLabel lbl_EMOTI;
 	private JLabel lbl_NumExp;
