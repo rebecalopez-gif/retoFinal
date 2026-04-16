@@ -30,13 +30,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private JPanel contentPane;
     private CriaturasControlador cont;
-
     private JTextField textField;
     private JPasswordField passwordField;
-
     private JButton btnNoTienesCuenta;
     private JButton btnInicioSesion;
-
     private JLabel lblContrasea;
     private JLabel lblUser;
     private JLabel lblIMAGEN;
