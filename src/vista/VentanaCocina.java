@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,6 @@ import controlador.CriaturasControlador;
 import modelo.Creature;
 import modelo.Food;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,35 +26,38 @@ import java.awt.Toolkit;
 public class VentanaCocina extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
-	private JButton btnNevera;
-	private ArrayList <Food> listaComida =new ArrayList<Food>();
-	private JComboBox<Food> comboBoxComida;
-	private CriaturasControlador controlador;
-	private Creature criatura;
-	private JButton BOTONGYM;
 	private final JPanel contentPanel = new JPanel();
-	private JButton BOTONROOM;
-	private JLabel lblNewLabel, bichito, accesoriolabel;
+	
+	private Toolkit tk;
+	private ArrayList <Food> listaComida =new ArrayList<Food>();
+	private CriaturasControlador cont;
+	private Creature criatura;
 
-	private JLabel lblNewLabel_EXP;
-	private JLabel lblNewLabel_EMOTI;
-	private JLabel lblNewLabel_NumExp;
-	private JLabel lblNewLabel_Back;
-	private JLabel lblNewLabel_NumHunger;
-	private JLabel lblNewLabel_NumHappy;
-	private JLabel lblNewLabel_NumEnergy;
+	private JComboBox<Food> comboBox_Comida;
+	private JButton btn_Nevera;
+	private JButton btn_Gym;
+	private JButton btn_Habitacion;
+	private JLabel lbl_Criatura;
+	private JLabel lbl_Accesorio;
+	private JLabel lbl_Cocina;
+	private JLabel lbl_EXP;
+	private JLabel lbl_EMOTI;
+	private JLabel lbl_NumExp;
+	private JLabel lbl_FondoLista;
+	private JLabel lbl_NumHunger;
+	private JLabel lbl_NumHappy;
+	private JLabel lbl_NumEnergy;
 
 	public VentanaCocina(JDialog ventanas,CriaturasControlador cont, Creature criatura) {
 		super(ventanas,true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCocina.class.getResource("/image/Monstruito adorable .png")));
-		this.controlador=cont;
+		this.cont=cont;
 		this.criatura = criatura;
 		listaComida=cont.listaComida();
 		
 
-		// PANEL PRINCIPAL
-		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
-		
+		//PANTALLA COMPLETA PARA JDIALOG
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCocina.class.getResource("/image/Monstruito adorable .png")));
+		tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
 		this.setSize(1536, 1024);
@@ -67,154 +68,155 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		accesoriolabel = new JLabel();
-		accesoriolabel.setBounds(823, 436, 200, 200);
-		contentPanel.add(accesoriolabel);
+		//ACCESORIO (CREAR SIEMPRE EL JLABEL ANTES DE USARLO)
+		lbl_Accesorio = new JLabel();
+		lbl_Accesorio.setBounds(823, 436, 200, 200);
+		contentPanel.add(lbl_Accesorio);
 		
-		//ACCESORIO
+		//SE EQUIPA EL ACCESORIO QUE TENGA LA CRIATURA
 		if (cont.comprobarObjeto(criatura)==1) {
 		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-		    Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(), accesoriolabel.getHeight(), Image.SCALE_SMOOTH);
-		    accesoriolabel.setIcon(new ImageIcon(imgBH));
+		    Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(), lbl_Accesorio.getHeight(), Image.SCALE_SMOOTH);
+		    lbl_Accesorio.setIcon(new ImageIcon(imgBH));
 
 		} else if (cont.comprobarObjeto(criatura)==2) {
 
 		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
 		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-		    accesoriolabel.setBounds(801, 400, 250, iconoSG.getIconHeight());
-		    accesoriolabel.setIcon(new ImageIcon(imgSG));
+		    lbl_Accesorio.setBounds(801, 400, 250, iconoSG.getIconHeight());
+		    lbl_Accesorio.setIcon(new ImageIcon(imgSG));
 
 		} else {
 		    
-		    accesoriolabel.setIcon(null);
+		    lbl_Accesorio.setIcon(null);
 		}
 		
 		//CRIATURA
-		bichito = new JLabel("");
+		lbl_Criatura = new JLabel("");
 		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));
-		bichito.setIcon(icon);
-		bichito.setBounds(700, 506, icon.getIconWidth(), icon.getIconHeight());
-		contentPanel.add(bichito);
+		lbl_Criatura.setIcon(icon);
+		lbl_Criatura.setBounds(700, 506, icon.getIconWidth(), icon.getIconHeight());
+		contentPanel.add(lbl_Criatura);
 
-		// BOTÓN HABITACIÓN
-		BOTONROOM = new JButton("BEDROOM");
-		BOTONROOM.setFont(new Font("Monospaced", Font.BOLD, 20));
-		BOTONROOM.setForeground(Color.WHITE);
-		BOTONROOM.setBackground(new Color(123, 31, 162));
-		BOTONROOM.setBounds(1349, 805, 150, 60);
-		contentPanel.add(BOTONROOM);
-		BOTONROOM.addActionListener(this);
+		//BOTÓN HABITACIÓN
+		btn_Habitacion = new JButton("BEDROOM");
+		btn_Habitacion.setFont(new Font("Monospaced", Font.BOLD, 20));
+		btn_Habitacion.setForeground(Color.WHITE);
+		btn_Habitacion.setBackground(new Color(123, 31, 162));
+		btn_Habitacion.setBounds(1349, 805, 150, 60);
+		contentPanel.add(btn_Habitacion);
+		btn_Habitacion.addActionListener(this);
 
-		// BOTÓN GYM
-		BOTONGYM = new JButton("GYM");
-		BOTONGYM.setFont(new Font("Monospaced", Font.BOLD, 20));
-		BOTONGYM.setForeground(Color.WHITE);
-		BOTONGYM.setBackground(new Color(33, 150, 243));
-		BOTONGYM.setBounds(31, 805, 150, 60);
-		contentPanel.add(BOTONGYM);
-		BOTONGYM.addActionListener(this);
+		//BOTÓN GYM
+		btn_Gym = new JButton("GYM");
+		btn_Gym.setFont(new Font("Monospaced", Font.BOLD, 20));
+		btn_Gym.setForeground(Color.WHITE);
+		btn_Gym.setBackground(new Color(33, 150, 243));
+		btn_Gym.setBounds(31, 805, 150, 60);
+		contentPanel.add(btn_Gym);
+		btn_Gym.addActionListener(this);
 
-		// NEVERA
-		btnNevera = new JButton();
-		btnNevera.setBounds(47, 145, 396, 515);
-		btnNevera.setOpaque(false);
-		btnNevera.setContentAreaFilled(false);
-		btnNevera.setBorderPainted(false);
-		contentPanel.add(btnNevera);
-		btnNevera.addActionListener(this);
+		//NEVERA
+		btn_Nevera = new JButton();
+		btn_Nevera.setBounds(47, 145, 396, 515);
+		btn_Nevera.setOpaque(false);
+		btn_Nevera.setContentAreaFilled(false);
+		btn_Nevera.setBorderPainted(false);
+		contentPanel.add(btn_Nevera);
+		btn_Nevera.addActionListener(this);
 
-		// COMBOBOX COMIDA
-		comboBoxComida = new JComboBox<Food>();
-		for (Food f : listaComida) comboBoxComida.addItem(f);
+		//COMBOBOX COMIDA
+		comboBox_Comida = new JComboBox<Food>();
+		for (Food f : listaComida) {
+			comboBox_Comida.addItem(f);
+		}
+		comboBox_Comida.setSelectedIndex(-1);
 
-		lblNewLabel_NumExp = new JLabel("");
-		lblNewLabel_NumExp.setBounds(1374, 31, 54, 25);
-		lblNewLabel_NumExp.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumExp.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumExp.setText(String.valueOf(criatura.getExperience()));
-		contentPanel.add(lblNewLabel_NumExp);
+		//TABLA DE ESTADISTICAS DE LA CRIATURA
+		lbl_NumExp = new JLabel("");
+		lbl_NumExp.setBounds(1374, 31, 54, 25);
+		lbl_NumExp.setForeground(new Color(128, 0, 64));
+		lbl_NumExp.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumExp.setText(String.valueOf(criatura.getExperience()));
+		contentPanel.add(lbl_NumExp);
 		
-		lblNewLabel_EXP = new JLabel("EXPERIENCE:");
-		lblNewLabel_EXP.setBackground(new Color(240, 240, 240));
-		lblNewLabel_EXP.setForeground(new Color(248, 52, 140));
-		lblNewLabel_EXP.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_EXP.setBounds(1247, 26, 117, 34);
-		contentPanel.add(lblNewLabel_EXP);
+		lbl_EXP = new JLabel("EXPERIENCE:");
+		lbl_EXP.setBackground(new Color(240, 240, 240));
+		lbl_EXP.setForeground(new Color(248, 52, 140));
+		lbl_EXP.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_EXP.setBounds(1247, 26, 117, 34);
+		contentPanel.add(lbl_EXP);
 		
-		lblNewLabel_EMOTI = new JLabel("<html>ENERGY:<br>HUNGER:<br>HAPPINESS:</html>");
-		lblNewLabel_EMOTI.setBackground(new Color(255, 217, 236));
-		lblNewLabel_EMOTI.setForeground(new Color(255, 89, 172));
-		lblNewLabel_EMOTI.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_EMOTI.setBounds(1247, 57, 117, 79);
-		contentPanel.add(lblNewLabel_EMOTI);
+		lbl_EMOTI = new JLabel("<html>ENERGY:<br>HUNGER:<br>HAPPINESS:</html>");
+		lbl_EMOTI.setBackground(new Color(255, 217, 236));
+		lbl_EMOTI.setForeground(new Color(255, 89, 172));
+		lbl_EMOTI.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_EMOTI.setBounds(1247, 57, 117, 79);
+		contentPanel.add(lbl_EMOTI);
 		
-		lblNewLabel_NumHappy = new JLabel("");
-		lblNewLabel_NumHappy.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumHappy.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumHappy.setBounds(1374, 111, 54, 25);
-		lblNewLabel_NumHappy.setText(String.valueOf(criatura.getHappiness()));
-		contentPanel.add(lblNewLabel_NumHappy);
+		lbl_NumHappy = new JLabel("");
+		lbl_NumHappy.setForeground(new Color(128, 0, 64));
+		lbl_NumHappy.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumHappy.setBounds(1374, 111, 54, 25);
+		lbl_NumHappy.setText(String.valueOf(criatura.getHappiness()));
+		contentPanel.add(lbl_NumHappy);
 		
-		lblNewLabel_NumHunger = new JLabel("");
-		lblNewLabel_NumHunger.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumHunger.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumHunger.setBounds(1374, 85, 54, 25);
-		lblNewLabel_NumHunger.setText(String.valueOf(criatura.getHunger()));
-		contentPanel.add(lblNewLabel_NumHunger);
+		lbl_NumHunger = new JLabel("");
+		lbl_NumHunger.setForeground(new Color(128, 0, 64));
+		lbl_NumHunger.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumHunger.setBounds(1374, 85, 54, 25);
+		lbl_NumHunger.setText(String.valueOf(criatura.getHunger()));
+		contentPanel.add(lbl_NumHunger);
 		
-		lblNewLabel_NumEnergy = new JLabel("");
-		lblNewLabel_NumEnergy.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumEnergy.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumEnergy.setBounds(1374, 60, 54, 25);
-		lblNewLabel_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
-		contentPanel.add(lblNewLabel_NumEnergy);
+		lbl_NumEnergy = new JLabel("");
+		lbl_NumEnergy.setForeground(new Color(128, 0, 64));
+		lbl_NumEnergy.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumEnergy.setBounds(1374, 60, 54, 25);
+		lbl_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
+		contentPanel.add(lbl_NumEnergy);
 		
-		lblNewLabel_Back = new JLabel("");
-		lblNewLabel_Back.setBounds(1241, 31, 271, 112);
-		lblNewLabel_Back.setOpaque(true);
-		lblNewLabel_Back.setBackground(new Color(255, 217, 236));
-		contentPanel.add(lblNewLabel_Back);
-		//comboBoxComida.setSelectedIndex(-1);
+		lbl_FondoLista = new JLabel("");
+		lbl_FondoLista.setBounds(1241, 31, 271, 112);
+		lbl_FondoLista.setOpaque(true);
+		lbl_FondoLista.setBackground(new Color(255, 217, 236));
+		contentPanel.add(lbl_FondoLista);
 
-		// FONDO (AL FINAL, PARA QUE QUEDE DETRÁS)
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaCocina.class.getResource("/image/Cocina.png")));
-		lblNewLabel.setBounds(0, 0, ancho, alto);
-		contentPanel.add(lblNewLabel);
+		//COCINA (AL FINAL PARA QUE APAREZCA DE FONDO)
+		lbl_Cocina = new JLabel("");
+		lbl_Cocina.setIcon(new ImageIcon(VentanaCocina.class.getResource("/image/Cocina.png")));
+		lbl_Cocina.setBounds(0, 0, ancho, alto);
+		contentPanel.add(lbl_Cocina);
 		
 	}
 	
-	private void actualizarEmociones() {
-	    lblNewLabel_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
-	    lblNewLabel_NumHunger.setText(String.valueOf(criatura.getHunger()));
-	    lblNewLabel_NumHappy.setText(String.valueOf(criatura.getHappiness()));
-	    lblNewLabel_NumExp.setText(String.valueOf(criatura.getExperience()));
+	private void actualizarEmociones() {//METODO PARA ACTUALIZAR EL NÚMERO DE ACTUALIZACIONES 
+	    lbl_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
+	    lbl_NumHunger.setText(String.valueOf(criatura.getHunger()));
+	    lbl_NumHappy.setText(String.valueOf(criatura.getHappiness()));
+	    lbl_NumExp.setText(String.valueOf(criatura.getExperience()));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object o=e.getSource();
 
-		if(o==btnNevera) {
-			JOptionPane.showMessageDialog(this, comboBoxComida, "Elegir comida", JOptionPane.QUESTION_MESSAGE);
-			Food ob=(Food) comboBoxComida.getSelectedItem();
+		if(e.getSource()==btn_Nevera) {//ABRIR LA NEVERA
+			JOptionPane.showMessageDialog(this, comboBox_Comida, "Elegir comida", JOptionPane.QUESTION_MESSAGE);
+			Food ob=(Food) comboBox_Comida.getSelectedItem();
 			
-		
-			if(controlador.darComida(criatura, ob)) {
+			if(cont.darComida(criatura, ob)) {
 				actualizarEmociones();
 			}
 			
-			bichito.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
+			lbl_Criatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
 
-		}else if(e.getSource()==BOTONGYM) {//ir al gym
+		}else if(e.getSource()==btn_Gym) {//IR AL GYM
 			this.dispose();
-			VentanaGym gym = new VentanaGym(this, controlador,criatura);
+			VentanaGym gym = new VentanaGym(this, cont,criatura);
 			gym.setVisible(true);
 
-		}else if(e.getSource()==BOTONROOM) { //ir a la HABITACION
+		}else if(e.getSource()==btn_Habitacion) {//IR A LA HABITACIÓN
 			this.dispose();
-			VentanaHabitacion habitacion = new VentanaHabitacion(this, controlador,criatura);
+			VentanaHabitacion habitacion = new VentanaHabitacion(this, cont,criatura);
 			habitacion.setVisible(true);
 
 		}
