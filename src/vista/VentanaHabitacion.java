@@ -364,4 +364,3 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
 	}
 }
-

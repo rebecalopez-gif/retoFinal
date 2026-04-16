@@ -134,6 +134,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		    lbl_Accesorio.setIcon(null);
 		}
 		
+		
 		//CRIATURA
 		lbl_Criatura = new JLabel("");
 		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));

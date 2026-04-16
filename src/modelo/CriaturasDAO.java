@@ -49,4 +49,5 @@ public interface CriaturasDAO {
 	public boolean comprobarSG(Creature criatura);
 	public boolean efectoAccesorio(Creature criatura, Accesory accesorio);
 	public Creature obtenerDatosCriatura(int codCreature);
+	//public boolean efectosAccesorio(Creature creature, Accesory accesory);
 }

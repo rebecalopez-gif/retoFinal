@@ -64,6 +64,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	private JDialog ventanas;
 	/** Referencia a la ventana de creación de usuario (si se requiere). */
 	private VentanaNewUsuario ventanaNewUsuario;
+	private UserGame user;
 
 	/**
 	 * Crea la ventana para iniciar una nueva partida. Permite al usuario introducir
@@ -73,9 +74,10 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	 * @param cont controlador que gestiona la creación de criaturas y la lógica del juego.
 	 * @param b parámetro booleano no utilizado directamente, pero mantenido por compatibilidad.
 	 */
-    public VentanaPartidaNew(JDialog parent, CriaturasControlador cont,boolean b) {
+    public VentanaPartidaNew(JDialog parent, CriaturasControlador cont,boolean b, UserGame user) {
     	super(parent,true);
     	  this.cont = cont;
+    	  this.user=user;
 
 		tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
@@ -146,7 +148,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	        }
 
 	        if(valido) {
-	            Creature criatura = new Creature(cont.getUserNameActual(), nombre); //que sea este user que ha iniciado sesion
+	            Creature criatura = new Creature(user.getUserName(), nombre); //que sea este user que ha iniciado sesion
 	            cont.insertarCriatura(criatura); //para guardarlo en la BBDD
 	            this.dispose();
 	            VentanaHabitacion hab = new VentanaHabitacion(this, cont, criatura); 
