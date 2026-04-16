@@ -270,7 +270,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 			
 			//MENSAJE DE DESBLOQUE DE ACCESORIO
 			if (desbloqueo) {
-				JOptionPane.showMessageDialog(this, (String)"CONGRATULATIONS!\n YOU HAVE UNLOCKED A NEW ACCESORY FOR YOUR CREATURE" ,"EVENT!",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String)"CONGRATULATIONS!\n YOU HAVE UNLOCKED A NEW ACCESORY FOR YOUR CREATURE." ,"EVENT!",JOptionPane.INFORMATION_MESSAGE);
 				desbloqueo = false;
 			}
 		}
