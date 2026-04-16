@@ -9,7 +9,7 @@ package modelo;
  *   <li><b>objectName</b>: nombre del objeto.</li>
  * </ul>
  *
- * Esta clase implementa {@link NamedObject}, lo que permite obtener el nombre
+ * Esta clase implementa {@link Lista_Objeto}, lo que permite obtener el nombre
  * del objeto mediante el método {@code getName()}.
  *
  * Se utiliza como clase base para otros tipos de objetos del juego, como
