@@ -47,16 +47,26 @@ public class VentanaGym extends JDialog implements ActionListener{
 	/** Panel principal que contiene todos los elementos gráficos. */
 	private final JPanel contentPanel = new JPanel();
 
+	/** Herramienta para ajustar el tamaño de la ventana */
 	private Toolkit tk;
+	/** Controlador que gestiona la lógica del juego y las criaturas. */
 	private CriaturasControlador cont;
+	/** Criatura asociada a esta ventana. */
 	private Creature criatura;
 
+	/** Botón invisible que representa la puerta para salir a pasear. */
 	private JButton btn_Puerta;
+	/** Botón para ir a la cocina. */
 	private JButton btn_Cocina;
+	/** Botón para ir a la habitación. */
 	private JButton btn_Habitacion;
+	/** Imagen principal de la criatura. */
 	private JLabel lbl_Criatura;
+	/** Etiqueta donde se muestra el accesorio equipado. */
 	private JLabel lbl_Accesorio;
+	/** Etiqueta que miestra el gimnasio */
 	private JLabel lbl_Gym;
+	/** Etiquetas que muestran las estadísticas de la criatura. */
 	private JLabel lbl_EXP;
 	private JLabel lbl_EMOTI;
 	private JLabel lbl_NumExp;
