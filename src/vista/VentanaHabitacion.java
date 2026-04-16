@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -20,14 +19,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import controlador.CriaturasControlador;
 import modelo.Accesory;
 import modelo.Creature;
 import modelo.Objetos;
 import javax.swing.JList;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 
 /**
  * VentanaHabitacion representa la habitación principal donde el jugador puede
@@ -52,36 +48,31 @@ import javax.swing.JTable;
  * @version 1.0, 16/04/2026
  */
 public class VentanaHabitacion extends JDialog implements ActionListener {
-	private static final long serialVersionUID = 1L;
-	/** Panel principal que contiene todos los elementos gráficos. */
-	private final JPanel contentPanel = new JPanel();
-	/** Controlador que gestiona la lógica del juego y las criaturas. */
-	private CriaturasControlador cont;
-	/** Criatura asociada a esta habitación. */
-	private Creature criatura;
-	/** Lista de objetos disponibles en el armario. */
-	private JList list;
-	/** Scroll asociado a la lista de objetos. */
-	private JScrollPane scroll;
-	/** Imagen principal de la criatura. */
-	private JLabel bichito;
-	/** Etiqueta donde se muestra el accesorio equipado. */
-	private JLabel accesoriolabel;
-	/** Nombre del accesorio actualmente equipado. */
-	private String nombreAccesorio = "";
-	/** Botón para abrir el armario. */
-	private JButton btnArmario;
-	/** Botón para salir del juego (cama). */
-	private JButton btnCama;
-	/** Botón para ir al gimnasio. */
-	private JButton bOTONGYM;
-	/** Botón para ir a la cocina. */
-	private JButton BOTONCOCINA;
-	/** Etiquetas que muestran las estadísticas de la criatura. */
-	private JLabel lblNewLabel_NumEnergy, lblNewLabel_NumHunger,
-	               lblNewLabel_NumHappy, lblNewLabel_NumExp;
 	
-	private JLabel lblNewLabel_EXP,lblNewLabel_EMOTI,lblNewLabel_Back,lblNewLabel;
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	
+	private Toolkit tk;
+	private CriaturasControlador cont;
+	private String nombreAccesorio = "";
+	private Creature criatura;
+	
+	private JList list;
+	private JScrollPane scroll;
+	private JButton btn_Armario;
+	private JButton btn_Cama;
+	private JButton btn_Cocina;
+	private JButton btn_Gym;
+	private JLabel lbl_Criatura;
+	private JLabel lbl_Accesorio;
+	private JLabel lbl_Habitacion;
+	private JLabel lbl_EXP;
+	private JLabel lbl_EMOTI;
+	private JLabel lbl_NumExp;
+	private JLabel lbl_FondoLista;
+	private JLabel lbl_NumHunger;
+	private JLabel lbl_NumHappy;
+	private JLabel lbl_NumEnergy;
 
 	/**
 	 * Crea e inicializa la ventana de la habitación del juego.
@@ -94,11 +85,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
 		super(ventanas,true);
 		this.cont = controlador;
-		this.criatura = criatura;////
+		this.criatura = criatura;
 
-
+		//PANTALLA COMPLETA PARA JDIALOG
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
-		Toolkit tk = Toolkit.getDefaultToolkit(); //para hacer pantalla completa en jdialog
+		tk = Toolkit.getDefaultToolkit(); //PARA HACER LA PANTALLA COMPLETA EN DIALOG
 		int ancho = tk.getScreenSize().width;
 		int alto = tk.getScreenSize().height;
 		this.setSize(1536, 1024);
@@ -109,199 +100,204 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
+		//LISTA DE ACCESORIOS
 		list = new JList();
-
 		list.setFont(new Font("Monospaced", Font.BOLD, 14));
 		list.setBackground(new Color(173, 216, 230));
 		list.setForeground(new Color(0, 64, 128));
 		list.setSelectionBackground(new Color(0, 128, 192));
 		list.setSelectionForeground(Color.WHITE);
 		list.setBounds(73, 47, 342, 208);
-		list.setVisible(false); //que no sea visible de primeras
+		list.setVisible(false); //QUE LA LISTA NO SEA VISIBLE DE PRIMERAS
 		contentPanel.add(list);
-
 		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 128, 192), 2),"OBJECTS"));
 
-		//seleccionar objetos clickando con el raton
+		//SELECCIONAR OBJETOS CLICKANDO CON EL RATON
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) { //clickar dos veces
+				if (e.getClickCount() == 2) { //SI SE CLICKA DOS VECES
 					Accesory seleccionado = (Accesory) list.getSelectedValue();
 
 					if(seleccionado != null) {
 						String nombre = seleccionado.getObjectName();
 						switch(nombre) {
-						case "birthdayHat":
-							// POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
-							accesoriolabel.setBounds(524, 438, 200, 200);
-							ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-							//para escalar la imagen
-							Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(),accesoriolabel.getHeight(),Image.SCALE_SMOOTH);
-							if (!nombreAccesorio.equals(nombre)) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
-								accesoriolabel.setIcon(new ImageIcon(imgBH));
-								nombreAccesorio = nombre;
-								cont.quitarCualquierObjeto(criatura);
-								cont.equiparObjeto(criatura, seleccionado);
-							} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
-								accesoriolabel.setIcon(null);
-								nombreAccesorio = "";
-								cont.quitarObjeto(criatura, seleccionado);
-							}
-							break;
-						case "Sunglasses":
-							ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-							Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-							// POSICIÓN MÁS ABAJO PARA LAS GAFAS
-							accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
-							if (!nombreAccesorio.equals(nombre)) { // SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
-								accesoriolabel.setIcon(new ImageIcon(imgSG));
-								nombreAccesorio = nombre;
-								cont.quitarCualquierObjeto(criatura);
-								cont.equiparObjeto(criatura, seleccionado);
-							} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
-								accesoriolabel.setIcon(null);
-								nombreAccesorio = "";
-								cont.quitarObjeto(criatura, seleccionado);
-							}
-							break;
+							case "birthdayHat":
+								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+								//PARA ESCALAR LA IMAGEN
+								Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(),lbl_Accesorio.getHeight(),Image.SCALE_SMOOTH);
+								//POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
+								lbl_Accesorio.setBounds(524, 438, 200, 200);
+								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+									lbl_Accesorio.setIcon(new ImageIcon(imgBH));
+									nombreAccesorio = nombre;
+									cont.quitarCualquierObjeto(criatura);
+									cont.equiparObjeto(criatura, seleccionado);
+								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
+									lbl_Accesorio.setIcon(null);
+									nombreAccesorio = "";
+									cont.quitarObjeto(criatura, seleccionado);
+								}
+								break;
+							case "Sunglasses":
+								ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+								Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+								// POSICIÓN MÁS ABAJO PARA LAS GAFAS
+								lbl_Accesorio.setBounds(500, 400, 250, iconoSG.getIconHeight());
+								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+									lbl_Accesorio.setIcon(new ImageIcon(imgSG));
+									nombreAccesorio = nombre;
+									cont.quitarCualquierObjeto(criatura);
+									cont.equiparObjeto(criatura, seleccionado);
+								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
+									lbl_Accesorio.setIcon(null);
+									nombreAccesorio = "";
+									cont.quitarObjeto(criatura, seleccionado);
+								}
+								break;
 						}
 					}
 				}
 			}
 		});
 
-		// BOTÓN GYM
-		bOTONGYM = new JButton("GYM");
-		bOTONGYM.setFont(new Font("Monospaced", Font.BOLD, 20));
-		bOTONGYM.setForeground(Color.WHITE);
-		bOTONGYM.setBackground(new Color(33, 150, 243)); // azul bonito
-		bOTONGYM.setFocusPainted(false);
-		bOTONGYM.setBorder(BorderFactory.createLineBorder(new Color(25, 118, 210), 3));
-		bOTONGYM.setBounds(1349, 805, 150, 60); // más grande
-		bOTONGYM.setOpaque(true);
-		contentPanel.add(bOTONGYM);
-		bOTONGYM.addActionListener(this);
+		//BOTÓN GYM
+		btn_Gym = new JButton("GYM");
+		btn_Gym.setFont(new Font("Monospaced", Font.BOLD, 20));
+		btn_Gym.setForeground(Color.WHITE);
+		btn_Gym.setBackground(new Color(33, 150, 243)); //
+		btn_Gym.setFocusPainted(false);
+		btn_Gym.setBorder(BorderFactory.createLineBorder(new Color(25, 118, 210), 3));
+		btn_Gym.setBounds(1349, 805, 150, 60);
+		btn_Gym.setOpaque(true);
+		contentPanel.add(btn_Gym);
+		btn_Gym.addActionListener(this);
 
-		// BOTÓN COCINA
-		BOTONCOCINA = new JButton("KITCHEN");
-		BOTONCOCINA.setFont(new Font("Monospaced", Font.BOLD, 20));
-		BOTONCOCINA.setForeground(Color.WHITE);
-		BOTONCOCINA.setBackground(new Color(123, 31, 162)); // morado bonito
-		BOTONCOCINA.setFocusPainted(false);
-		BOTONCOCINA.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
-		BOTONCOCINA.setBounds(31, 805, 150, 60); // más grande
-		BOTONCOCINA.setOpaque(true);
-		contentPanel.add(BOTONCOCINA);
-		BOTONCOCINA.addActionListener(this);
+		//BOTÓN COCINA
+		btn_Cocina = new JButton("KITCHEN");
+		btn_Cocina.setFont(new Font("Monospaced", Font.BOLD, 20));
+		btn_Cocina.setForeground(Color.WHITE);
+		btn_Cocina.setBackground(new Color(123, 31, 162));
+		btn_Cocina.setFocusPainted(false);
+		btn_Cocina.setBorder(BorderFactory.createLineBorder(new Color(81, 45, 168), 3));
+		btn_Cocina.setBounds(31, 805, 150, 60);
+		btn_Cocina.setOpaque(true);
+		contentPanel.add(btn_Cocina);
+		btn_Cocina.addActionListener(this);
 
-		// Crear SIEMPRE el JLabel antes de usarlo
-		accesoriolabel = new JLabel();
-		accesoriolabel.setBounds(524, 438, 200, 200);
-		contentPanel.add(accesoriolabel);
-
-		//ACCESORIO
+		//ACCESORIO (CREAR SIEMPRE EL JLABEL ANTES DE USARLO)
+		lbl_Accesorio = new JLabel();
+		lbl_Accesorio.setBounds(524, 438, 200, 200);
+		contentPanel.add(lbl_Accesorio);
+		
+		//SE EQUIPA EL ACCESORIO QUE TENGA LA CRIATURA
 		if (cont.comprobarObjeto(criatura)==1) {
 		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-		    Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(), accesoriolabel.getHeight(), Image.SCALE_SMOOTH);
-		    accesoriolabel.setIcon(new ImageIcon(imgBH));
+		    Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(), lbl_Accesorio.getHeight(), Image.SCALE_SMOOTH);
+		    lbl_Accesorio.setIcon(new ImageIcon(imgBH));
 
 		} else if (cont.comprobarObjeto(criatura)==2) {
-
 		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
 		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-		    accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
-		    accesoriolabel.setIcon(new ImageIcon(imgSG));
+		    lbl_Accesorio.setBounds(500, 400, 250, iconoSG.getIconHeight());
+		    lbl_Accesorio.setIcon(new ImageIcon(imgSG));
 
 		} else {
-		    // No accesorio → lo dejas vacío
-		    accesoriolabel.setIcon(null);
+		    lbl_Accesorio.setIcon(null);
 		}
 
-		lblNewLabel_NumExp = new JLabel("");
-		lblNewLabel_NumExp.setBounds(1374, 31, 54, 25);
-		lblNewLabel_NumExp.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumExp.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumExp.setText(String.valueOf(criatura.getExperience()));
-		contentPanel.add(lblNewLabel_NumExp);
+		//TABLA DE ESTADISTICAS DE LA CRIATURA
+		lbl_NumExp = new JLabel("");
+		lbl_NumExp.setBounds(1374, 31, 54, 25);
+		lbl_NumExp.setForeground(new Color(128, 0, 64));
+		lbl_NumExp.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumExp.setText(String.valueOf(criatura.getExperience()));
+		contentPanel.add(lbl_NumExp);
 
-		lblNewLabel_EXP = new JLabel("EXPERIENCE:");
-		lblNewLabel_EXP.setBackground(new Color(240, 240, 240));
-		lblNewLabel_EXP.setForeground(new Color(248, 52, 140));
-		lblNewLabel_EXP.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_EXP.setBounds(1247, 26, 117, 34);
-		contentPanel.add(lblNewLabel_EXP);
+		lbl_EXP = new JLabel("EXPERIENCE:");
+		lbl_EXP.setBackground(new Color(240, 240, 240));
+		lbl_EXP.setForeground(new Color(248, 52, 140));
+		lbl_EXP.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_EXP.setBounds(1247, 26, 117, 34);
+		contentPanel.add(lbl_EXP);
 
-		lblNewLabel_EMOTI = new JLabel("<html>ENERGY:<br>HUNGER:<br>HAPPINESS:</html>");
-		lblNewLabel_EMOTI.setBackground(new Color(255, 217, 236));
-		lblNewLabel_EMOTI.setForeground(new Color(255, 89, 172));
-		lblNewLabel_EMOTI.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_EMOTI.setBounds(1247, 57, 117, 79);
-		contentPanel.add(lblNewLabel_EMOTI);
+		lbl_EMOTI = new JLabel("<html>ENERGY:<br>HUNGER:<br>HAPPINESS:</html>");
+		lbl_EMOTI.setBackground(new Color(255, 217, 236));
+		lbl_EMOTI.setForeground(new Color(255, 89, 172));
+		lbl_EMOTI.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_EMOTI.setBounds(1247, 57, 117, 79);
+		contentPanel.add(lbl_EMOTI);
 
-		lblNewLabel_NumHappy = new JLabel("");
-		lblNewLabel_NumHappy.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumHappy.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumHappy.setBounds(1374, 111, 54, 25);
-		lblNewLabel_NumHappy.setText(String.valueOf(criatura.getHappiness()));
-		contentPanel.add(lblNewLabel_NumHappy);
+		lbl_NumHappy = new JLabel("");
+		lbl_NumHappy.setForeground(new Color(128, 0, 64));
+		lbl_NumHappy.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumHappy.setBounds(1374, 111, 54, 25);
+		lbl_NumHappy.setText(String.valueOf(criatura.getHappiness()));
+		contentPanel.add(lbl_NumHappy);
 
-		lblNewLabel_NumHunger = new JLabel("");
-		lblNewLabel_NumHunger.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumHunger.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumHunger.setBounds(1374, 85, 54, 25);
-		lblNewLabel_NumHunger.setText(String.valueOf(criatura.getHunger()));
-		contentPanel.add(lblNewLabel_NumHunger);
+		lbl_NumHunger = new JLabel("");
+		lbl_NumHunger.setForeground(new Color(128, 0, 64));
+		lbl_NumHunger.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumHunger.setBounds(1374, 85, 54, 25);
+		lbl_NumHunger.setText(String.valueOf(criatura.getHunger()));
+		contentPanel.add(lbl_NumHunger);
 
-		lblNewLabel_NumEnergy = new JLabel("");
-		lblNewLabel_NumEnergy.setForeground(new Color(128, 0, 64));
-		lblNewLabel_NumEnergy.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lblNewLabel_NumEnergy.setBounds(1374, 60, 54, 25);
-		lblNewLabel_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
-		contentPanel.add(lblNewLabel_NumEnergy);
+		lbl_NumEnergy = new JLabel("");
+		lbl_NumEnergy.setForeground(new Color(128, 0, 64));
+		lbl_NumEnergy.setFont(new Font("Monospaced", Font.BOLD, 17));
+		lbl_NumEnergy.setBounds(1374, 60, 54, 25);
+		lbl_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
+		contentPanel.add(lbl_NumEnergy);
 
-
-
-		// Scroll
+		lbl_FondoLista = new JLabel("");
+		lbl_FondoLista.setBounds(1241, 31, 271, 112);
+		lbl_FondoLista.setOpaque(true);
+		lbl_FondoLista.setBackground(new Color(255, 217, 236));
+		contentPanel.add(lbl_FondoLista);
+		
+		//SCROLL
 		scroll = new JScrollPane(list);
 		scroll.setBounds(73, 47, 342, 208);
 		scroll.setVisible(false);
-
-		bichito = new JLabel("");
-		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));
-
-		lblNewLabel_Back = new JLabel("");
-		lblNewLabel_Back.setBounds(1241, 31, 271, 112);
-		lblNewLabel_Back.setOpaque(true);
-		lblNewLabel_Back.setBackground(new Color(255, 217, 236));
-		contentPanel.add(lblNewLabel_Back);
-
-		bichito.setIcon(icon);
-		bichito.setBounds(399, 506, icon.getIconWidth(), icon.getIconHeight());
-		contentPanel.add(bichito);
-
 		contentPanel.add(scroll);
 
-		btnArmario = new JButton();
-		btnArmario.setBounds(84, 285, 342, 427); // posición y tamaño del armario
-		btnArmario.setOpaque(false);
-		btnArmario.setContentAreaFilled(false);
-		btnArmario.setBorderPainted(false);
-		btnArmario.addActionListener(this);
-		contentPanel.add(btnArmario);
+		//CRIATURA
+		lbl_Criatura = new JLabel("");
+		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));
+		lbl_Criatura.setIcon(icon);
+		lbl_Criatura.setBounds(399, 506, icon.getIconWidth(), icon.getIconHeight());
+		contentPanel.add(lbl_Criatura);
 
-		btnCama = new JButton();
-		btnCama.setBounds(1058, 481, 400, 306); // AJUSTA ESTO A TU CAMA
-		btnCama.setOpaque(false);
-		btnCama.setContentAreaFilled(false);
-		btnCama.setBorderPainted(false);
-		btnCama.addActionListener(this);
-		contentPanel.add(btnCama);
+		//BOTÓN ARMARIO
+		btn_Armario = new JButton();
+		btn_Armario.setBounds(84, 285, 342, 427); //POSICION Y TAMAÑO DEL ARMARIO
+		btn_Armario.setOpaque(false);
+		btn_Armario.setContentAreaFilled(false);
+		btn_Armario.setBorderPainted(false);
+		btn_Armario.addActionListener(this);
+		contentPanel.add(btn_Armario);
 
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setBackground(new Color(240, 240, 240));
-		lblNewLabel.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
-		lblNewLabel.setBounds(0, 0, ancho, alto);
-		contentPanel.add(lblNewLabel);
+		//BOTÓN CAMA
+		btn_Cama = new JButton();
+		btn_Cama.setBounds(1058, 481, 400, 306); //POSICION Y TAMAÑO DE LA CAMA
+		btn_Cama.setOpaque(false);
+		btn_Cama.setContentAreaFilled(false);
+		btn_Cama.setBorderPainted(false);
+		btn_Cama.addActionListener(this);
+		contentPanel.add(btn_Cama);
+
+		//HABITACIÓN (AL FINAL PARA QUE APAREZCA DE FONDO)
+		lbl_Habitacion = new JLabel("");
+		lbl_Habitacion.setBackground(new Color(240, 240, 240));
+		lbl_Habitacion.setIcon(new ImageIcon(VentanaHabitacion.class.getResource("/image/Habitación infantil .png")));
+		lbl_Habitacion.setBounds(0, 0, ancho, alto);
+		contentPanel.add(lbl_Habitacion);
+	}
+	
+	private void actualizarEmociones() { //METODO PARA ACTUALIZAR EL NÚMERO DE ACTUALIZACIONES 
+		lbl_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
+		lbl_NumHunger.setText(String.valueOf(criatura.getHunger()));
+		lbl_NumHappy.setText(String.valueOf(criatura.getHappiness()));
+		lbl_NumExp.setText(String.valueOf(criatura.getExperience()));
 	}
 
 	/**
@@ -313,40 +309,35 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 * 
 	 * @param e el evento de acción generado por los botones
 	 */
-	private void actualizarEmociones() { //metodo para actualizar el numero de actualizaciones 
-		lblNewLabel_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
-		lblNewLabel_NumHunger.setText(String.valueOf(criatura.getHunger()));
-		lblNewLabel_NumHappy.setText(String.valueOf(criatura.getHappiness()));
-		lblNewLabel_NumExp.setText(String.valueOf(criatura.getExperience()));
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnArmario) { //ver objetos
+		
+		if (e.getSource() == btn_Armario) {//VER OBJETOS
 			if (!list.isVisible()) {
 				List<Objetos> objetos = cont.verObjectos(criatura);
-				list.setListData(objetos.toArray()); //rellenar la lista
-				list.setVisible(true); //hacer visible la lista
-				scroll.setVisible(true); //hacer visible el scroll
+				list.setListData(objetos.toArray()); //RELLENAR LA LISTA
+				list.setVisible(true); //HACER VISIBLE LA LISTA
+				scroll.setVisible(true); //HACER VISIBLE EL SCROLL
 				actualizarEmociones();
 			} else {
 				list.setVisible(false);
 				scroll.setVisible(false);
 			}
 
-		}else if(e.getSource() == btnCama) { //dormir, es decir salir del juego
+		}else if(e.getSource() == btn_Cama) { //DORMIR, ES DECIR SALIR DEL JUEGO
 			int opcion=JOptionPane.showConfirmDialog(this,(String)"Are you sure you want to leave the game?","Log out...",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null);
 			if(opcion==JOptionPane.YES_OPTION) {
 				cont.descansar(criatura);
-				this.dispose(); // para cerrar la ventana actual
-				System.exit(0); // Termina la ejecucion del programa
+				this.dispose(); //PARA CERRAR LA VENTANA ACTUAL
+				System.exit(0); //TERMINA LA EJECUCIÓN DEL PROGRAMA
 			}
-		} else if(e.getSource()==bOTONGYM) {//ir al gym
+		} else if(e.getSource()==btn_Gym) {//IR AL GYM
 			this.dispose();
 			VentanaGym gym = new VentanaGym(this,cont,criatura);
 			gym.setVisible(true);
 
-		}else if(e.getSource()==BOTONCOCINA) { //ir a la cocina
+		}else if(e.getSource()==btn_Cocina) {//IR A LA COCINA
 			this.dispose();
 			VentanaCocina cocina = new VentanaCocina(this,cont,criatura);
 			cocina.setVisible(true);
