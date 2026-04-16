@@ -254,7 +254,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 				JOptionPane.showMessageDialog(this, (String)"YOUR CREATURE IS TOO HUNGRY TO GO OUT!","It hasn’t gone for its walk",JOptionPane.INFORMATION_MESSAGE);
 			
 			}else if(cont.irDePaseo(criatura)) {
-				JOptionPane.showMessageDialog(this, (String)"YOUR CREATURE HAS GAINED NEW EXPERIENCE\n BUT LOOK AT ITS NEEDS!" ,"Walk results",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String)"YOUR CREATURE HAS GAINED NEW EXPERIENCE!\n BUT LOOK AT ITS NEEDS..." ,"Walk results",JOptionPane.INFORMATION_MESSAGE);
 				lbl_Criatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
 				actualizarEmociones();//llamo al metodo pa actualizarlo
 			} 
