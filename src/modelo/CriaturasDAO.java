@@ -47,5 +47,6 @@ public interface CriaturasDAO {
 	public boolean desbloqueoSG(Creature criatura);
 	public boolean comprobarBH(Creature criatura);
 	public boolean comprobarSG(Creature criatura);
+	public boolean efectoAccesorio(Creature criatura, Accesory accesorio);
 	public Creature obtenerDatosCriatura(int codCreature);
 }

@@ -148,6 +148,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 									nombreAccesorio = nombre;
 									cont.quitarCualquierObjeto(criatura);
 									cont.equiparObjeto(criatura, seleccionado);
+									cont.efectoAccesorio(criatura, seleccionado);
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
@@ -164,6 +165,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 									nombreAccesorio = nombre;
 									cont.quitarCualquierObjeto(criatura);
 									cont.equiparObjeto(criatura, seleccionado);
+									cont.efectoAccesorio(criatura, seleccionado);
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";

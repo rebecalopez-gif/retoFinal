@@ -43,6 +43,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_DESBLOQUEO_SG = "INSERT INTO equip VALUES (2, ?, FALSE);";
 	final String SQL_COMPROBAR_BH = "SELECT * FROM equip WHERE cod_object = 1 AND cod_creature = ?";
 	final String SQL_COMPROBAR_SG = "SELECT * FROM equip WHERE cod_object = 2 AND cod_creature = ?";
+	final String SQL_EFECTO_ACCESORIO = "UPDATE Creature SET  happiness = happiness + ? WHERE cod_creature = ?";
 	
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
@@ -398,6 +399,25 @@ public class ImplementacionBD implements CriaturasDAO{
 				ok=true;
 			}
 			resultado.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+		return ok;
+	}
+	
+	public boolean efectoAccesorio(Creature criatura, Accesory accesorio) {
+		boolean ok=false;
+		this.openConnection();//abro la conecexion
+
+		try {
+			stmt = con.prepareStatement(SQL_EFECTO_ACCESORIO);
+			stmt.setInt(1, accesorio.getHapiness_effect());
+			stmt.setInt(2, criatura.getCodC());
+			if (stmt.executeUpdate()>0) {
+				ok=true;
+			}
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
