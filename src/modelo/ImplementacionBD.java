@@ -24,8 +24,8 @@ public class ImplementacionBD implements CriaturasDAO{
 	private String passwordBD;
 	// Sentencias SQL
 	final String SQL = "SELECT * FROM UserGame WHERE userName = ? AND passwordUser = ?";		
-	final String SQLInsertUser = "INSERT INTO UserGame VALUES (?,?,?)"; //PREGUNTAR SI TIENE QUE SER EN MAYUSCULAS
-	final String SQL_Existe = "SELECT * FROM UserGame WHERE userName = ?";
+	final String SQLINSERTUSER = "INSERT INTO UserGame VALUES (?,?,?)";//NO SE USA PORQUE USAMOS EL METODO
+	final String SQL_EXISTE= "SELECT * FROM UserGame WHERE userName = ?";
 	final String SQLCONSULTA = "SELECT object.cod_object, object.objectName FROM equip, object WHERE equip.cod_object = object.cod_object AND equip.cod_creature = ?";
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 
@@ -50,6 +50,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 	//final String SQL_ESTADO="SELECT C.experience, energy,hunger, happiness FROM Creature C WHERE cod_creature=?"; //PARA VER EL ESTADO DEL MOUNSTRUO
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
+	
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
 	public ImplementacionBD() {
@@ -106,14 +107,16 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setDate(3, java.sql.Date.valueOf(fecha));
 			boolean tieneResultado = stmt.execute();
 			//como la funcion en el select devuelve una frase
+			
 			if (tieneResultado) {//si es true
 				ResultSet rs = stmt.getResultSet(); //mi select con el mensaje
 				if (rs.next()) {
 					String mensaje = rs.getString(1);
 					System.out.println("Mensaje BD: " + mensaje);
-					if (mensaje.contains("SUCCESSFULY")) {
+					if (mensaje.contains("SUCCESSFULLY")) {
 						insertado = true;
 					}
+					
 				}
 				rs.close();
 			}
@@ -147,7 +150,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		boolean existe=false;
 		this.openConnection();//abro la conecexion
 		try {
-			stmt = con.prepareStatement(SQL_Existe);
+			stmt = con.prepareStatement(SQL_EXISTE);
 			stmt.setString(1, user.getUserName());
 			ResultSet resultado = stmt.executeQuery();
 			if (resultado.next()) {
@@ -510,6 +513,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setInt(4, c.getEnergy());
 			stmt.setInt(5, c.getHunger());
 			stmt.setInt(6, c.getHappiness());
+			
 			if (stmt.executeUpdate() > 0) {
 				ok = true;
 			}

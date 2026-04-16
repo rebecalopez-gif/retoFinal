@@ -71,6 +71,8 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 	private JLabel lblYearOfBirth;
 	/** Campo de texto para introducir el año de nacimiento. */
 	private JTextField textField_Year;
+	
+	private JButton botonback;
 
 	/**
 	 * Crea la ventana de registro de un nuevo usuario. Configura todos los campos
@@ -99,6 +101,14 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		botonback = new JButton("Back");
+		botonback.setForeground(new Color(0, 128, 192));
+		botonback.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
+		botonback.setBackground(new Color(196, 236, 255));
+		botonback.setBounds(697, 758, 187, 55);
+		contentPanel.add(botonback);
+		botonback.addActionListener(this);
 		
 		textField_Year = new JTextField();
 		textField_Year.setForeground(new Color(128, 0, 128));
@@ -189,6 +199,13 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(java.awt.event.ActionEvent e) {
 		boolean insertado;
+		
+		if (e.getSource()==botonback) {
+			this.dispose();
+			VentanaPrincipal principal = new VentanaPrincipal(cont);
+			principal.setVisible(true);
+		}
+		
         if(e.getSource()==btnNewButton) {
         	
         String year=textField_Year.getText(); 
@@ -225,7 +242,7 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 
 				    if (insertado) {
 				        this.dispose();
-				        VentanaPartidaNew venta = new VentanaPartidaNew(this, cont, true);
+				        VentanaPartidaNew venta = new VentanaPartidaNew(this, cont, true, user);
 				        venta.setVisible(true);
 	
 				    }else {
@@ -241,5 +258,4 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 			}
 		}
 	}
-	
 }
