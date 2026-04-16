@@ -81,7 +81,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 
 		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
 		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-		    accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
+		    accesoriolabel.setBounds(801, 400, 250, iconoSG.getIconHeight());
 		    accesoriolabel.setIcon(new ImageIcon(imgSG));
 
 		} else {

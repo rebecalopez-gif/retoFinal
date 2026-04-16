@@ -95,7 +95,7 @@ public class VentanaGym extends JDialog implements ActionListener{
 		} else if (cont.comprobarObjeto(criatura)==2) {
 		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
 		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-		    accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());
+		    accesoriolabel.setBounds(722, 373, 250, iconoSG.getIconHeight());
 		    accesoriolabel.setIcon(new ImageIcon(imgSG));
 
 		} else {
@@ -104,8 +104,9 @@ public class VentanaGym extends JDialog implements ActionListener{
 		}
 
 		lblCriatura = new JLabel("");
-		lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
-		lblCriatura.setBounds(621, 479, 664, 400);
+		ImageIcon icon = new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura)));
+		lblCriatura.setIcon(icon);
+		lblCriatura.setBounds(621, 479, icon.getIconWidth(), icon.getIconHeight());
 		contentPanel.add(lblCriatura);
 
 		// Botón invisible sobre la puerta
@@ -183,6 +184,8 @@ public class VentanaGym extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPuerta) {
+			boolean desbloqueo = false;
+			
 			//pa que no me entre si no tiene las necesidades 
 			if (criatura.getEnergy()<20){
 				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA ESTA DEMASIADO CANSADA COMO PARA SALIR","NO SE HA DADO EL PASEO",JOptionPane.INFORMATION_MESSAGE);
@@ -195,6 +198,19 @@ public class VentanaGym extends JDialog implements ActionListener{
 				lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
 				actualizarEmociones();//llamo al metodo pa actualizarlo
 			} 
+			
+			if (criatura.getExperience()>0 && !cont.comprobarBH(criatura)) {
+				cont.desbloqueoBH(criatura);
+				desbloqueo = true;
+			} else if (criatura.getExperience()>99 && !cont.comprobarSG(criatura)) {
+				cont.desbloqueoSG(criatura);
+				desbloqueo = true;
+			}
+			
+			if (desbloqueo) {
+				JOptionPane.showMessageDialog(this, (String)"CONGRATULATIONS!\n YOU HAVE UNLOCKED A NEW ACCESORY FOR YOUR CREATURE" ,"EVENT!",JOptionPane.INFORMATION_MESSAGE);
+				desbloqueo = false;
+			}
 		}
 		
 

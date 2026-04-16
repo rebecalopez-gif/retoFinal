@@ -20,6 +20,11 @@ public interface CriaturasDAO {
 	public boolean descansar(Creature criatura);
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio);
 	public boolean quitarObjeto(Creature criatura, Accesory accesorio);
+	public boolean quitarCualquierObjeto(Creature criatura);
 	public int comprobarObjeto(Creature criatura);
+	public boolean desbloqueoBH(Creature criatura);
+	public boolean desbloqueoSG(Creature criatura);
+	public boolean comprobarBH(Creature criatura);
+	public boolean comprobarSG(Creature criatura);
 	public Creature obtenerDatosCriatura(int codCreature);
 }
