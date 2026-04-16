@@ -1,4 +1,23 @@
 package modelo;
+
+/**
+ * La clase Food representa un alimento dentro del juego.
+ * 
+ * Cada alimento hereda de {@link Objetos} el nombre del objeto y añade
+ * efectos específicos sobre la criatura:
+ * <ul>
+ *   <li><b>hunger_effect</b>: cuánto reduce el hambre.</li>
+ *   <li><b>energy_effect</b>: cuánto aumenta la energía.</li>
+ *   <li><b>happines_effect</b>: cuánto aumenta la felicidad.</li>
+ * </ul>
+ *
+ * Los alimentos se utilizan en la cocina para modificar las estadísticas
+ * de la criatura según sus efectos.
+ *
+ * @author Irene
+ * @version 1.0
+ * @since 2026-04-16
+ */
 public class Food extends Objetos{
 	private int hunger_effect;
 	private int energy_effect;
@@ -33,6 +52,14 @@ public class Food extends Objetos{
 		this.hunger_effect = hunger_effect;
 	}
 	
+	/**
+	 * Establece el efecto de felicidad del alimento.
+	 * 
+	 * Valida que el efecto no sea negativo.
+	 *
+	 * @param happines_effect nueva cantidad de felicidad.
+	 * @throws IllegalArgumentException si el valor es negativo.
+	 */
 	//EDE
 	public void setHappines_effect(int happines_effect) {
 		if (happines_effect < 0) {
@@ -40,6 +67,13 @@ public class Food extends Objetos{
 		}
 		this.happines_effect = happines_effect;
 	}
+	
+	/**
+	 * Devuelve una representación en texto del alimento,
+	 * mostrando su nombre y su efecto principal (hambre).
+	 *
+	 * @return cadena con el formato "nombre - Effect: valor".
+	 */
 	//--
 	@Override
 	public String toString() {

@@ -30,43 +30,58 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
 /**
- * VentanaHabitacion representa la interfaz de la habitación del juego.
- * Permite al usuario interactuar con:
+ * VentanaHabitacion representa la habitación principal donde el jugador puede
+ * interactuar con su criatura y acceder a distintas áreas del juego.
+ *
+ * Funcionalidades principales:
  * <ul>
- *   <li>El armario: ver los objetos disponibles</li>
- *   <li>La cama: salir del juego</li>
- *   <li>El bichito: representación de la criatura del usuario</li>
+ *   <li>Visualizar la criatura y sus estadísticas (energía, hambre, felicidad, experiencia).</li>
+ *   <li>Acceder al armario para ver y equipar accesorios.</li>
+ *   <li>Ir al gimnasio para entrenar a la criatura.</li>
+ *   <li>Ir a la cocina para alimentarla.</li>
+ *   <li>Usar la cama para salir del juego.</li>
  * </ul>
- * Esta clase extiende JDialog y utiliza un layout nulo para posicionar los elementos.
- * @author TuNombre //poner nuestro nombre
- * @version 1.0
+ *
+ * La ventana se muestra como un JDialog modal y utiliza un layout absoluto
+ * para posicionar todos los elementos gráficos.
+ *
+ * Esta clase interactúa con {@link CriaturasControlador} para obtener y modificar
+ * el estado de la criatura.
+ *
+ * @author Rebeca
+ * @version 1.0, 16/04/2026
  */
 public class VentanaHabitacion extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
+	/** Panel principal que contiene todos los elementos gráficos. */
 	private final JPanel contentPanel = new JPanel();
-	private Toolkit tk;
-	private JLabel lblNewLabel;
+	/** Controlador que gestiona la lógica del juego y las criaturas. */
 	private CriaturasControlador cont;
-	private JButton btnArmario;
-	private JButton btnCama;
+	/** Criatura asociada a esta habitación. */
+	private Creature criatura;
+	/** Lista de objetos disponibles en el armario. */
 	private JList list;
+	/** Scroll asociado a la lista de objetos. */
 	private JScrollPane scroll;
+	/** Imagen principal de la criatura. */
 	private JLabel bichito;
-	private JButton BOTONCOCINA;
-	private JButton bOTONGYM;
-	private Creature criatura;/////////
+	/** Etiqueta donde se muestra el accesorio equipado. */
 	private JLabel accesoriolabel;
+	/** Nombre del accesorio actualmente equipado. */
 	private String nombreAccesorio = "";
-	private JTabbedPane tabbedPane;
-	private JLabel lblNewLabel_1;
-	private JLabel lblainx;
-	private JLabel lblNewLabel_EXP;
-	private JLabel lblNewLabel_EMOTI;
-	private JLabel lblNewLabel_NumExp;
-	private JLabel lblNewLabel_Back;
-	private JLabel lblNewLabel_NumHunger;
-	private JLabel lblNewLabel_NumHappy;
-	private JLabel lblNewLabel_NumEnergy;
+	/** Botón para abrir el armario. */
+	private JButton btnArmario;
+	/** Botón para salir del juego (cama). */
+	private JButton btnCama;
+	/** Botón para ir al gimnasio. */
+	private JButton bOTONGYM;
+	/** Botón para ir a la cocina. */
+	private JButton BOTONCOCINA;
+	/** Etiquetas que muestran las estadísticas de la criatura. */
+	private JLabel lblNewLabel_NumEnergy, lblNewLabel_NumHunger,
+	               lblNewLabel_NumHappy, lblNewLabel_NumExp;
+	
+	private JLabel lblNewLabel_EXP,lblNewLabel_EMOTI,lblNewLabel_Back,lblNewLabel;
 
 	/**
 	 * Crea e inicializa la ventana de la habitación del juego.
