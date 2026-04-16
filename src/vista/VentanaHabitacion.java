@@ -26,16 +26,26 @@ import modelo.Objetos;
 import javax.swing.JList;
 
 /**
- * VentanaHabitacion representa la interfaz de la habitación del juego.
- * Permite al usuario interactuar con:
+ * VentanaHabitacion representa la habitación principal donde el jugador puede
+ * interactuar con su criatura y acceder a distintas áreas del juego.
+ *
+ * Funcionalidades principales:
  * <ul>
- *   <li>El armario: ver los objetos disponibles</li>
- *   <li>La cama: salir del juego</li>
- *   <li>El bichito: representación de la criatura del usuario</li>
+ *   <li>Visualizar la criatura y sus estadísticas (energía, hambre, felicidad, experiencia).</li>
+ *   <li>Acceder al armario para ver y equipar accesorios.</li>
+ *   <li>Ir al gimnasio para entrenar a la criatura.</li>
+ *   <li>Ir a la cocina para alimentarla.</li>
+ *   <li>Usar la cama para salir del juego.</li>
  * </ul>
- * Esta clase extiende JDialog y utiliza un layout nulo para posicionar los elementos.
- * @author TuNombre //poner nuestro nombre
- * @version 1.0
+ *
+ * La ventana se muestra como un JDialog modal y utiliza un layout absoluto
+ * para posicionar todos los elementos gráficos.
+ *
+ * Esta clase interactúa con {@link CriaturasControlador} para obtener y modificar
+ * el estado de la criatura.
+ *
+ * @author Rebeca
+ * @version 1.0, 16/04/2026
  */
 public class VentanaHabitacion extends JDialog implements ActionListener {
 	

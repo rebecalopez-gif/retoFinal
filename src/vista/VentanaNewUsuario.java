@@ -22,24 +22,65 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+/**
+ * VentanaNewUsuario permite registrar un nuevo usuario en el sistema.
+ * 
+ * Esta ventana se muestra como un JDialog modal y solicita:
+ * - Nombre de usuario.
+ * - Año de nacimiento.
+ * - Contraseña.
+ * - Repetición de contraseña.
+ *
+ * La ventana valida todos los campos antes de crear el usuario:
+ * - El año debe tener 4 dígitos y ser numérico.
+ * - El usuario no puede estar vacío.
+ * - La contraseña no puede estar vacía.
+ * - Ambas contraseñas deben coincidir.
+ * - El usuario debe tener al menos 6 años.
+ *
+ * Si la creación es exitosa, se abre la ventana para crear una nueva partida.
+ * Si el usuario ya existe, se lanza una excepción {@link UserExisteException}.
+ *
+ * Utiliza un {@link CriaturasControlador} para registrar el usuario en la base de datos.
+ * 
+ * @author Irene
+ * @version 1.0, 16/04/2026
+ */
 public class VentanaNewUsuario extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-
+	/** Panel principal del contenido del diálogo. */
 	private final JPanel contentPanel = new JPanel();
+	/** Controlador encargado de gestionar usuarios y lógica del juego. */
 	private CriaturasControlador cont;
-
+	/** Etiqueta para el campo de contraseña. */
 	private JLabel lblContrasea;
+	/** Etiqueta para el campo de usuario. */
 	private JLabel lblUser;
+	/** Etiqueta para repetir la contraseña. */
 	private JLabel lblRepeatPassword;
+	/** Campo de texto para introducir el nombre de usuario. */
 	private JTextField textField_User;
+	/** Campo de contraseña principal. */
 	private JPasswordField passwordField;
+	/** Campo para repetir la contraseña. */
 	private JPasswordField passwordField_1;
+	/** Botón para crear el usuario. */
 	private JButton btnNewButton;
+	/** Etiqueta para el año de nacimiento. */
 	private JLabel lblYearOfBirth;
+	/** Campo de texto para introducir el año de nacimiento. */
 	private JTextField textField_Year;
 
-
+	/**
+	 * Crea la ventana de registro de un nuevo usuario. Configura todos los campos
+	 * necesarios para introducir los datos del usuario y valida la información
+	 * antes de permitir su creación.
+	 *
+	 * @param ventanaPrincipal ventana padre desde la cual se abre este diálogo.
+	 * @param cont controlador que gestiona la creación de usuarios.
+	 * @param b parámetro booleano no utilizado directamente, mantenido por compatibilidad.
+	 */
 	public VentanaNewUsuario(VentanaPrincipal ventanaPrincipal, CriaturasControlador cont, boolean b) {
 		super(ventanaPrincipal, true);
 		this.cont = cont;
@@ -130,6 +171,21 @@ public class VentanaNewUsuario extends JDialog implements ActionListener {
 		contentPanel.add(lblIMAGEN);
 	}
 
+	/**
+	 * Gestiona la acción del botón "CREATE USER". Realiza las siguientes validaciones:
+	 * 
+	 * - El año no puede estar vacío, debe ser numérico y tener 4 dígitos.
+	 * - El nombre de usuario no puede estar vacío.
+	 * - La contraseña no puede estar vacía.
+	 * - Ambas contraseñas deben coincidir.
+	 * 
+	 * Si los datos son válidos, intenta registrar el usuario mediante el controlador.
+	 * Si el usuario ya existe, se captura la excepción {@link UserExisteException}.
+	 * 
+	 * Si el registro es exitoso, se abre la ventana para crear una nueva partida.
+	 *
+	 * @param e evento generado por la interacción del usuario.
+	 */
 	@Override
 	public void actionPerformed(java.awt.event.ActionEvent e) {
 		boolean insertado;

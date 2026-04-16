@@ -23,6 +23,28 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Toolkit;
 
+/**
+ * VentanaCocina representa la zona de cocina del juego, donde el usuario puede
+ * alimentar a su criatura utilizando los distintos alimentos disponibles.
+ *
+ * Funcionalidades principales:
+ * <ul>
+ *   <li>Mostrar la criatura y su accesorio equipado.</li>
+ *   <li>Permitir seleccionar un alimento desde un JComboBox.</li>
+ *   <li>Aplicar los efectos del alimento sobre la criatura.</li>
+ *   <li>Actualizar las estadísticas (energía, hambre, felicidad, experiencia).</li>
+ *   <li>Navegar hacia el gimnasio o la habitación.</li>
+ * </ul>
+ *
+ * Esta ventana se muestra como un JDialog modal y utiliza un layout absoluto
+ * para posicionar todos los elementos gráficos.
+ *
+ * Interactúa con {@link CriaturasControlador} para obtener la lista de alimentos
+ * y aplicar sus efectos sobre la criatura.
+ *
+ * @author Galder
+ * @version 1.0, 16/04/2026
+ */
 public class VentanaCocina extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
@@ -48,6 +70,14 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	private JLabel lbl_NumHappy;
 	private JLabel lbl_NumEnergy;
 
+	/**
+	 * Crea e inicializa la ventana de cocina. Carga la lista de alimentos disponibles,
+	 * muestra la criatura, su accesorio y las estadísticas actuales.
+	 *
+	 * @param ventanas ventana padre desde la cual se abre este diálogo.
+	 * @param cont controlador que gestiona la lógica del juego.
+	 * @param criatura criatura del usuario que se mostrará e interactuará en esta zona.
+	 */
 	public VentanaCocina(JDialog ventanas,CriaturasControlador cont, Creature criatura) {
 		super(ventanas,true);
 		this.cont=cont;
@@ -189,13 +219,33 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		
 	}
 	
-	private void actualizarEmociones() {//METODO PARA ACTUALIZAR EL NÚMERO DE ACTUALIZACIONES 
+	/**
+	 * Actualiza en pantalla los valores actuales de energía, hambre, felicidad
+	 * y experiencia de la criatura. Este método se llama después de alimentarla
+	 * o realizar acciones que modifiquen sus estadísticas.
+	 */
+  
+  private void actualizarEmociones() {//METODO PARA ACTUALIZAR EL NÚMERO DE ACTUALIZACIONES 
 	    lbl_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
 	    lbl_NumHunger.setText(String.valueOf(criatura.getHunger()));
 	    lbl_NumHappy.setText(String.valueOf(criatura.getHappiness()));
 	    lbl_NumExp.setText(String.valueOf(criatura.getExperience()));
-	}
-
+    
+  }
+  
+	/**
+	 * Gestiona las acciones de los botones de la cocina:
+	 * <ul>
+	 *   <li><b>Nevera:</b> abre un cuadro de diálogo con un JComboBox para elegir comida.
+	 *       Si la criatura puede comer el alimento seleccionado, se actualizan sus estadísticas.</li>
+	 *   <li><b>GYM:</b> abre la ventana del gimnasio.</li>
+	 *   <li><b>BEDROOM:</b> vuelve a la habitación principal.</li>
+	 * </ul>
+	 *
+	 * También actualiza la imagen de la criatura después de comer.
+	 *
+	 * @param e evento generado por la interacción del usuario.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 

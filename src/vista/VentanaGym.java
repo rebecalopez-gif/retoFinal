@@ -20,9 +20,31 @@ import javax.swing.BorderFactory;
 import java.awt.Font;
 import java.awt.Image;
 
+/**
+ * VentanaGym representa la zona de gimnasio del juego, donde la criatura del usuario
+ * puede realizar actividades como entrenar o salir a pasear.
+ *
+ * Funcionalidades principales:
+ * <ul>
+ *   <li>Mostrar la criatura y sus estadísticas actuales (energía, hambre, felicidad, experiencia).</li>
+ *   <li>Permitir al usuario enviar a la criatura de paseo si cumple los requisitos.</li>
+ *   <li>Desbloquear accesorios según la experiencia obtenida.</li>
+ *   <li>Navegar hacia la cocina o la habitación.</li>
+ * </ul>
+ *
+ * Esta ventana se muestra como un JDialog modal y utiliza un layout absoluto
+ * para posicionar todos los elementos gráficos.
+ *
+ * Interactúa con {@link CriaturasControlador} para actualizar el estado de la criatura
+ * y gestionar los desbloqueos de accesorios.
+ *
+ * @author Rebeca
+ * @version 1.0
+ */
 public class VentanaGym extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
+	/** Panel principal que contiene todos los elementos gráficos. */
 	private final JPanel contentPanel = new JPanel();
 
 	private Toolkit tk;
@@ -181,6 +203,12 @@ public class VentanaGym extends JDialog implements ActionListener{
 
 	}
 	
+	/**
+	 * Actualiza en pantalla los valores actuales de energía, hambre, felicidad
+	 * y experiencia de la criatura. Este método se llama después de realizar
+	 * acciones que modifican sus estadísticas.
+	 */
+  
 	private void actualizarEmociones() { //METODO PARA ACTUALIZAR EL NÚMERO DE ACTUALIZACIONES 
 	    lbl_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
 	    lbl_NumHunger.setText(String.valueOf(criatura.getHunger()));
@@ -188,6 +216,20 @@ public class VentanaGym extends JDialog implements ActionListener{
 	    lbl_NumExp.setText(String.valueOf(criatura.getExperience()));
 	}
 
+	/**
+	 * Gestiona las acciones de los botones del gimnasio:
+	 * <ul>
+	 *   <li><b>Puerta:</b> intenta enviar a la criatura de paseo. Si no cumple los
+	 *       requisitos mínimos de energía o hambre, se muestra un aviso.</li>
+	 *   <li><b>KITCHEN:</b> abre la ventana de la cocina.</li>
+	 *   <li><b>BEDROOM:</b> vuelve a la habitación principal.</li>
+	 * </ul>
+	 *
+	 * También gestiona el desbloqueo de accesorios según la experiencia obtenida
+	 * durante el paseo.
+	 *
+	 * @param e evento generado por la interacción del usuario.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -223,12 +265,10 @@ public class VentanaGym extends JDialog implements ActionListener{
 			}
 		}
 		
-
 		if (e.getSource() == btn_Cocina) {//IR A LA COCINA
 			this.dispose();
 			VentanaCocina cocina = new VentanaCocina(this, cont, criatura);
 			cocina.setVisible(true);
-			
 		}
 
 		if (e.getSource() == btn_Habitacion) {//IR A LA HABITACIÓN
