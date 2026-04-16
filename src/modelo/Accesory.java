@@ -1,5 +1,8 @@
 package modelo;
 
+import java.sql.ResultSet;
+
+
 /**
  * La clase Accesory representa un accesorio que una criatura puede equipar.
  * 
