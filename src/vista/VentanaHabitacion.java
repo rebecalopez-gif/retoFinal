@@ -184,7 +184,6 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
 		//ACCESORIO
 		if (cont.comprobarObjeto(criatura)==1) {
-
 		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 		    Image imgBH = icono.getImage().getScaledInstance(accesoriolabel.getWidth(), accesoriolabel.getHeight(), Image.SCALE_SMOOTH);
 		    accesoriolabel.setIcon(new ImageIcon(imgBH));
