@@ -188,13 +188,13 @@ public class VentanaGym extends JDialog implements ActionListener{
 			
 			//pa que no me entre si no tiene las necesidades 
 			if (criatura.getEnergy()<20){
-				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA ESTA DEMASIADO CANSADA COMO PARA SALIR","NO SE HA DADO EL PASEO",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String)"YOUR CREATURE IS TOO TIRED TO GO OUT.","It hasn’t gone for its walk.",JOptionPane.INFORMATION_MESSAGE);
 			
 			}else if(criatura.getHunger()<20) {
-				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA TIENE DEMASIADA HAMBRE COMO PARA SALIR","NO SE HA DADO EL PASEO",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String)"YOUR CREATURE IS TOO HUNGRY TO GO OUT.","It hasn’t gone for its walk.",JOptionPane.INFORMATION_MESSAGE);
 			
 			}else if(cont.irDePaseo(criatura)) {
-				JOptionPane.showMessageDialog(this, (String)"TU MASCOTA HA GANADO EXPERIENCIA NUEVA\n ¡PERO MIRA SUS NECESIDADES!" ,"RESULTADO DEL PASEO",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String)"YOUR CREATURE HAS GAINED NEW EXPERIENCE\n BUT LOOK AT ITS NEEDS!" ,"Walk results",JOptionPane.INFORMATION_MESSAGE);
 				lblCriatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
 				actualizarEmociones();//llamo al metodo pa actualizarlo
 			} 
