@@ -91,4 +91,7 @@ public class CriaturasControlador {
 	public Creature obtenerDatosCriatura(int codCreature) {
 		return dao.obtenerDatosCriatura(codCreature);
 	}
+	public boolean efectosAccesorio(Creature creature, Accesory accesory) {
+		return dao.efectosAccesorio(creature, accesory);
+	}
 }

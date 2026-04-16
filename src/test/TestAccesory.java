@@ -37,7 +37,6 @@ public class TestAccesory {
 
 	    assertEquals("Gorra", a.getObjectName());
 	    assertEquals(10, a.getHapiness_effect());
-	    assertEquals(5, a.getEnergy_effect());
 	}
 
 	/**

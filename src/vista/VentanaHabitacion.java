@@ -126,7 +126,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 								accesoriolabel.setIcon(new ImageIcon(imgBH));
 								nombreAccesorio = nombre;
 								cont.quitarCualquierObjeto(criatura);
-								cont.equiparObjeto(criatura, seleccionado);
+								if (cont.equiparObjeto(criatura, seleccionado)) {
+									cont.efectosAccesorio(criatura, seleccionado);
+									actualizarEmociones();
+								}
+								
 							} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 								accesoriolabel.setIcon(null);
 								nombreAccesorio = "";
@@ -142,7 +146,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 								accesoriolabel.setIcon(new ImageIcon(imgSG));
 								nombreAccesorio = nombre;
 								cont.quitarCualquierObjeto(criatura);
-								cont.equiparObjeto(criatura, seleccionado);
+								if(cont.equiparObjeto(criatura, seleccionado)) {
+									cont.efectosAccesorio(criatura, seleccionado);
+									actualizarEmociones();
+								}
 							} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 								accesoriolabel.setIcon(null);
 								nombreAccesorio = "";
@@ -191,7 +198,6 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		    accesoriolabel.setIcon(new ImageIcon(imgBH));
 
 		} else if (cont.comprobarObjeto(criatura)==2) {
-
 		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
 		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
 		    accesoriolabel.setBounds(500, 400, 250, iconoSG.getIconHeight());

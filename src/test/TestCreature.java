@@ -9,11 +9,9 @@ import modelo.Creature;
 import modelo.UserGame;
 
 public class TestCreature {
-	
 	/*
 	 @Test
-	    void testEdad_MayorDe9() {
-	        // Mock del UserGame
+	    void testEdad_MayorDe6() {
 	        UserGame dueno = mock(UserGame.class);
 	        when(dueno.getBirthDate()).thenReturn(2015); // Tiene más de 6 años
 
@@ -25,8 +23,7 @@ public class TestCreature {
 	    }
 
 	 @Test
-	    void testEdad_MenorDe9() {
-	        // Mock del UserGame
+	    void testEdad_MenorDe6() {
 	        UserGame dueno = mock(UserGame.class);
 	        when(dueno.getBirthDate()).thenReturn(2022); // Tiene menos de 6 años
 
@@ -35,5 +32,6 @@ public class TestCreature {
 	        boolean resultado = creature.comprobarEdad(dueno);
 
 	        assertFalse(resultado, "Debe devolver false para usuarios menores de 9 años");
-	    }*/
+	    }
+	 */
 }

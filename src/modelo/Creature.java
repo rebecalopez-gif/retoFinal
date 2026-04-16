@@ -14,24 +14,21 @@ public class Creature implements Estados{
 	private int hunger;
 	private int happiness;
 	
-	// EDE ------------
+	// EDE (creado para mockito) ------------
 	private UserGame dueno; 
 	
 	public boolean comprobarEdad (UserGame dueno) {
 		boolean ok;
-		int edadDe9= 2026-6; 
+		int edadDe6= 2026-6; 
 		
-		if (edadDe9<dueno.getBirthDate()) {
+		if (edadDe6<dueno.getBirthDate()) {
 			ok=false;
-			
 		}else {
 			ok=true;
-			
 		}
 		return ok;
 	}
-	
-	//---------------
+	// ---------------
 
 	//CONSTRUCTORES
 	public Creature(int codC, String userName, String creatureName, int experience, int energy, int hunger, int happiness) {
