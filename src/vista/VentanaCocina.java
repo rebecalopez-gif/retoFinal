@@ -134,6 +134,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		    lbl_Accesorio.setIcon(null);
 		}
 		
+		
 		//CRIATURA
 		lbl_Criatura = new JLabel("");
 		ImageIcon icon = new ImageIcon(VentanaHabitacion.class.getResource(this.criatura.setImage(this.criatura)));
@@ -173,7 +174,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		for (Food f : listaComida) {
 			comboBox_Comida.addItem(f);
 		}
-		comboBox_Comida.setSelectedIndex(-1);
+		
 
 		//TABLA DE ESTADISTICAS DE LA CRIATURA
 		lbl_NumExp = new JLabel("");
@@ -263,7 +264,7 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource()==btn_Nevera) {//ABRIR LA NEVERA
-			JOptionPane.showMessageDialog(this, comboBox_Comida, "Elegir comida", JOptionPane.QUESTION_MESSAGE);
+			JOptionPane.showMessageDialog(this, comboBox_Comida, "Choose food", JOptionPane.QUESTION_MESSAGE);
 			Food ob=(Food) comboBox_Comida.getSelectedItem();
 			
 			if(cont.darComida(criatura, ob)) {

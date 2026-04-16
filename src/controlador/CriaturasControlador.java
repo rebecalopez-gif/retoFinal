@@ -15,25 +15,21 @@ public class CriaturasControlador {
 		ven.setVisible(true);	
 	}
 	public boolean introducirUser(UserGame user) throws UserExisteException{ //desde el controlador lanzo la exepcion
-		 if (comprobarUser(user)) {
-		        throw new UserExisteException("That username is not available.");
-		    }
+		if (comprobarUser(user)) {
+			throw new UserExisteException("That username is not available.");
+		}
 		//si no existe lo introduzco
-		 return dao.introducirUser(user);
+		return dao.introducirUser(user);
 	}
-	 public boolean iniciarSesion(UserGame user) {
-	        if (dao.iniciarSesion(user)) {
-	            this.usuarioActual = user;  //SE GUARDA EL USUARIO
-	            return true;
-	        }
-	        return false;
-	    }
-	 public UserGame getUsuarioActual() { //PARA GUARDARLO EN EL USUARIO QUE INICIA SESION
-	        return usuarioActual;
-	    }
-	    public String getUserNameActual() {
-	        return usuarioActual != null ? usuarioActual.getUserName() : null;
-	    }
+	
+	public boolean iniciarSesion(UserGame user) {
+		return dao.iniciarSesion(user);
+	}
+	
+	public UserGame getUsuarioActual() { //PARA GUARDARLO EN EL USUARIO QUE INICIA SESION
+		return usuarioActual;
+	}
+	
 	public ArrayList<Creature> obtenerPartidas(UserGame user) {
 		return dao.obtenerPartidas(user);
 	}
@@ -94,7 +90,8 @@ public class CriaturasControlador {
 	public Creature obtenerDatosCriatura(int codCreature) {
 		return dao.obtenerDatosCriatura(codCreature);
 	}
-	public boolean efectosAccesorio(Creature creature, Accesory accesory) {
-		return dao.efectosAccesorio(creature, accesory);
+	public Creature actualizarCriatura(Creature criatura) {
+		// TODO Auto-generated method stub
+		return dao.obtenerDatosCriatura(criatura.getCodC());
 	}
 }
