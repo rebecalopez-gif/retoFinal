@@ -139,10 +139,10 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 						switch(nombre) {
 							case "birthdayHat":
 								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-								//PARA ESCALAR LA IMAGEN
-								Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(),lbl_Accesorio.getHeight(),Image.SCALE_SMOOTH);
 								//POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
 								lbl_Accesorio.setBounds(524, 438, 200, 200);
+								//PARA ESCALAR LA IMAGEN
+								Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(),lbl_Accesorio.getHeight(),Image.SCALE_SMOOTH);
 								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
 									lbl_Accesorio.setIcon(new ImageIcon(imgBH));
 									nombreAccesorio = nombre;
