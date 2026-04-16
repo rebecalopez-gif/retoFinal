@@ -30,6 +30,7 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
 
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
+	final String SQL_DAR_COMIDA = "UPDATE Creature SET hunger = ?, energy=?, happiness=? WHERE cod_creature=?";
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
@@ -110,7 +111,7 @@ public class ImplementacionBD implements CriaturasDAO{
 				if (rs.next()) {
 					String mensaje = rs.getString(1);
 					System.out.println("Mensaje BD: " + mensaje);
-					if (mensaje.contains("CORRECTAMENTE")) {
+					if (mensaje.contains("SUCCESSFULY")) {
 						insertado = true;
 					}
 				}
@@ -235,7 +236,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			creature.setHappiness(felicidadNueva);
 			this.openConnection();
 			try {
-				stmt = con.prepareStatement(SQLMODIFICAR);	
+				stmt = con.prepareStatement(SQL_DAR_COMIDA);	
 				stmt.setInt(1, creature.getHunger());
 				stmt.setInt(2, creature.getEnergy());
 				stmt.setInt(3, creature.getHappiness());

@@ -173,7 +173,6 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		for (Food f : listaComida) {
 			comboBox_Comida.addItem(f);
 		}
-		comboBox_Comida.setSelectedIndex(-1);
 
 		//TABLA DE ESTADISTICAS DE LA CRIATURA
 		lbl_NumExp = new JLabel("");
