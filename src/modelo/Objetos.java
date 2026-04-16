@@ -1,5 +1,4 @@
 package modelo;
-import interfaces.NamedObject;
 
 /**
  * La clase Objetos representa un objeto genérico dentro del juego.

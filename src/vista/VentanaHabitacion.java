@@ -129,58 +129,54 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 128, 192), 2),"OBJECTS"));
 
 		//SELECCIONAR OBJETOS CLICKANDO CON EL RATON
-				list.addMouseListener(new MouseAdapter() {
-					public void mouseClicked(MouseEvent e) {
-						if (e.getClickCount() == 2) { //SI SE CLICKA DOS VECES
-							Accesory seleccionado = (Accesory) list.getSelectedValue();
+		list.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) { //SI SE CLICKA DOS VECES
+					Accesory seleccionado = (Accesory) list.getSelectedValue();
 
-							if(seleccionado != null) {
-								String nombre = seleccionado.getObjectName();
-								switch(nombre) {
-									case "birthdayHat":
-										ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
-										//PARA ESCALAR LA IMAGEN
-										lbl_Accesorio.setBounds(524, 438, 200, 200);
-										Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(),lbl_Accesorio.getHeight(),Image.SCALE_SMOOTH);
-										//POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
-										
-										if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
-											lbl_Accesorio.setIcon(new ImageIcon(imgBH));
-											nombreAccesorio = nombre;
-											cont.quitarCualquierObjeto(criatura);
-											cont.equiparObjeto(criatura, seleccionado);
-											cont.efectoAccesorio(criatura, seleccionado);
-											
-										} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
-											lbl_Accesorio.setIcon(null);
-											nombreAccesorio = "";
-											cont.quitarObjeto(criatura, seleccionado);
-										}
-										break;
-									case "Sunglasses":
-										ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
-										Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
-										// POSICIÓN MÁS ABAJO PARA LAS GAFAS
-										lbl_Accesorio.setBounds(500, 400, 250, iconoSG.getIconHeight());
-										if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
-											lbl_Accesorio.setIcon(new ImageIcon(imgSG));
-											nombreAccesorio = nombre;
-											cont.quitarCualquierObjeto(criatura);
-											cont.equiparObjeto(criatura, seleccionado);
-											cont.efectoAccesorio(criatura, seleccionado);
-											
-										} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
-											lbl_Accesorio.setIcon(null);
-											nombreAccesorio = "";
-											cont.quitarObjeto(criatura, seleccionado);
-										}
-										break;
+					if(seleccionado != null) {
+						String nombre = seleccionado.getObjectName();
+						switch(nombre) {
+							case "birthdayHat":
+								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
+								//POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
+								lbl_Accesorio.setBounds(524, 438, 200, 200);
+								//PARA ESCALAR LA IMAGEN
+								Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(),lbl_Accesorio.getHeight(),Image.SCALE_SMOOTH);
+								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+									lbl_Accesorio.setIcon(new ImageIcon(imgBH));
+									nombreAccesorio = nombre;
+									cont.quitarCualquierObjeto(criatura);
+									cont.equiparObjeto(criatura, seleccionado);
+									cont.efectoAccesorio(criatura, seleccionado);
+								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
+									lbl_Accesorio.setIcon(null);
+									nombreAccesorio = "";
+									cont.quitarObjeto(criatura, seleccionado);
 								}
-							}
+								break;
+							case "Sunglasses":
+								ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
+								Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
+								// POSICIÓN MÁS ABAJO PARA LAS GAFAS
+								lbl_Accesorio.setBounds(500, 400, 250, iconoSG.getIconHeight());
+								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
+									lbl_Accesorio.setIcon(new ImageIcon(imgSG));
+									nombreAccesorio = nombre;
+									cont.quitarCualquierObjeto(criatura);
+									cont.equiparObjeto(criatura, seleccionado);
+									cont.efectoAccesorio(criatura, seleccionado);
+								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
+									lbl_Accesorio.setIcon(null);
+									nombreAccesorio = "";
+									cont.quitarObjeto(criatura, seleccionado);
+								}
+								break;
 						}
 					}
-				});
-
+				}
+			}
+		});
 
 		//BOTÓN GYM
 		btn_Gym = new JButton("GYM");
@@ -368,4 +364,3 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 
 	}
 }
-
