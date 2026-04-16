@@ -22,22 +22,57 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+/**
+ * VentanaPartidaNew permite al usuario crear una nueva partida asignando un nombre
+ * a la criatura inicial. Esta ventana se muestra como un JDialog modal para evitar
+ * que el usuario interactúe con otras pantallas hasta completar el proceso.
+ *
+ * Funcionalidades principales:
+ * - Introducir el nombre de la nueva criatura.
+ * - Validar que el nombre no esté vacío.
+ * - Crear la criatura y guardarla mediante el controlador.
+ * - Abrir la ventana de habitación asociada a la nueva partida.
+ *
+ * Utiliza un {@link CriaturasControlador} para gestionar la creación y registro
+ * de la criatura en la base de datos.
+ * 
+ * @author Rebeca
+ * @version 1.0, 16/04/2026
+ */
 public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
+	/** Panel principal del contenido del diálogo. */
 	private final JPanel contentPanel = new JPanel();
+	/** Controlador encargado de gestionar la lógica del juego y las criaturas. */
 	private CriaturasControlador cont;
+	/** Etiqueta que contiene la imagen de fondo. */
 	private JLabel lblIMAGEN;
+	/** Campo de texto donde el usuario introduce el nombre de la criatura. */
 	private JTextField nombreCriaturaField;
+	/** Botón para confirmar la creación de la partida y comenzar a jugar. */
 	private JButton btnNewButton;
+	/** Etiqueta que indica al usuario que debe introducir un nombre. */
 	private JLabel lblNewLabel_1;
-	private Toolkit tk; //es para usar toda la pantalla supuestamente
+	/** Herramienta para obtener el tamaño de pantalla y ajustar la ventana. */
+	private Toolkit tk;
+	/** Instancia de la criatura creada. */
 	private Creature criatura;
+	/** Usuario actualmente autenticado. */
 	private UserGame usuarioActual;
+	/** Referencia a ventanas relacionadas (si se requiere). */
 	private JDialog ventanas;
+	/** Referencia a la ventana de creación de usuario (si se requiere). */
 	private VentanaNewUsuario ventanaNewUsuario;
 
-
+	/**
+	 * Crea la ventana para iniciar una nueva partida. Permite al usuario introducir
+	 * el nombre de la criatura y valida que el campo no esté vacío antes de crearla.
+	 *
+	 * @param parent ventana padre desde la cual se abre este diálogo.
+	 * @param cont controlador que gestiona la creación de criaturas y la lógica del juego.
+	 * @param b parámetro booleano no utilizado directamente, pero mantenido por compatibilidad.
+	 */
     public VentanaPartidaNew(JDialog parent, CriaturasControlador cont,boolean b) {
     	super(parent,true);
     	  this.cont = cont;
@@ -89,6 +124,13 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 	}
 
+    /**
+     * Gestiona las acciones del botón "PLAY". Valida que el nombre introducido no esté vacío
+     * y, si es válido, crea una nueva criatura asociada al usuario actual, la registra en la
+     * base de datos y abre la ventana de habitación correspondiente.
+     *
+     * @param e evento generado por la interacción del usuario.
+     */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		boolean valido=false;

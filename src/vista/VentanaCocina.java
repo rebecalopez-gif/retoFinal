@@ -25,27 +25,64 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Toolkit;
 
+/**
+ * VentanaCocina representa la zona de cocina del juego, donde el usuario puede
+ * alimentar a su criatura utilizando los distintos alimentos disponibles.
+ *
+ * Funcionalidades principales:
+ * <ul>
+ *   <li>Mostrar la criatura y su accesorio equipado.</li>
+ *   <li>Permitir seleccionar un alimento desde un JComboBox.</li>
+ *   <li>Aplicar los efectos del alimento sobre la criatura.</li>
+ *   <li>Actualizar las estadísticas (energía, hambre, felicidad, experiencia).</li>
+ *   <li>Navegar hacia el gimnasio o la habitación.</li>
+ * </ul>
+ *
+ * Esta ventana se muestra como un JDialog modal y utiliza un layout absoluto
+ * para posicionar todos los elementos gráficos.
+ *
+ * Interactúa con {@link CriaturasControlador} para obtener la lista de alimentos
+ * y aplicar sus efectos sobre la criatura.
+ *
+ * @author Galder
+ * @version 1.0, 16/04/2026
+ */
 public class VentanaCocina extends JDialog implements ActionListener{
 
-	private static final long serialVersionUID = 1L;
+	/** Botón invisible que representa la nevera donde se elige la comida. */
 	private JButton btnNevera;
-	private ArrayList <Food> listaComida =new ArrayList<Food>();
+	/** Lista de alimentos disponibles para alimentar a la criatura. */
+	private ArrayList<Food> listaComida = new ArrayList<>();
+	/** ComboBox que muestra los alimentos disponibles. */
 	private JComboBox<Food> comboBoxComida;
+	/** Controlador que gestiona la lógica del juego. */
 	private CriaturasControlador controlador;
+	/** Criatura asociada a esta ventana. */
 	private Creature criatura;
+	/** Botón para ir al gimnasio. */
 	private JButton BOTONGYM;
-	private final JPanel contentPanel = new JPanel();
+	/** Botón para volver a la habitación. */
 	private JButton BOTONROOM;
-	private JLabel lblNewLabel, bichito, accesoriolabel;
+	/** Panel principal que contiene todos los elementos gráficos. */
+	private final JPanel contentPanel = new JPanel();
+	/** Imagen principal de la criatura. */
+	private JLabel bichito;
+	/** Etiqueta donde se muestra el accesorio equipado. */
+	private JLabel accesoriolabel;
+	/** Etiquetas que muestran las estadísticas de la criatura. */
+	private JLabel lblNewLabel_NumEnergy, lblNewLabel_NumHunger,
+	               lblNewLabel_NumHappy, lblNewLabel_NumExp;
+	
+	private JLabel lblNewLabel_Back,lblNewLabel,lblNewLabel_EMOTI,lblNewLabel_EXP;
 
-	private JLabel lblNewLabel_EXP;
-	private JLabel lblNewLabel_EMOTI;
-	private JLabel lblNewLabel_NumExp;
-	private JLabel lblNewLabel_Back;
-	private JLabel lblNewLabel_NumHunger;
-	private JLabel lblNewLabel_NumHappy;
-	private JLabel lblNewLabel_NumEnergy;
-
+	/**
+	 * Crea e inicializa la ventana de cocina. Carga la lista de alimentos disponibles,
+	 * muestra la criatura, su accesorio y las estadísticas actuales.
+	 *
+	 * @param ventanas ventana padre desde la cual se abre este diálogo.
+	 * @param cont controlador que gestiona la lógica del juego.
+	 * @param criatura criatura del usuario que se mostrará e interactuará en esta zona.
+	 */
 	public VentanaCocina(JDialog ventanas,CriaturasControlador cont, Creature criatura) {
 		super(ventanas,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCocina.class.getResource("/image/Monstruito adorable .png")));
@@ -184,6 +221,11 @@ public class VentanaCocina extends JDialog implements ActionListener{
 		
 	}
 	
+	/**
+	 * Actualiza en pantalla los valores actuales de energía, hambre, felicidad
+	 * y experiencia de la criatura. Este método se llama después de alimentarla
+	 * o realizar acciones que modifiquen sus estadísticas.
+	 */
 	private void actualizarEmociones() {
 	    lblNewLabel_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
 	    lblNewLabel_NumHunger.setText(String.valueOf(criatura.getHunger()));
@@ -191,9 +233,21 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	    lblNewLabel_NumExp.setText(String.valueOf(criatura.getExperience()));
 	}
 
+	/**
+	 * Gestiona las acciones de los botones de la cocina:
+	 * <ul>
+	 *   <li><b>Nevera:</b> abre un cuadro de diálogo con un JComboBox para elegir comida.
+	 *       Si la criatura puede comer el alimento seleccionado, se actualizan sus estadísticas.</li>
+	 *   <li><b>GYM:</b> abre la ventana del gimnasio.</li>
+	 *   <li><b>BEDROOM:</b> vuelve a la habitación principal.</li>
+	 * </ul>
+	 *
+	 * También actualiza la imagen de la criatura después de comer.
+	 *
+	 * @param e evento generado por la interacción del usuario.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		Object o=e.getSource();
 
 		if(o==btnNevera) {
