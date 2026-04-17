@@ -137,7 +137,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 					if(seleccionado != null) {
 						String nombre = seleccionado.getObjectName();
 						switch(nombre) {
-							case "birthdayHat":
+							case "Birthday Hat":
 								ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 								//POSICIÓN DEL GORRO (NO LA CAMBIAMOS)
 								lbl_Accesorio.setBounds(524, 438, 200, 200);
@@ -149,6 +149,8 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 									cont.quitarCualquierObjeto(criatura);
 									cont.equiparObjeto(criatura, seleccionado);
 									cont.efectoAccesorio(criatura, seleccionado);
+									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(criatura.setImage(criatura))));
+									actualizarEmociones();
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
@@ -166,6 +168,8 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 									cont.quitarCualquierObjeto(criatura);
 									cont.equiparObjeto(criatura, seleccionado);
 									cont.efectoAccesorio(criatura, seleccionado);
+									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(criatura.setImage(criatura))));
+									actualizarEmociones();
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
@@ -337,7 +341,6 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 				list.setListData(objetos.toArray()); //RELLENAR LA LISTA
 				list.setVisible(true); //HACER VISIBLE LA LISTA
 				scroll.setVisible(true); //HACER VISIBLE EL SCROLL
-				actualizarEmociones();
 			} else {
 				list.setVisible(false);
 				scroll.setVisible(false);
