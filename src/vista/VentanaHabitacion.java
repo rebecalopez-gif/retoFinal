@@ -149,6 +149,8 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 									cont.quitarCualquierObjeto(criatura);
 									cont.equiparObjeto(criatura, seleccionado);
 									cont.efectoAccesorio(criatura, seleccionado);
+									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(criatura.setImage(criatura))));
+									actualizarEmociones();
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
@@ -163,13 +165,11 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
 									lbl_Accesorio.setIcon(new ImageIcon(imgSG));
 									nombreAccesorio = nombre;
-									System.out.println(1);
 									cont.quitarCualquierObjeto(criatura);
-									System.out.println(2);
 									cont.equiparObjeto(criatura, seleccionado);
-									System.out.println(3);
 									cont.efectoAccesorio(criatura, seleccionado);
-									System.out.println(4);
+									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(criatura.setImage(criatura))));
+									actualizarEmociones();
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
@@ -341,7 +341,6 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 				list.setListData(objetos.toArray()); //RELLENAR LA LISTA
 				list.setVisible(true); //HACER VISIBLE LA LISTA
 				scroll.setVisible(true); //HACER VISIBLE EL SCROLL
-				actualizarEmociones();
 			} else {
 				list.setVisible(false);
 				scroll.setVisible(false);
