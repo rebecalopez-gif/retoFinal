@@ -14,9 +14,9 @@
             <status>
                 <happy/>
             </status>
-            <experience>91</experience>
+            <experience>31</experience>
             <energy>100</energy>
-            <hunger>60</hunger>
+            <hunger>22</hunger>
             <happiness>50</happiness>
             <photo path="img/creature1.png"/>
         </creature>

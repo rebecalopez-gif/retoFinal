@@ -71,6 +71,35 @@ public class ImplementacionBD implements CriaturasDAO{
 			e.printStackTrace();
 		}
 	}
+	
+	public Creature verCriatura(String creatureName) {
+		Creature c = null;
+		this.openConnection();
+		try {
+			PreparedStatement stmt = con.prepareStatement(
+					"SELECT * FROM Creature WHERE creatureName = ?"
+					);
+			stmt.setString(1, creatureName);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				c = new Creature(
+						rs.getInt("cod_creature"),
+						rs.getString("userName"),
+						rs.getString("creatureName"),
+						rs.getInt("experience"),
+						rs.getInt("energy"),
+						rs.getInt("hunger"),
+						rs.getInt("happiness")
+						);
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al obtener datos de criatura: " + e.getMessage());
+		}
+		return c;
+	}
 	public boolean iniciarSesion(UserGame user){
 		// Abrimos la conexion
 		boolean existe=false;
@@ -502,7 +531,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;	
 	}
-	public Object insertarCriatura(Creature c) {
+	public boolean insertarCriatura(Creature c) {
 		boolean ok = false;
 		this.openConnection();
 		try {

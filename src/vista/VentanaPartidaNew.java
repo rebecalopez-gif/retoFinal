@@ -133,6 +133,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
      *
      * @param e evento generado por la interacción del usuario.
      */
+    
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		boolean valido=false;
@@ -151,6 +152,7 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	            Creature criatura = new Creature(user.getUserName(), nombre); //que sea este user que ha iniciado sesion
 	            cont.insertarCriatura(criatura); //para guardarlo en la BBDD
 	            this.dispose();
+	            criatura= cont.verCriatura(nombre);
 	            VentanaHabitacion hab = new VentanaHabitacion(this, cont, criatura); 
 	            hab.setVisible(true);
 	        }

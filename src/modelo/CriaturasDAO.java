@@ -36,7 +36,7 @@ public interface CriaturasDAO {
 	public ArrayList<Food> listaComida();
 	public boolean darComida(Creature criatura, Food comida);
 	public boolean irDePaseo(Creature creatureName);
-	public Object insertarCriatura(Creature criatura);
+	public boolean insertarCriatura(Creature criatura);
 	public boolean mirarEmocion(Creature creature);
 	public boolean descansar(Creature criatura);
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio);
@@ -49,5 +49,6 @@ public interface CriaturasDAO {
 	public boolean comprobarSG(Creature criatura);
 	public boolean efectoAccesorio(Creature criatura, Accesory accesorio);
 	public Creature obtenerDatosCriatura(int codCreature);
+	public Creature verCriatura(String creatureName); 
 	//public boolean efectosAccesorio(Creature creature, Accesory accesory);
 }

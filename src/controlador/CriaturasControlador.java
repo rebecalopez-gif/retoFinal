@@ -51,7 +51,7 @@ public class CriaturasControlador {
 	public boolean irDePaseo(Creature creatureName) {
 		return dao.irDePaseo(creatureName);
 	}
-	public Object insertarCriatura(Creature criatura) {
+	public boolean insertarCriatura(Creature criatura) {
 		return dao.insertarCriatura(criatura);
 	}
 	public boolean mirarEmocion(Creature creature) {
@@ -93,5 +93,8 @@ public class CriaturasControlador {
 	public Creature actualizarCriatura(Creature criatura) {
 		// TODO Auto-generated method stub
 		return dao.obtenerDatosCriatura(criatura.getCodC());
+	}
+	public Creature verCriatura(String creatureName) {
+		return dao.verCriatura(creatureName);
 	}
 }
