@@ -50,5 +50,6 @@ public interface CriaturasDAO {
 	public boolean efectoAccesorio(Creature criatura, Accesory accesorio);
 	public Creature obtenerDatosCriatura(int codCreature);
 	public Creature verCriatura(String creatureName); 
+	public String nombreCriatura(String nombre ) ; 
 	//public boolean efectosAccesorio(Creature creature, Accesory accesory);
 }

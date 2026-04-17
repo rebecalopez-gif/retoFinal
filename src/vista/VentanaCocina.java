@@ -262,22 +262,23 @@ public class VentanaCocina extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if(e.getSource()==btn_Nevera) {//ABRIR LA NEVERA
-			JOptionPane.showMessageDialog(this, comboBox_Comida, "Choose food", JOptionPane.QUESTION_MESSAGE);
-			Food ob=(Food) comboBox_Comida.getSelectedItem();
+		if (e.getSource() == btn_Nevera) { // ABRIR LA NEVERA
+			Food ob = null;
 			
-			if(cont.darComida(criatura, ob)) {
-				actualizarEmociones();
-			}
-			
-			lbl_Criatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
-
-		}else if(e.getSource()==btn_Gym) {//IR AL GYM
+		    int opcion = JOptionPane.showConfirmDialog(this, comboBox_Comida, "Choose food", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+		    if (opcion == JOptionPane.OK_OPTION) {
+			    ob = (Food) comboBox_Comida.getSelectedItem();
+			    if (cont.darComida(criatura, ob)) {
+			        actualizarEmociones();
+			    }
+		    }
+		    lbl_Criatura.setIcon(new ImageIcon(VentanaGym.class.getResource(this.criatura.setImage(this.criatura))));
+		} else if(e.getSource()==btn_Gym) {//IR AL GYM
 			this.dispose();
 			VentanaGym gym = new VentanaGym(this, cont,criatura);
 			gym.setVisible(true);
 
-		}else if(e.getSource()==btn_Habitacion) {//IR A LA HABITACIÓN
+		} else if(e.getSource()==btn_Habitacion) {//IR A LA HABITACIÓN
 			this.dispose();
 			VentanaHabitacion habitacion = new VentanaHabitacion(this, cont,criatura);
 			habitacion.setVisible(true);

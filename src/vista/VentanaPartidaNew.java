@@ -74,10 +74,10 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 	 * @param cont controlador que gestiona la creación de criaturas y la lógica del juego.
 	 * @param b parámetro booleano no utilizado directamente, pero mantenido por compatibilidad.
 	 */
-    public VentanaPartidaNew(JDialog parent, CriaturasControlador cont,boolean b, UserGame user) {
-    	super(parent,true);
-    	  this.cont = cont;
-    	  this.user=user;
+	public VentanaPartidaNew(JDialog parent, CriaturasControlador cont,boolean b, UserGame user) {
+		super(parent,true);
+		this.cont = cont;
+		this.user=user;
 
 		tk = Toolkit.getDefaultToolkit();
 		int ancho = tk.getScreenSize().width;
@@ -111,7 +111,6 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 		nombreCriaturaField.setColumns(10);
 		contentPanel.add(nombreCriaturaField);
 
-
 		lblNewLabel_1 = new JLabel("Enter the creature’s name:");
 		lblNewLabel_1.setForeground(new Color(33, 143, 197));
 		lblNewLabel_1.setFont(new Font("Monospaced", Font.BOLD, 16));
@@ -126,36 +125,40 @@ public class VentanaPartidaNew extends JDialog implements ActionListener{
 
 	}
 
-    /**
-     * Gestiona las acciones del botón "PLAY". Valida que el nombre introducido no esté vacío
-     * y, si es válido, crea una nueva criatura asociada al usuario actual, la registra en la
-     * base de datos y abre la ventana de habitación correspondiente.
-     *
-     * @param e evento generado por la interacción del usuario.
-     */
-    
+	/**
+	 * Gestiona las acciones del botón "PLAY". Valida que el nombre introducido no esté vacío
+	 * y, si es válido, crea una nueva criatura asociada al usuario actual, la registra en la
+	 * base de datos y abre la ventana de habitación correspondiente.
+	 *
+	 * @param e evento generado por la interacción del usuario.
+	 */
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		boolean valido=false;
 		String nombre;
-	    if(e.getSource() == btnNewButton) {
+		if(e.getSource() == btnNewButton) {
 
-	        valido = true;
-	        nombre = nombreCriaturaField.getText();
-			
-	        if(nombre.trim().isEmpty()) { //limpiar espacios
-	            JOptionPane.showMessageDialog(this, "Enter a name");
-	            valido = false;
-	        }
 
-	        if(valido) {
-	            Creature criatura = new Creature(user.getUserName(), nombre); //que sea este user que ha iniciado sesion
-	            cont.insertarCriatura(criatura); //para guardarlo en la BBDD
-	            this.dispose();
-	            criatura= cont.verCriatura(nombre);
-	            VentanaHabitacion hab = new VentanaHabitacion(this, cont, criatura); 
-	            hab.setVisible(true);
-	        }
-	    }
+			valido = true;
+			nombre = nombreCriaturaField.getText();
+
+			if(nombre.trim().isEmpty()) { //limpiar espacios
+				JOptionPane.showMessageDialog(this, "Enter a name");
+				valido = false;
+			}
+			if(cont.nombreCriatura(nombre).equalsIgnoreCase(nombre)) {
+				JOptionPane.showMessageDialog(this,(String)"This name is already in use.","ERROR",JOptionPane.ERROR_MESSAGE,null);
+				valido=false;
+				
+			}else  if(valido) {
+				Creature criatura = new Creature(user.getUserName(), nombre); //que sea este user que ha iniciado sesion
+				cont.insertarCriatura(criatura); //para guardarlo en la BBDD
+				this.dispose();
+				criatura= cont.verCriatura(nombre);
+				VentanaHabitacion hab = new VentanaHabitacion(this, cont, criatura); 
+				hab.setVisible(true);
+			}
+		}
 	}
 }

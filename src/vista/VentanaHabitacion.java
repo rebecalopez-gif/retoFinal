@@ -95,13 +95,13 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 	 * 
 	 * @param ventanas el diálogo padre de esta ventana
 	 * @param controlador el controlador de criaturas para acceder a la lógica del juego
-	 * @param criatura la criatura del usuario asociada a esta habitación
+	 * @param cr la criatura del usuario asociada a esta habitación
 	 */
 	
-	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature criatura) {
+	public VentanaHabitacion(JDialog ventanas,CriaturasControlador controlador, Creature cr) {
 		super(ventanas,true);
 		this.cont = controlador;
-		this.criatura = criatura;
+		this.criatura = cr;
 
 		//PANTALLA COMPLETA PARA JDIALOG
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaHabitacion.class.getResource("/image/Monstruito adorable .png")));
@@ -146,15 +146,16 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
 									lbl_Accesorio.setIcon(new ImageIcon(imgBH));
 									nombreAccesorio = nombre;
-									cont.quitarCualquierObjeto(criatura);
-									cont.equiparObjeto(criatura, seleccionado);
-									cont.efectoAccesorio(criatura, seleccionado);
-									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(criatura.setImage(criatura))));
+									cont.quitarCualquierObjeto(cr);
+									cont.equiparObjeto(cr, seleccionado);
+									cont.efectoAccesorio(cr, seleccionado);
+									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(cr.setImage(criatura))));
+									criatura = cont.verCriatura(criatura.getCreatureName());
 									actualizarEmociones();
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
-									cont.quitarObjeto(criatura, seleccionado);
+									cont.quitarObjeto(cr, seleccionado);
 								}
 								break;
 							case "Sunglasses":
@@ -165,15 +166,16 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 								if (!nombreAccesorio.equals(nombre)) { //SI SE CLICKA EN EL OBJETO Y NO ESTA EQUIPADO, SE EQUIPA
 									lbl_Accesorio.setIcon(new ImageIcon(imgSG));
 									nombreAccesorio = nombre;
-									cont.quitarCualquierObjeto(criatura);
-									cont.equiparObjeto(criatura, seleccionado);
-									cont.efectoAccesorio(criatura, seleccionado);
-									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(criatura.setImage(criatura))));
+									cont.quitarCualquierObjeto(cr);
+									cont.equiparObjeto(cr, seleccionado);
+									cont.efectoAccesorio(cr, seleccionado);
+									lbl_Criatura.setIcon(new ImageIcon(VentanaHabitacion.class.getResource(cr.setImage(criatura))));
+									criatura = cont.verCriatura(criatura.getCreatureName());
 									actualizarEmociones();
 								} else { //SI SE CLICKA EN EL OBJETO Y ESTÁ EQUIPADO, SE QUITA
 									lbl_Accesorio.setIcon(null);
 									nombreAccesorio = "";
-									cont.quitarObjeto(criatura, seleccionado);
+									cont.quitarObjeto(cr, seleccionado);
 								}
 								break;
 						}
@@ -212,12 +214,12 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		contentPanel.add(lbl_Accesorio);
 		
 		//SE EQUIPA EL ACCESORIO QUE TENGA LA CRIATURA
-		if (cont.comprobarObjeto(criatura)==1) {
+		if (cont.comprobarObjeto(cr)==1) {
 		    ImageIcon icono = new ImageIcon(getClass().getResource("/image/Accesorios estilo ca.png"));
 		    Image imgBH = icono.getImage().getScaledInstance(lbl_Accesorio.getWidth(), lbl_Accesorio.getHeight(), Image.SCALE_SMOOTH);
 		    lbl_Accesorio.setIcon(new ImageIcon(imgBH));
 
-		} else if (cont.comprobarObjeto(criatura)==2) {
+		} else if (cont.comprobarObjeto(cr)==2) {
 		    ImageIcon iconoSG = new ImageIcon(getClass().getResource("/image/Accesorios estilo caw2.png"));
 		    Image imgSG = iconoSG.getImage().getScaledInstance(250, -1, Image.SCALE_SMOOTH);
 		    lbl_Accesorio.setBounds(500, 400, 250, iconoSG.getIconHeight());
@@ -232,7 +234,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		lbl_NumExp.setBounds(1374, 31, 54, 25);
 		lbl_NumExp.setForeground(new Color(128, 0, 64));
 		lbl_NumExp.setFont(new Font("Monospaced", Font.BOLD, 17));
-		lbl_NumExp.setText(String.valueOf(criatura.getExperience()));
+		lbl_NumExp.setText(String.valueOf(cr.getExperience()));
 		contentPanel.add(lbl_NumExp);
 
 		lbl_EXP = new JLabel("EXPERIENCE:");
@@ -253,21 +255,21 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		lbl_NumHappy.setForeground(new Color(128, 0, 64));
 		lbl_NumHappy.setFont(new Font("Monospaced", Font.BOLD, 17));
 		lbl_NumHappy.setBounds(1374, 111, 54, 25);
-		lbl_NumHappy.setText(String.valueOf(criatura.getHappiness()));
+		lbl_NumHappy.setText(String.valueOf(cr.getHappiness()));
 		contentPanel.add(lbl_NumHappy);
 
 		lbl_NumHunger = new JLabel("");
 		lbl_NumHunger.setForeground(new Color(128, 0, 64));
 		lbl_NumHunger.setFont(new Font("Monospaced", Font.BOLD, 17));
 		lbl_NumHunger.setBounds(1374, 85, 54, 25);
-		lbl_NumHunger.setText(String.valueOf(criatura.getHunger()));
+		lbl_NumHunger.setText(String.valueOf(cr.getHunger()));
 		contentPanel.add(lbl_NumHunger);
 
 		lbl_NumEnergy = new JLabel("");
 		lbl_NumEnergy.setForeground(new Color(128, 0, 64));
 		lbl_NumEnergy.setFont(new Font("Monospaced", Font.BOLD, 17));
 		lbl_NumEnergy.setBounds(1374, 60, 54, 25);
-		lbl_NumEnergy.setText(String.valueOf(criatura.getEnergy()));
+		lbl_NumEnergy.setText(String.valueOf(cr.getEnergy()));
 		contentPanel.add(lbl_NumEnergy);
 
 		lbl_FondoLista = new JLabel("");
@@ -278,7 +280,7 @@ public class VentanaHabitacion extends JDialog implements ActionListener {
 		
 		//SCROLL
 		scroll = new JScrollPane(list);
-		scroll.setBounds(73, 47, 342, 208);
+		scroll.setBounds(73, 47, 370, 208);
 		scroll.setVisible(false);
 		contentPanel.add(scroll);
 

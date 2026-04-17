@@ -27,12 +27,13 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQLINSERTUSER = "INSERT INTO UserGame VALUES (?,?,?)";//NO SE USA PORQUE USAMOS EL METODO
 	final String SQL_EXISTE= "SELECT * FROM UserGame WHERE userName = ?";
 	final String SQLCONSULTA = "SELECT object.cod_object, object.objectName, object.happiness_effect FROM equip, object WHERE equip.cod_object = object.cod_object AND equip.cod_creature = ?";
-	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect>0";
-
+	final String SQLCOMIDA = "SELECT * FROM Object WHERE HungerEffect != 0";
+	final String SQL_VER_CRIATURA="SELECT * FROM Creature WHERE creatureName = ?";
 	final String SQLMODIFICAR = "UPDATE Creature SET experience=?, hunger=?, energy=? WHERE cod_creature=?"; //para modificar
 	final String SQL_DAR_COMIDA = "UPDATE Creature SET hunger = ?, energy=?, happiness=? WHERE cod_creature=?";
 	final String SQLOBTENER_PARTIDAS = "SELECT * FROM Creature WHERE userName = ?";
 	final String SQLBORRAR_PARTIDAS = "DELETE FROM creature WHERE cod_creature=?";
+	final String SQLNOMBRE_CRIATURA = "SELECT creatureName FROM Creature WHERE creatureName = ?";///
 	final String SQL_EXISTE_CRIATURA = "SELECT * FROM Creature WHERE cod_creature = ?";
 	final String SQL_INSERT_CRIATURA = "INSERT INTO Creature (userName, creatureName, experience, energy, hunger, happiness) VALUES (?, ?, ?, ?, ?, ?)";
 	//ACCESORIOS
@@ -45,12 +46,12 @@ public class ImplementacionBD implements CriaturasDAO{
 	final String SQL_COMPROBAR_BH = "SELECT * FROM equip WHERE cod_object = 1 AND cod_creature = ?";
 	final String SQL_COMPROBAR_SG = "SELECT * FROM equip WHERE cod_object = 2 AND cod_creature = ?";
 	final String SQL_EFECTO_ACCESORIO = "UPDATE Creature SET  happiness = LEAST (happiness + ? , 100) WHERE cod_creature = ?";
-	
+
 	final String SQL_CRIATURA= "SELECT * FROM Creature WHERE userName = ? AND cod_creature = ?";
 	final String SQL_DESCANSAR="UPDATE creature SET energy = 100 WHERE cod_creature = ?";
 	//final String SQL_ESTADO="SELECT C.experience, energy,hunger, happiness FROM Creature C WHERE cod_creature=?"; //PARA VER EL ESTADO DEL MOUNSTRUO
 	final String FUNCION="{CALL add_user(?, ?, ?)}";
-	
+
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
 	// guardamos en el paquete control: (las pasa a una variable de l programa)
 	public ImplementacionBD() {
@@ -71,14 +72,32 @@ public class ImplementacionBD implements CriaturasDAO{
 			e.printStackTrace();
 		}
 	}
-	
-	public Creature verCriatura(String creatureName) {
-		Creature c = null;
+	public String nombreCriatura(String nombre) {
+		// Abrimos la conexion
+		String nom="";
 		this.openConnection();
 		try {
-			PreparedStatement stmt = con.prepareStatement(
-					"SELECT * FROM Creature WHERE creatureName = ?"
-					);
+			stmt = con.prepareStatement(SQLNOMBRE_CRIATURA);
+			stmt.setString(1, nombre);
+			ResultSet resultado = stmt.executeQuery();
+			//Si hay un resultado, el usuario existe
+			if (resultado.next()) {
+				nom=resultado.getString("creatureName");
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+		return nom;
+	}
+
+	public Creature verCriatura(String creatureName) {
+		Creature c =null;
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQL_VER_CRIATURA);
 			stmt.setString(1, creatureName);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
@@ -134,9 +153,10 @@ public class ImplementacionBD implements CriaturasDAO{
 			LocalDate fecha = LocalDate.of(year, 1, 1);
 			// Insertar como DATE se guardarian todos ocmo YYYY-01-01
 			stmt.setDate(3, java.sql.Date.valueOf(fecha));
+
 			boolean tieneResultado = stmt.execute();
 			//como la funcion en el select devuelve una frase
-			
+
 			if (tieneResultado) {//si es true
 				ResultSet rs = stmt.getResultSet(); //mi select con el mensaje
 				if (rs.next()) {
@@ -145,7 +165,7 @@ public class ImplementacionBD implements CriaturasDAO{
 					if (mensaje.contains("SUCCESSFULLY")) {
 						insertado = true;
 					}
-					
+
 				}
 				rs.close();
 			}
@@ -209,7 +229,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-  
+
 	public List<Objetos> verObjectos(Creature creature) {
 		List<Objetos> objetos= new ArrayList<>();
 
@@ -284,7 +304,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-  
+
 	public boolean equiparObjeto(Creature criatura, Accesory accesorio) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -304,7 +324,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return ok;
 	}
-	
+
 	public boolean quitarObjeto(Creature criatura, Accesory accesorio) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -323,7 +343,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public boolean quitarCualquierObjeto(Creature criatura) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -341,7 +361,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public int comprobarObjeto(Creature criatura) {
 		int cod = 0;
 		this.openConnection();//abro la conecexion
@@ -363,7 +383,7 @@ public class ImplementacionBD implements CriaturasDAO{
 
 		return cod;
 	}
-	
+
 	public boolean desbloqueoBH(Creature criatura) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -381,7 +401,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public boolean desbloqueoSG(Creature criatura) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -399,7 +419,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public boolean comprobarBH(Creature criatura) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -419,7 +439,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public boolean comprobarSG(Creature criatura) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -439,7 +459,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public boolean efectoAccesorio(Creature criatura, Accesory accesorio) {
 		boolean ok=false;
 		this.openConnection();//abro la conecexion
@@ -458,7 +478,7 @@ public class ImplementacionBD implements CriaturasDAO{
 		}
 		return ok;
 	}
-	
+
 	public boolean comprobarCriatura(Creature creatureName){ //para comprobar si existe para actualizar su experiencia y hambre
 		// Abrimos la conexion
 		boolean existe=false;
@@ -481,16 +501,16 @@ public class ImplementacionBD implements CriaturasDAO{
 	@Override
 	public boolean irDePaseo(Creature creature) {
 		boolean ok=false;
-		
+
 		if (comprobarCriatura(creature)){
 			//Generar experiencia aleatoria
 			int expGanada=0;
 
 			// Baja el hambre
 			int hambreNueva=creature.getHunger()-(int)(Math.random() * 30);
-			
+
 			int energiaNueva = Math.max(0, creature.getEnergy() - (int)(Math.random() * 30));
-			
+
 			if (energiaNueva<0) {//por si el numero es negativo 
 				energiaNueva=0;
 			}else if (energiaNueva>100) {
@@ -502,17 +522,17 @@ public class ImplementacionBD implements CriaturasDAO{
 			}else if (hambreNueva>100) {
 				hambreNueva=100;
 			}
-			
+
 			expGanada = (int)(Math.random() * 41) + 10; // entre 10 y 50
-			
+
 
 			// meter los nuevos datos
 			creature.setExperience(creature.getExperience() + expGanada);
 			creature.setHunger(hambreNueva);
 			creature.setEnergy(energiaNueva);
-			
+
 			this.openConnection();
-			
+
 			try {
 				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
 				stmt = con.prepareStatement(SQLMODIFICAR);
@@ -542,7 +562,7 @@ public class ImplementacionBD implements CriaturasDAO{
 			stmt.setInt(4, c.getEnergy());
 			stmt.setInt(5, c.getHunger());
 			stmt.setInt(6, c.getHappiness());
-			
+
 			if (stmt.executeUpdate() > 0) {
 				ok = true;
 			}

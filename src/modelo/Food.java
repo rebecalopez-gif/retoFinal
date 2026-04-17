@@ -77,7 +77,7 @@ public class Food extends Objetos{
 	//--
 	@Override
 	public String toString() {
-		return getObjectName()+ " - Effect: "+hunger_effect;
+		return getObjectName();
 	}
 }
 

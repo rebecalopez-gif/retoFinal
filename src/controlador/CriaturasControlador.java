@@ -98,4 +98,7 @@ public class CriaturasControlador {
 	public Creature verCriatura(String creatureName) {
 		return dao.verCriatura(creatureName);
 	}
+	public String nombreCriatura(String nombre) {
+		return dao.nombreCriatura(nombre) ;
+	}
 }
